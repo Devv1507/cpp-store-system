@@ -33,18 +33,12 @@ class Direccion {
         void setNumero(string numero) { this->numero = numero; };
         void setBarrio(string barrio) { this->barrio = barrio; };
         void setCiudad(string ciudad) {
-            if (ciudad == "Bogota" || ciudad == "Cali") {
-                this->ciudad = ciudad;
-            } else {
-                cout << "Ciudad no valida" << endl;
-            }
+            validarCiudad(ciudad);
+            this->ciudad = ciudad;
         };
         void setDepartamento(string departamento) {
-            if (departamento == "Cundinamarca" || departamento == "Valle del Cauca") {
-                this->departamento = departamento;
-            } else {
-                cout << "Departamento no valido" << endl;
-            }
+            validarDepartamento(departamento);
+            this->departamento = departamento;
         };
         // Este método permite mostrar los datos completos de la dirección
         void mostrarDireccion() {
