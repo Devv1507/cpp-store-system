@@ -7,8 +7,8 @@ class Direccion {
         string numero, barrio, ciudad, departamento;
         // Estos métodos permiten la validación interna de los datos permitidos para ciudad y departamento
         void validarCiudad(string ciudad) {
-            if (ciudad != "Cali" && ciudad != "Bogotá") {
-                throw invalid_argument("Ciudad no permitida. Solo se permiten 'Cali' y 'Bogotá'.");
+            if (ciudad != "Cali" && ciudad != "Bogota") {
+                throw invalid_argument("Ciudad no permitida. Solo se permiten 'Cali' y 'Bogota'.");
             }
         }
         void validarDepartamento(string departamento) {
