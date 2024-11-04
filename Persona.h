@@ -1,3 +1,6 @@
+#ifndef PERSONA_H
+#define PERSONA_H
+
 #include <iostream>
 #include <iomanip>
 #include "Direccion.h"
@@ -45,3 +48,5 @@ class Persona {
             direccion.mostrarDireccion();
         }
 };
+
+#endif // PERSONA_H
