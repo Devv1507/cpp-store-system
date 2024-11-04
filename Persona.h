@@ -18,7 +18,7 @@ class Persona {
         * telefono: número de teléfono de la persona
         * direccion: objeto de la clase Direccion que contiene la dirección de la persona
         */
-        Persona(string id, string nombre, string email, int telefono, Direccion direccion):
+        Persona(string id, string nombre, string email, int telefono, Direccion& direccion): // creo que el paso por referencia ayudaría a evitar problemas de copia
             id(id), nombre(nombre), email(email), telefono(telefono), direccion(direccion) {};
         // Getters y Setters
         string getId() { return id; };
