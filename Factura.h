@@ -1,13 +1,14 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include "DetallesFactura.h"
-#include "Producto.h"
 
 using namespace std;
 
 class Factura {
     private:
-        string idFactura, fechaFactura, horaFactura, tipoVenta, idCliente, idProveedor;
+        string fechaFactura, horaFactura, tipoVenta;
+        string idFactura, idCliente, idProveedor;
         vector<DetallesFactura> detallesFactura;
         float totalFactura;
     public:
@@ -43,11 +44,18 @@ class Factura {
         void setIdFactura(string idFactura) { this->idFactura = idFactura; };
         void setFechaFactura(string fechaFactura) { this->fechaFactura = fechaFactura; };
         void setHoraFactura(string horaFactura) { this->horaFactura = horaFactura; };
-        void setTipoVenta(string tipoVenta) { this->tipoVenta = tipoVenta; };
+        void setTipoVenta(string tipoVenta, string idEntidad) {
+            this->tipoVenta = tipoVenta;
+            if (tipoVenta == "compra") {
+                this->idProveedor = idEntidad;
+            } else if (tipoVenta == "venta") {
+                this->idCliente = idEntidad;
+            }
+        };
         void setIdCliente(string idCliente) { this->idCliente = idCliente; };
         void setIdProveedor(string idProveedor) { this->idProveedor = idProveedor; };
         void setTotalFactura(float totalFactura) { this->totalFactura = totalFactura; };
-        /********************* Métodos específicos ****************/
+        /************************************************************ Métodos específicos ****************/
         // Este método permite agregar un detalle a la factura
         void agregarDetalle(Producto &producto, int cantidad) {
             DetallesFactura detalle(producto, cantidad);
@@ -65,13 +73,20 @@ class Factura {
             }
         }
         // Este método permite mostrar los datos completos de la factura
-        void mostrarDatos() const {
+        void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
                  << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta
-                 << ", Total: $" << totalFactura << endl;
+                 << ", Total: $" << setprecision(2) << totalFactura << endl;
 
-            for (const auto &detalle : detallesFactura) {
-                detalle.mostrarDetalle();
-        }
-    }
+            if (tipoVenta == "venta" && !idCliente.empty()) {
+                cout << "Cliente ID: " << idCliente << endl;
+            } else if (tipoVenta == "compra" && !idProveedor.empty()) {
+                cout << "Proveedor ID: " << idProveedor << endl;
+            }
+
+            cout << "--- Detalles de la Factura ---" << endl;
+            for (size_t i = 0; i < detallesFactura.size(); ++i) {
+                detallesFactura[i].mostrarDetalle();
+            }
+        };
 };
