@@ -5,8 +5,7 @@ using namespace std;
 
 class Cliente: public Persona {
     private:
-        int idCliente;
-        string fechaRegistro;
+        string idCliente, fechaRegistro;
     public:
-        Cliente(int idCliente, string fechaRegistro, string id, string nombre, string email, int telefono, Direccion &direccion): idCliente(idCliente), fechaRegistro(fechaRegistro), Persona(id, nombre, email, telefono, direccion) {};
+        Cliente(string idCliente, string fechaRegistro, string id, string nombre, string email, int telefono, Direccion &direccion): idCliente(idCliente), fechaRegistro(fechaRegistro), Persona(id, nombre, email, telefono, direccion) {};
     };
