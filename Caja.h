@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Factura.h"
 
 using namespace std;
@@ -20,15 +21,32 @@ class Caja {
         int getNumeroFacturasDia() { return numeroFacturasDia; };
         void setIdVenta(string idVenta) { this->idVenta = idVenta; };
         void setNumeroFacturasDia(int numeroFacturasDia) { this->numeroFacturasDia = numeroFacturasDia; };
-        // Métodos espcíficos
+        /************************************************************ Métodos específicos ****************/
+         // Método auxiliar para obtener el mes
+        int obtenerMes(const string &fecha) {
+            return stoi(fecha.substr(5, 2)); // asume el formato YYYY-MM-DD
+        };
+        // Este método permite calcular el total de ventas mensuales
+        float calcularTotalVentasMensuales(int mes) {
+            float totalVentas = 0;
+            for (size_t i = 0; i < facturas.size(); i++) {
+                if (obtenerMes(facturas[i].getFechaFactura()) == mes && facturas[i].getTipoVenta() == "venta") {
+                    totalVentas += facturas[i].calcularTotalFactura();
+                }
+            }
+            return totalVentas;
+        };
+        // Este método permite imprimir la información de las facturas almacenadas
         void mostrarFacturas() {
-            for (int i = 0; i < facturas.size(); i++) {
+            for (size_t i = 0; i < facturas.size(); i++) {
                 cout << "Factura " << i + 1 << endl;
                 facturas[i].mostrarDatos();
             }
         };
+        // Este método permite listar las facturas por tipo de venta
         void listarFacturasPorTipo(string tipoFactura) {
-            for (int i = 0; i < facturas.size(); i++) {
+            cout << "--- Facturas del tipo: " << tipoFactura << " ---" << endl;
+            for (size_t i = 0; i < facturas.size(); i++) {
                 if (facturas[i].getTipoVenta() == tipoFactura) {
                     cout << "Factura " << i + 1 << endl;
                     facturas[i].mostrarDatos();
