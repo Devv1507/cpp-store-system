@@ -1,16 +1,48 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <sstream>
+#include <ctime>
 #include "DetallesFactura.h"
 
 using namespace std;
 
 class Factura {
     private:
+        static int contadorFacturas; // Contador estático para generar IDs únicos
         string fechaFactura, horaFactura, tipoVenta;
         string idFactura, idCliente, idProveedor;
         vector<DetallesFactura> detallesFactura;
         float totalFactura;
+
+        // Método para generar un identificador único basado en un contador
+        string generarIdFactura() {
+            stringstream ss;
+            ss << "F-" << contadorFacturas++;
+            return ss.str();
+        }
+
+        // Método para obtener la fecha actual en formato YYYY-MM-DD
+        string obtenerFechaActual() {
+            time_t t = time(0);
+            tm* now = localtime(&t);
+            stringstream ss;
+            ss << (now->tm_year + 1900) << "-"
+               << (now->tm_mon + 1) << "-"
+               << now->tm_mday;
+            return ss.str();
+        }
+
+        // Método para obtener la hora actual en formato HH:MM:SS
+        string obtenerHoraActual() {
+            time_t t = time(0);
+            tm* now = localtime(&t);
+            stringstream ss;
+            ss << now->tm_hour << ":"
+               << now->tm_min << ":"
+               << now->tm_sec;
+            return ss.str();
+        }
     public:
     /**
      * Esta clase representa una factura con los siguientes atributos:
@@ -23,16 +55,12 @@ class Factura {
      *      totalFactura: valor total de la factura
      *      detallesFactura: vector que contiene los detalles de la factura
      */
-        Factura(string idFactura, string tipoVenta, string horaFactura, string fechaFactura):
-            idFactura(idFactura), tipoVenta(tipoVenta), fechaFactura(fechaFactura), horaFactura(horaFactura), totalFactura(0) {
-            if (tipoVenta == "compra") {
-                cout << "Ingrese el id del proveedor: ";
-                cin >> idProveedor;
-            } else if (tipoVenta == "venta") {
-                cout << "Ingrese el id del cliente: ";
-                cin >> idCliente;
-            }
-        };
+        Factura(string tipoVenta):
+            tipoVenta(tipoVenta),
+            idFactura(generarIdFactura()),
+            fechaFactura(obtenerFechaActual()),
+            horaFactura(obtenerHoraActual()),
+            totalFactura(0) {};
         // Getters y Setters
         string getIdFactura() { return idFactura; };
         string getFechaFactura() { return fechaFactura; };
