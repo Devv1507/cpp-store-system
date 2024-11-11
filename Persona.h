@@ -15,11 +15,11 @@ class Persona {
     public:
         /* 
         * Esta clase representa una superclase persona con los siguientes atributos:
-        * id: identificación de la persona
-        * nombre: nombre de la persona
-        * email: correo electrónico de la persona
-        * telefono: número de teléfono de la persona
-        * direccion: objeto de la clase Direccion que contiene la dirección de la persona
+        *   id: identificación de la persona
+        *   nombre: nombre de la persona
+        *   email: correo electrónico de la persona
+        *   telefono: número de teléfono de la persona
+        *   direccion: objeto de la clase Direccion que contiene la dirección de la persona
         */
         Persona(string id, string nombre, string email, int telefono, Direccion& direccion): // creo que el paso por referencia ayudaría a evitar problemas de copia
             id(id), nombre(nombre), email(email), telefono(telefono), direccion(direccion) {};
