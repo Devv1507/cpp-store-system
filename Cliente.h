@@ -8,5 +8,5 @@ class Cliente: public Persona {
         int idCliente;
         string fechaRegistro;
     public:
-        Cliente(int idCliente, string fechaRegistro, string nombre, string apellido, int edad): idCliente(idCliente), fechaRegistro(fechaRegistro), Persona(nombre, apellido, edad) {};
+        Cliente(int idCliente, string fechaRegistro, string id, string nombre, string email, int telefono, Direccion &direccion): idCliente(idCliente), fechaRegistro(fechaRegistro), Persona(id, nombre, email, telefono, direccion) {};
     };
