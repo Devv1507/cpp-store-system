@@ -17,31 +17,31 @@ class Factura {
 
         // Método para generar un identificador único basado en un contador
         string generarIdFactura() {
-            stringstream ss;
-            ss << "F-" << contadorFacturas++;
-            return ss.str();
-        }
+            stringstream stringstream;
+            stringstream << "F-" << setw(2) << setfill('0') << contadorFacturas++;
+            return stringstream.str();
+        };
 
         // Método para obtener la fecha actual en formato YYYY-MM-DD
         string obtenerFechaActual() {
             time_t t = time(0);
             tm* now = localtime(&t);
-            stringstream ss;
-            ss << (now->tm_year + 1900) << "-"
+            stringstream stringstream;
+            stringstream << (now->tm_year + 1900) << "-"
                << (now->tm_mon + 1) << "-"
                << now->tm_mday;
-            return ss.str();
+            return stringstream.str();
         }
 
         // Método para obtener la hora actual en formato HH:MM:SS
         string obtenerHoraActual() {
             time_t t = time(0);
             tm* now = localtime(&t);
-            stringstream ss;
-            ss << now->tm_hour << ":"
+            stringstream stringstream;
+            stringstream << now->tm_hour << ":"
                << now->tm_min << ":"
                << now->tm_sec;
-            return ss.str();
+            return stringstream.str();
         }
     public:
     /**
