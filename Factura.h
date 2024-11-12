@@ -93,10 +93,6 @@ class Factura {
             detallesFactura.push_back(detalle);
             totalFactura += detalle.getSubtotalProducto();
         };
-        // Este método permite calcular el total de la factura considerando todos los detalles de la misma
-        float calcularTotalFactura() {
-            return totalFactura;
-        };
         // Este método permite filtrar por tipo de venta
         string getFacturaPorTipo(string tipoVenta) {
             if (this->tipoVenta == tipoVenta) {
