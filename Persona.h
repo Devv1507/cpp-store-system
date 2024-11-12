@@ -27,6 +27,7 @@ class Persona {
         string getId() { return id; };
         string getNombre() { return nombre; };
         string getEmail() { return email; };
+        Direccion getDireccion() { return direccion; };
         int getTelefono() { return telefono; };
         void setId(string id) { this->id = id; };
         void setNombre(string nombre) { this->nombre = nombre; };
