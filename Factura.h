@@ -4,6 +4,7 @@
 #include <sstream>
 #include <ctime>
 #include "DetallesFactura.h"
+#include "Persona.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ class Factura {
         static int contadorFacturas; // Contador estático para generar IDs únicos
         string fechaFactura, horaFactura, tipoVenta;
         string idFactura, idCliente, idProveedor;
+        Persona* persona;  // Puntero a un objeto Persona (puede ser un Cliente o un Proveedor)
         vector<DetallesFactura> detallesFactura;
         float totalFactura;
 
@@ -55,12 +57,20 @@ class Factura {
      *      totalFactura: valor total de la factura
      *      detallesFactura: vector que contiene los detalles de la factura
      */
-        Factura(string tipoVenta):
+        Factura(string tipoVenta, Persona* persona):
             tipoVenta(tipoVenta),
+            persona(persona),
             idFactura(generarIdFactura()),
             fechaFactura(obtenerFechaActual()),
             horaFactura(obtenerHoraActual()),
-            totalFactura(0) {};
+            totalFactura(0) {
+                // Determinar si se trata de una compra o venta
+                if (tipoVenta == "venta") {
+                    idCliente = persona->getId();
+                } else if (tipoVenta == "compra") {
+                    idProveedor = persona->getId();
+                }
+            };
         // Getters y Setters
         string getIdFactura() { return idFactura; };
         string getFechaFactura() { return fechaFactura; };
@@ -72,14 +82,7 @@ class Factura {
         void setIdFactura(string idFactura) { this->idFactura = idFactura; };
         void setFechaFactura(string fechaFactura) { this->fechaFactura = fechaFactura; };
         void setHoraFactura(string horaFactura) { this->horaFactura = horaFactura; };
-        void setTipoVenta(string tipoVenta, string idEntidad) {
-            this->tipoVenta = tipoVenta;
-            if (tipoVenta == "compra") {
-                this->idProveedor = idEntidad;
-            } else if (tipoVenta == "venta") {
-                this->idCliente = idEntidad;
-            }
-        };
+        void setTipoVenta(string tipoVenta, string idEntidad) { this->tipoVenta = tipoVenta; };
         void setIdCliente(string idCliente) { this->idCliente = idCliente; };
         void setIdProveedor(string idProveedor) { this->idProveedor = idProveedor; };
         void setTotalFactura(float totalFactura) { this->totalFactura = totalFactura; };
@@ -106,10 +109,10 @@ class Factura {
                  << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta
                  << ", Total: $" << setprecision(2) << totalFactura << endl;
 
-            if (tipoVenta == "venta" && !idCliente.empty()) {
-                cout << "Cliente ID: " << idCliente << endl;
-            } else if (tipoVenta == "compra" && !idProveedor.empty()) {
-                cout << "Proveedor ID: " << idProveedor << endl;
+            if (tipoVenta == "venta") {
+                cout << "Cliente ID: " << persona->getId() << endl;
+            } else if (tipoVenta == "compra") {
+                cout << "Proveedor ID: " << persona->getId() << endl;
             }
 
             cout << "--- Detalles de la Factura ---" << endl;
