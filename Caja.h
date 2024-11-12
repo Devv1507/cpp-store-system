@@ -31,7 +31,7 @@ class Caja {
             float totalVentas = 0;
             for (size_t i = 0; i < facturas.size(); i++) {
                 if (obtenerMes(facturas[i].getFechaFactura()) == mes && facturas[i].getTipoVenta() == "venta") {
-                    totalVentas += facturas[i].calcularTotalFactura();
+                    totalVentas += facturas[i].getTotalFactura();
                 }
             }
             return totalVentas;
