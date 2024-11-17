@@ -69,6 +69,8 @@ class Factura {
                     idCliente = persona->getId();
                 } else if (tipoVenta == "compra") {
                     idProveedor = persona->getId();
+                } else {
+                    throw invalid_argument("El tipo de venta debe ser 'venta' o 'compra'.");
                 }
             };
         // Getters y Setters
@@ -82,24 +84,32 @@ class Factura {
         void setIdFactura(string idFactura) { this->idFactura = idFactura; };
         void setFechaFactura(string fechaFactura) { this->fechaFactura = fechaFactura; };
         void setHoraFactura(string horaFactura) { this->horaFactura = horaFactura; };
-        void setTipoVenta(string tipoVenta, string idEntidad) { this->tipoVenta = tipoVenta; };
+        void setTipoVenta(string tipoVenta) { 
+            if (tipoVenta == "venta") {
+                idCliente = persona->getId();
+            } else if (tipoVenta == "compra") {
+                idProveedor = persona->getId();
+            } else {
+                throw invalid_argument("El tipo de venta debe ser 'venta' o 'compra'.");
+            }
+        };
         void setIdCliente(string idCliente) { this->idCliente = idCliente; };
         void setIdProveedor(string idProveedor) { this->idProveedor = idProveedor; };
         void setTotalFactura(float totalFactura) { this->totalFactura = totalFactura; };
         /************************************************************ Métodos específicos ****************/
-        // Este método permite agregar un detalle a la factura
+        // Método para agregar un detalle a la factura
         void agregarDetalle(Producto &producto, int cantidad) {
             DetallesFactura detalle(producto, cantidad);
             detallesFactura.push_back(detalle);
             totalFactura += detalle.getSubtotalProducto();
         };
-        // Este método permite filtrar por tipo de venta
+        // Método para filtrar por tipo de venta
         string getFacturaPorTipo(string tipoVenta) {
             if (this->tipoVenta == tipoVenta) {
                 return idFactura;
             }
         }
-        // Este método permite mostrar los datos completos de la factura
+        // Método para mostrar los datos completos de la factura
         void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
                  << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta
