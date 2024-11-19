@@ -34,7 +34,7 @@ class Empleado : public Persona {
         }
 
         // Mostrar información del empleado
-        void mostrarInfo() {
+        void mostrarDatos() override {
             Persona::mostrarDatos();
             cout << left 
                 << setw(10) << "Horario: " << horario << endl
