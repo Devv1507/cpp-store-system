@@ -6,7 +6,8 @@ class Producto {
         string idProducto, nombreProducto;
         float precioUnitario;
     public:
-        Producto(string idProducto, string nombreProducto, float precioUnitario): idProducto(idProducto), nombreProducto(nombreProducto), precioUnitario(precioUnitario) {};
+        Producto(string idProducto, string nombreProducto, float precioUnitario):
+            idProducto(idProducto), nombreProducto(nombreProducto), precioUnitario(precioUnitario) {};
         // Getters y Setters
         string getIdProducto() { return idProducto; };
         string getNombreProducto() { return nombreProducto; };
