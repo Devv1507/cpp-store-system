@@ -52,4 +52,4 @@ class Tienda {
         void marcaMasVendida() {
             // Necesitamos iterar sobre todas las cajas, y encontrar una forma de definir las ventasPorMarca. Será necesario algún método adicional en Factura o DetallesFactura?
         };
-};
+}; 
