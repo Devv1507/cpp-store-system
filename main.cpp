@@ -23,6 +23,14 @@ int main() {
     // facturaCompra.agregarDetalle(producto2, 2); // Agregar 2 Mouse
     // facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
 
+    // // Crear una marca
+    // Marca marca("001", "Lenovo");
+    // Producto prod1("P001", "Telefono móvil", 1, 1000000);
+    // Producto prod2("P002", "Portatil", 1, 2000000);
+    // marca.agregarProducto(prod1);
+    // marca.agregarProducto(prod2);
+    // marca.mostrarProductos();
+
     // Caja caja("V001");
     // caja.agregarFactura(facturaVenta);
     // caja.agregarFactura(facturaCompra);
