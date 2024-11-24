@@ -9,21 +9,28 @@ using namespace std;
 
 class Stock {
     private:
-        static int contadorStocks;
         string idStock;
         vector<Producto> productos;
         vector<int> existencias;    // Vector para almacenar la cantidad por producto
         vector<int> stockMinimos;   // Vector para almacenar el stock mínimo por producto
 
-        // Método para generar un identificador único basado en un contador
-        string generarIdStock() {
-            stringstream stringstream;
-            stringstream << "S-" << setw(2) << setfill('0') << contadorStocks++;
-            return stringstream.str();
-        };
     public:
         // Constructor
-        Stock(): idStock(generarIdStock()) {};
+        Stock(string idStock) {
+            if (idStock.empty()) {
+            throw invalid_argument("El nombre del almacén no puede estar vacío.");
+            }
+            this->idStock = idStock;
+        };
+
+        // Getters y Setters
+        string getIdStock() { return idStock; };
+        void setIdStock(string idStock) {
+            if (idStock.empty()) {
+                throw invalid_argument("El nombre del almacén no puede estar vacío.");
+            }
+            this->idStock = idStock;
+         };
 
         // Método para añadir un producto al inventario
         void anadirProducto(const Producto& producto, int cantidad, int stockMinimo) {
@@ -88,7 +95,7 @@ class Stock {
 
         // Método para mostrar todos los productos
         void mostrarInventario() {
-            cout << "Inventario actual:" << endl;
+            cout << "Inventario del almacén general:" << idStock << endl;
             for (size_t i = 0; i < productos.size(); ++i) {
                 cout << left
                     << "ID: " << setw(10) << productos[i].getIdProducto()
