@@ -28,6 +28,5 @@ class Cliente : public Persona {
                 << setw(10) << "Profesión: " << profesion << endl
                 << setw(10) << "Tipo de Cliente: " << tipoCliente << endl
                 << setw(10) << "Total de Compras: " << totalCompras << endl;
-            direccion.mostrarDireccion();
         };
 };
