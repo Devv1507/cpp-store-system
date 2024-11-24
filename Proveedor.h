@@ -9,13 +9,20 @@ class Proveedor: public Persona {
     public:
         Proveedor(string rut, string banco, string numeroCuenta, string tipoCuenta, string id, string nombre, string email, int telefono, Direccion &direccion): 
             rut(rut), banco(banco), numeroCuenta(numeroCuenta), Persona(id, nombre, email, telefono, direccion) {};
-        string getRut();
-        string getBanco();
-        string getNumeroCuenta();
-        string getTipoCuenta();
-        void setRut(string);
-        void setBanco(string);
-        void setNumeroCuenta(string);
-        void setTipoCuenta(string);
-        void mostrarDatos();
+        string getRut() { return this->rut; };
+        string getBanco() { return this->banco; };
+        string getNumeroCuenta() { return this->numeroCuenta; };
+        string getTipoCuenta()  { return this->tipoCuenta; };
+        void setRut(string rut) { this->rut = rut; };
+        void setBanco(string banco) { this->banco = banco; };
+        void setNumeroCuenta(string numeroCuenta) { this->numeroCuenta = numeroCuenta; };
+        void setTipoCuenta(string tipoCuenta) { this->tipoCuenta = tipoCuenta; };
+        void mostrarDatos() override {
+            Persona::mostrarDatos();
+            cout << left
+                << setw(10) << "RUT: " << rut << endl
+                << setw(10) << "Banco: " << banco << endl
+                << setw(10) << "Número de Cuenta: " << numeroCuenta << endl
+                << setw(10) << "Tipo de Cuenta: " << tipoCuenta << endl;
+        };
     };
