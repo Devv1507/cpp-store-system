@@ -3,7 +3,7 @@
 using namespace std;
 
 class Direccion {
-    protected:
+    private:
         string numero, barrio, ciudad, departamento;
         // Estos métodos permiten la validación interna de los datos permitidos para ciudad y departamento
         void validarCiudad(string ciudad) {
