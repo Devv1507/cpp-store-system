@@ -26,10 +26,30 @@ class Caja {
         // Getters y Setters
         string getIdCaja() { return idCaja; };
         int getNumeroFacturasDia() { return numeroFacturasDia; };
-        void setIdCaja(string idCaja) { this->idCaja = idCaja; };
-        void setNumeroFacturasDia(int numeroFacturasDia) { this->numeroFacturasDia = numeroFacturasDia; };
         vector<Factura> getFacturas() { return facturas; };
+        void setIdCaja(string idCaja) { this->idCaja = idCaja; };
         /************************************************ Métodos específicos ************************************************/
+        void abrirCaja() {
+            numeroFacturasDia = 0;
+            // Initialize daily operations
+        }
+        
+        void cerrarCaja() {
+            // Calcular el total de las ventas del día
+            float totalDiario = 0;
+            for (Factura &factura : facturas) {
+                if (factura.getTipoVenta() == "venta") {
+                    totalDiario += factura.getTotalFactura();
+                }
+            }
+
+            // Mostrar el total diario
+            cout << "Caja cerrada. Total de ventas del día: $" << fixed << setprecision(2) << totalDiario << endl;
+
+            // TO_DO: Acá podría haber más lógica, como guardar el total en un archivo, un reporte, etc.
+            numeroFacturasDia = 0;
+        }
+
         // Este método permite agregar una factura a la caja
         void agregarFactura(Factura factura) {
             facturas.push_back(factura);
