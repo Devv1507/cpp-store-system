@@ -41,7 +41,7 @@ class Tienda {
         void calcularTotalComprasPorCliente() {
             for (Caja& caja : cajas) {
                 for (Factura& factura : caja.getFacturas()) {
-                    int idCliente = factura.getClienteId();
+                    string idCliente = factura.getIdCliente();
                     totalComprasPorCliente[idCliente] += factura.getTotalFactura();
                 }
             }
