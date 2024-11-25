@@ -5,6 +5,7 @@
 #include <ctime>
 #include "DetallesFactura.h"
 #include "Persona.h"
+#include "Stock.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Factura {
         Persona* persona;  // Puntero a un objeto Persona (puede ser un Cliente o un Proveedor)
         vector<DetallesFactura> detallesFactura;
         float totalFactura;
+        Stock* stock;
 
         // Método para generar un identificador único basado en un contador
         string generarIdFactura() {
@@ -57,13 +59,14 @@ class Factura {
      *      totalFactura: valor total de la factura
      *      detallesFactura: vector que contiene los detalles de la factura
      */
-        Factura(string tipoVenta, Persona* persona):
+        Factura(string tipoVenta, Persona* persona, Stock* stock):
             tipoVenta(tipoVenta),
             persona(persona),
             idFactura(generarIdFactura()),
             fechaFactura(obtenerFechaActual()),
             horaFactura(obtenerHoraActual()),
-            totalFactura(0) {
+            totalFactura(0),
+            stock(stock) {
                 // Determinar si se trata de una compra o venta
                 if (tipoVenta == "venta") {
                     idCliente = persona->getId();
@@ -96,19 +99,37 @@ class Factura {
         void setIdCliente(string idCliente) { this->idCliente = idCliente; };
         void setIdProveedor(string idProveedor) { this->idProveedor = idProveedor; };
         void setTotalFactura(float totalFactura) { this->totalFactura = totalFactura; };
-        /************************************************************ Métodos específicos ****************/
+        /************************************************ Métodos específicos ************************************************/
         // Método para agregar un detalle a la factura
         void agregarDetalle(Producto &producto, int cantidad) {
+            // Verificar si la cantidad es válida antes de modificar existencias
+            if (cantidad <= 0) {
+                throw invalid_argument("La cantidad debe ser mayor que cero.");
+            }
+
+            // Verificar que el producto esté disponible en stock
+            if (!stock->productoDisponible(producto, cantidad)) {
+                throw invalid_argument("No hay suficiente stock para el producto.");
+            }
+
+            // Actualizar las existencias en stock
+            stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
+
+            // Crear el detalle de la factura y agregarlo
             DetallesFactura detalle(producto, cantidad);
             detallesFactura.push_back(detalle);
+
+            // Actualizar el total de la factura
             totalFactura += detalle.getSubtotalProducto();
         };
+
         // Método para filtrar por tipo de venta
         string getFacturaPorTipo(string tipoVenta) {
             if (this->tipoVenta == tipoVenta) {
                 return idFactura;
             }
-        }
+        };
+
         // Método para mostrar los datos completos de la factura
         void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
