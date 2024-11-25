@@ -29,7 +29,7 @@ class DetallesFactura {
             calcularSubtotal();
         };
         void setSubtotalProducto(float subtotal) { this->subtotalProducto = subtotal; };
-        /************************************************************ Métodos específicos ****************/
+        /************************************************ Métodos específicos ************************************************/
         // Este método permite validar que la cantidad de productos sea positiva y mayor a 0
         void validarCantidad() {
             if (cantidad <= 0) {
