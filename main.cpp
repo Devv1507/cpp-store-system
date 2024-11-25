@@ -1,3 +1,19 @@
+/**
+ * Programa principal para la gestión de un comercio electrónico
+ * Este main.cpp representa un CLI para interactuar con el sistema de gestión de un comercio electrónico.
+ * 
+ * Autores:
+ *  - David Esteban Valencia Valencia   -   2415092
+ *  - Jeremy Andres Astaiza             -   2420580
+ *  - Juan Pablo Escamilla              -   2415667
+ *  - Nicolle Andrea Paz                -   2419714
+ * 
+ * Fecha de entrega: 08 de diciembre de 2024
+ * Tecnología en Desarrollo de Software (2724)
+ * Universidad del Valle
+ */
+
+
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -25,7 +41,7 @@ void limpiarBuffer() {
 
 // Función para mostrar el menú principal
 void mostrarMenuPrincipal() {
-    cout << "\n=== Bienvenid@ al CLI del sistema de gestión del comercio electrónico" << tienda.getNombre() << " ===\n";
+    cout << "\n=== Bienvenid@ al CLI del sistema de gestión del comercio electrónico " << tienda.getNombre() << " ===\n";
     cout << "1. Gestión de Stock\n";
     cout << "2. Gestión de Cajas\n";
     cout << "3. Gestión de Clientes\n";
