@@ -100,6 +100,19 @@ class Stock {
             }
         };
 
+        // Método para verificar si un producto está disponible en el stock actual
+        bool productoDisponible(Producto &producto, int cantidad) {
+            // Buscar el índice del producto
+            for (size_t i = 0; i < productos.size(); ++i) {
+                if (productos[i].getIdProducto() == producto.getIdProducto()) {
+                    // Verificar si hay suficiente stock
+                    return existencias[i] >= cantidad;
+                }
+            }
+            // Si no se encuentra el producto
+            return false;
+        };
+
         // Método para mostrar todos los productos
         void mostrarInventario() {
             cout << "Inventario del almacén general:" << idStock << endl;
