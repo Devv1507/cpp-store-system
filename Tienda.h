@@ -4,6 +4,8 @@
 #include <vector>
 #include "Caja.h"
 #include "Cliente.h"
+#include "Empleado.h"
+
 using namespace std;
 
 class Tienda {
@@ -11,6 +13,7 @@ class Tienda {
     // ["Enero", "Febrero", Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     private:
         vector<Caja> cajas; // Arreglo de cajas de la tienda
+        vector<Empleado> empleados; // Arreglo de empleados de la tienda
         unordered_map<string, float> totalComprasPorCliente; // Mapa para almacenar clientes por ID
         vector<float> ventasPorMes = vector<float>(12, 0); // Vector para almacenar las ventas por mes. Se inicializa con 12 elementos en 0
     public:
@@ -20,6 +23,10 @@ class Tienda {
         // Método para agregar una caja a la tienda
         void agregarCaja(Caja caja) {
             cajas.push_back(caja);
+        };
+        // Método para agregar un empleado a la tienda
+        void agregarEmpleado(Empleado empleado) {
+            empleados.push_back(empleado);
         };
         // Método para definir el mes con mayor ventas
         string mesMayorVenta() {
@@ -47,8 +54,11 @@ class Tienda {
             }
         };
         
+        // Método para obtener los tres mejores clientes, depende del mapa totalComprasPorCliente
         string tresMejoresClientes() {
-            // Verificar que hay datos en el mapa
+            // Actualizar el mapa de total de compras por cliente
+            calcularTotalComprasPorCliente();
+            // Verificar si hay datos en el mapa
             if (totalComprasPorCliente.empty()) {
                 cout << "No hay datos de clientes disponibles." << endl;
                 return;
@@ -72,10 +82,27 @@ class Tienda {
             }
         };
     
-        void empleadoDelMes() {
-            /* Necesitamos iterar sobre las cajas, probablemente
-            Necesitamos pensar en una forma de usar el contador ventasRealizadas que tiene cada empleado para definir el empleado del mes*/
+        // Método para obtener el empleado del mes
+        string empleadoDelMes() {
+            // Verificar si la tienda tiene empleados
+            if (empleados.empty()) {
+                return "No hay empleados registrados.";
+            }
+
+            // Inicializamos el empleado del mes con el primer empleado
+            Empleado empleadoDelMes = empleados[0];
+
+            // Iterar sobre los empleados para encontrar al que más ventas ha realizado
+            for (size_t i = 1; i < empleados.size(); ++i) {
+                if (empleados[i].getVentasRealizadas() > empleadoDelMes.getVentasRealizadas()) {
+                    empleadoDelMes = empleados[i];
+                }
+            }
+
+            // Mostrar el nombre o el id del empleado del mes
+            return "Empleado del mes: " + empleadoDelMes.getNombre();
         };
+
         void marcaMasVendida() {
             // Necesitamos iterar sobre todas las cajas, y encontrar una forma de definir las ventasPorMarca. Será necesario algún método adicional en Factura o DetallesFactura?
         };
