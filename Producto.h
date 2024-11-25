@@ -1,3 +1,6 @@
+#ifndef PRODUCTO_H
+#define PRODUCTO_H
+
 #include <iostream>
 #include <iomanip>
 
@@ -35,3 +38,5 @@ class Producto {
             << endl;
         }
 };
+
+#endif // PRODUCTO_H

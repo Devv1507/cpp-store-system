@@ -1,3 +1,6 @@
+#ifndef TIENDA_H
+#define TIENDA_H
+
 #include <algorithm> // Se implementa esta libreria para usar max_element
 #include <iostream>
 #include <unordered_map> // Se implementa esta libreria para usar unordered_map
@@ -61,7 +64,7 @@ class Tienda {
             // Verificar si hay datos en el mapa
             if (totalComprasPorCliente.empty()) {
                 cout << "No hay datos de clientes disponibles." << endl;
-                return;
+                return "";
             }
 
             // Convertir el mapa en un vector para ordenar
@@ -106,4 +109,5 @@ class Tienda {
         void marcaMasVendida() {
             // Necesitamos iterar sobre todas las cajas, y encontrar una forma de definir las ventasPorMarca. Será necesario algún método adicional en Factura o DetallesFactura?
         };
-}; 
+};
+#endif // TIENDA_H

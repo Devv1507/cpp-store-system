@@ -8,7 +8,7 @@
 using namespace std;
 
 class Persona {
-    protected:
+    private:
         string id, nombre, email;
         int telefono;
         Direccion direccion;

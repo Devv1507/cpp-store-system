@@ -1,3 +1,6 @@
+#ifndef STOCK_H
+#define STOCK_H
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -127,3 +130,4 @@ class Stock {
             }
         };
     };
+#endif // STOCK_H

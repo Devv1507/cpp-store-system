@@ -1,3 +1,6 @@
+#ifndef FACTURA_H
+#define FACTURA_H
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -148,3 +151,4 @@ class Factura {
             }
         };
 };
+#endif // FACTURA_H

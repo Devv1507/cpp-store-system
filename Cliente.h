@@ -1,3 +1,6 @@
+#ifndef CLIENTE_H
+#define CLIENTE_H
+
 #include <iostream>
 #include <iomanip>
 #include "Persona.h"
@@ -26,3 +29,5 @@ class Cliente : public Persona {
                 << setw(10) << "Tipo de Cliente: " << tipoCliente << endl;
         };
 };
+
+#endif // CLIENTE_H
