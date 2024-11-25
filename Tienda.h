@@ -63,8 +63,8 @@ class Tienda {
             calcularTotalComprasPorCliente();
             // Verificar si hay datos en el mapa
             if (totalComprasPorCliente.empty()) {
-                cout << "No hay datos de clientes disponibles." << endl;
-                return "";
+                string mensajeFallo = "No hay datos de clientes disponibles.";
+                return mensajeFallo;
             }
 
             // Convertir el mapa en un vector para ordenar
@@ -81,7 +81,8 @@ class Tienda {
             for (size_t i = 0; i < comprasPorCliente.size() && i < 3; ++i) {
                 string idCliente = comprasPorCliente[i].first;
                 float totalCompras = comprasPorCliente[i].second;
-                cout << "Cliente ID: " << idCliente << ", Total Compras: $" << totalCompras << endl;
+                string mensajeExito = "Cliente ID: " + idCliente + ", Total Compras: $" + to_string(totalCompras);
+                return mensajeExito;
             }
         };
     
