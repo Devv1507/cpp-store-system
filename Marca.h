@@ -1,3 +1,6 @@
+#ifndef MARCA_H
+#define MARCA_H
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -37,4 +40,9 @@ class Marca {
                 listarProductos[i].mostrarDatos();
             }
         };
+
+        // Declaración de la sobrecarga del operador << como función amiga
+        friend ostream& operator<<(ostream& os, const Marca& marca);
 };
+
+#endif // MARCA_H
