@@ -1,3 +1,6 @@
+#ifndef CAJA_H
+#define CAJA_H
+
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -16,9 +19,9 @@ class Caja {
 
         // Método para generar un identificador único basado en un contador
         string generarIdCaja() {
-            stringstream stringstream;
-            stringstream << "C-" << setw(2) << setfill('0') << contadorCajas++;
-            return stringstream.str();
+            stringstream ss;
+            ss << "C-" << setw(2) << setfill('0') << contadorCajas++;
+            return ss.str();
         };
     public:
         // Constructor
@@ -90,6 +93,6 @@ class Caja {
                 }
             }
         };
-
-
 };
+
+#endif // CAJA_H
