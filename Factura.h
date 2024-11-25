@@ -87,6 +87,7 @@ class Factura {
         string getIdCliente() { return idCliente; };
         string getIdProveedor() { return idProveedor; };
         float getTotalFactura() { return totalFactura; };
+        vector<DetallesFactura> getDetallesFactura() { return detallesFactura; };
         void setIdFactura(string idFactura) { this->idFactura = idFactura; };
         void setFechaFactura(string fechaFactura) { this->fechaFactura = fechaFactura; };
         void setHoraFactura(string horaFactura) { this->horaFactura = horaFactura; };
