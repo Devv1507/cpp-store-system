@@ -12,6 +12,7 @@
 using namespace std;
 
 class Tienda {
+    string nombre;
     // TO_DO: revisar si es necesario definir alguna clase Mes o Dia para manejar este tipo de datos
     // ["Enero", "Febrero", Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     private:
@@ -21,7 +22,9 @@ class Tienda {
         vector<float> ventasPorMes = vector<float>(12, 0); // Vector para almacenar las ventas por mes. Se inicializa con 12 elementos en 0
     public:
         // Constructor
-        Tienda() {};
+        Tienda(string nombre): nombre(nombre) {};
+        string getNombre() { return nombre; };
+        void setNombre(string nombre) { this->nombre = nombre; };
         /************************************************ Métodos específicos ************************************************/
         // Método para agregar una caja a la tienda
         void agregarCaja(Caja caja) {
