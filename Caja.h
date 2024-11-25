@@ -28,6 +28,7 @@ class Caja {
         int getNumeroFacturasDia() { return numeroFacturasDia; };
         void setIdCaja(string idCaja) { this->idCaja = idCaja; };
         void setNumeroFacturasDia(int numeroFacturasDia) { this->numeroFacturasDia = numeroFacturasDia; };
+        vector<Factura> getFacturas() { return facturas; };
         /************************************************ Métodos específicos ************************************************/
         // Este método permite agregar una factura a la caja
         void agregarFactura(Factura factura) {
