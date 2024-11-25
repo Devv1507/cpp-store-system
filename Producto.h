@@ -8,20 +8,19 @@ using namespace std;
 
 class Producto {
     private:
-        string idProducto, nombreProducto;
+        string idProducto, nombreProducto, idMarca;
         float precioUnitario;
-        int idMarca;
     public:
-        Producto(string idProducto, string nombreProducto, int idMarca, float precioUnitario):
+        Producto(string idProducto, string nombreProducto, string idMarca, float precioUnitario):
             idProducto(idProducto), nombreProducto(nombreProducto), idMarca(idMarca), precioUnitario(precioUnitario) {};
         // Getters y Setters
         string getIdProducto() { return idProducto; };
         string getNombreProducto() { return nombreProducto; };
-        int getIdMarca() { return idMarca; };
+        string getIdMarca() { return idMarca; };
         float getPrecioUnitario() { return precioUnitario; };
         void setIdProducto(string idProducto) { this->idProducto = idProducto; };
         void setNombreProducto(string nombreProducto) { this->nombreProducto = nombreProducto; };
-        void setIdMarca(int idMarca) { this->idMarca = idMarca; };
+        void setIdMarca(string idMarca) { this->idMarca = idMarca; };
         void setPrecioUnitario(float precioUnitario) { this->precioUnitario = precioUnitario; };
         //método para mostrar los datos acerca de un producto
         virtual void mostrarDatos() {
