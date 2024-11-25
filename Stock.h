@@ -32,6 +32,7 @@ class Stock {
             this->idStock = idStock;
          };
 
+        /************************************************ Métodos específicos ************************************************/
         // Método para añadir un producto al inventario
         void anadirProducto(const Producto& producto, int cantidad, int stockMinimo) {
             productos.push_back(producto);
@@ -60,6 +61,12 @@ class Stock {
                 }
             }
             return -1; // Producto no encontrado
+        };
+
+        // Método para obtener las existencias de un producto 
+        int getExistenciasProducto(string& idProducto) {
+            int index = buscarIndiceProducto(idProducto);
+            return existencias[index];
         };
 
         // Método para modificar existencias (usado al comprar o vender)
