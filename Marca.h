@@ -1,44 +1,40 @@
 #include <iostream>
+#include <sstream>
 #include <vector>
-#include <string>
 #include "Stock.h"
 #include "Producto.h"
 using namespace std;
 
 class Marca {
     private:
-        int idMarca;
-        string nombreMarca;
+        static int contadorMarcas; // Contador estático para generar IDs únicos
+        string idMarca, nombreMarca;
         vector<Producto> listarProductos; //vector para guardar los productos de una marca
+        // Método para generar un identificador único basado en un contador
+        string generarIdMarca() {
+            stringstream ss;
+            ss << "M-" << setw(2) << setfill('0') << contadorMarcas++;
+            return ss.str();
+        };
     public:
-        //constructores
-        Marca(): idMarca(0), nombreMarca("") {}
-        Marca(int idMarca, string nombreMarca): idMarca(idMarca), nombreMarca(nombreMarca) {}
-            //getters y setters
-            int getIdMarca();
-            string getNombreMarca();
-            int setIdMarca();
-            string setNombreMarca();
-
-            void agregarProducto(const Producto& producto);
-            void mostrarProductos();
+        // Constructor
+        Marca(string nombreMarca): 
+            idMarca(generarIdMarca()), nombreMarca(nombreMarca) {}
+        // Getters y setters
+        string getIdMarca() { return idMarca; };
+        string getNombreMarca() { return nombreMarca; };
+        void setIdMarca(string idMarca) { this->idMarca = idMarca; };
+        void setNombreMarca(string nombreMarca) { this->nombreMarca = nombreMarca; };
+        /************************************************ Métodos específicos ************************************************/
+        // Método para agregar un producto a una marca
+        void agregarProducto(const Producto& producto) {
+            listarProductos.push_back(producto);
+        };
+        // Método para mostrar todos los productos de una misma marca
+        void mostrarProductos() {
+            cout << "Productos de la marca " << nombreMarca << ":" << endl;
+            for (size_t i = 0; i < listarProductos.size(); i++) {
+                listarProductos[i].mostrarDatos();
+            }
+        };
 };
-
-    //definición de getters y setters
-    int Marca::getIdMarca() {return idMarca; }
-    string Marca::getNombreMarca() {return nombreMarca; }
-    int Marca::setIdMarca() { this->idMarca = idMarca; }
-    string Marca::setNombreMarca() { this->nombreMarca = nombreMarca; }
-
-    //método para agregar un producto a una marca
-    void Marca::agregarProducto(const Producto& producto) {
-        listarProductos.push_back(producto);
-    }
-
-    //método para mostar todos los productos de una marca
-    void Marca::mostrarProductos() {
-        cout << "Productos de la marca " << nombreMarca << ":" << endl;
-        for (size_t i = 0; i < listarProductos.size(); i++) {
-            listarProductos[i].mostrarDatos();
-        }
-    }
