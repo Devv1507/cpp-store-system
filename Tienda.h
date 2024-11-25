@@ -8,6 +8,7 @@
 #include "Caja.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "Marca.h"
 
 using namespace std;
 
@@ -18,7 +19,9 @@ class Tienda {
     private:
         vector<Caja> cajas; // Arreglo de cajas de la tienda
         vector<Empleado> empleados; // Arreglo de empleados de la tienda
+        vector<Marca> marcas; // Arreglo de marcas de la tienda
         unordered_map<string, float> totalComprasPorCliente; // Mapa para almacenar clientes por ID
+        unordered_map<string, int> ventasPorMarca; // Mapa para acumular las ventas por marca
         vector<float> ventasPorMes = vector<float>(12, 0); // Vector para almacenar las ventas por mes. Se inicializa con 12 elementos en 0
     public:
         // Constructor
@@ -33,6 +36,10 @@ class Tienda {
         // Método para agregar un empleado a la tienda
         void agregarEmpleado(Empleado empleado) {
             empleados.push_back(empleado);
+        };
+        // Método para agregar una marca a la tienda
+        void agregarMarca(Marca marca) {
+            marcas.push_back(marca);
         };
         // Método para definir el mes con mayor ventas
         string mesMayorVenta() {
@@ -111,8 +118,51 @@ class Tienda {
             return "Empleado del mes: " + empleadoDelMes.getNombre();
         };
 
-        void marcaMasVendida() {
-            // Necesitamos iterar sobre todas las cajas, y encontrar una forma de definir las ventasPorMarca. Será necesario algún método adicional en Factura o DetallesFactura?
-        };
+        // Método para obtener la marca más vendida de la tienda, depende del mapa ventasPorMarca
+        Marca marcaMasVendida() {
+        // Verificar si hay marcas registradas
+        if (marcas.empty()) {
+            throw runtime_error("No hay marcas registradas en la tienda.");
+        }
+
+        // Recorrer todas las cajas y sus facturas
+        for (size_t i = 0; i < cajas.size(); i++) {
+            vector<Factura> facturas = cajas[i].getFacturas();
+
+            for (size_t j = 0; j < facturas.size(); j++) {
+                vector<DetallesFactura> detallesFactura = facturas[j].getDetallesFactura();
+
+                for (size_t k = 0; k < detallesFactura.size(); k++) {
+                    Producto producto = detallesFactura[k].getProducto();
+                    string idMarca = producto.getIdMarca();
+
+                    // Acumular las ventas (cantidad de productos vendidos por marca)
+                    if (ventasPorMarca.find(idMarca) != ventasPorMarca.end()) {
+                        ventasPorMarca[idMarca] += detallesFactura[k].getCantidad();
+                    } else {
+                        ventasPorMarca[idMarca] = detallesFactura[k].getCantidad();
+                    }
+                }
+            }
+        }
+
+        // Encontrar la marca con más ventas
+        string idMarcaMasVendida;
+        int maxVentas = 0;
+
+        for (unordered_map<string, int>::iterator it = ventasPorMarca.begin(); it != ventasPorMarca.end(); ++it) {
+            if (it->second > maxVentas) {
+                maxVentas = it->second;
+                idMarcaMasVendida = it->first;
+            }
+        }
+
+        // Buscar la marca correspondiente en el vector de marcas
+        for (size_t i = 0; i < marcas.size(); i++) {
+            if (marcas[i].getIdMarca() == idMarcaMasVendida) {
+                return marcas[i];
+            }
+        }
+    }
 };
 #endif // TIENDA_H
