@@ -77,16 +77,17 @@ class Tienda {
             sort(comprasPorCliente.begin(), comprasPorCliente.end(),
                 [](const pair<string, float>& a, const pair<string, float>& b) {
                     return a.second > b.second; // Orden descendente por valor
-                });
+            });
 
             // Mostrar los tres mejores clientes
             cout << "Los tres mejores clientes son:" << endl;
+            string resultado = "Los tres mejores clientes son:\n";
             for (size_t i = 0; i < comprasPorCliente.size() && i < 3; ++i) {
                 string idCliente = comprasPorCliente[i].first;
                 float totalCompras = comprasPorCliente[i].second;
-                string mensajeExito = "Cliente ID: " + idCliente + ", Total Compras: $" + to_string(totalCompras);
-                return mensajeExito;
+                resultado += "Cliente ID: " + idCliente + ", Total Compras: $" + to_string(totalCompras) + "\n";
             }
+            return resultado;
         };
     
         // Método para obtener el empleado del mes
