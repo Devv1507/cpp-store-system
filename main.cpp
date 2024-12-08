@@ -298,6 +298,7 @@ int main() {
     lenovo.agregarProducto(laptop);
     lenovo.agregarProducto(smarthPhone);
     lenovo.mostrarProductos();
+    tienda.agregarMarca(lenovo);
 
     // Crear el stock
     Stock almacenGeneral("Almacen Central");
@@ -307,7 +308,8 @@ int main() {
 
     // Crear empleadops
     Direccion direccionDavid("123", "Norte", "Cali", "Valle del Cauca");
-    Empleado david("1107526634", "David Perez", "david@supercommerce.com", 5551234, direccionDavid, "9am-6pm", 5000.0f, 0);
+    Empleado david("1107526634", "David Pérez", "david@supercommerce.com", 5551234, direccionDavid, "9am-6pm", 5000.0f, 0);
+    tienda.agregarEmpleado(david);
 
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
@@ -329,6 +331,7 @@ int main() {
     caja1.agregarFactura(facturaJuan);
     caja1.agregarFactura(facturaMaria);
     caja1.mostrarFacturas();
+    tienda.agregarCaja(caja1);
 
     // Crear un proveedor
     Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
@@ -338,8 +341,10 @@ int main() {
     Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
     Producto mouse("Mouse", 25.30f);
     facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
-    facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
-    
+    facturaCompra.mostrarDatos(); // Mostrar los detalles de la
+
+    almacenGeneral.mostrarInventario();
+
     while (true) {
         mostrarMenuPrincipal();
         

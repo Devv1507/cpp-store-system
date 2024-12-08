@@ -9,7 +9,7 @@ using namespace std;
 class Producto {
     private:
         static int contadorProductos;
-        string idProducto, nombreProducto, idMarca;
+        string idProducto, nombreProducto;
         float precioUnitario;
         // Metodo para generar un identificador unico basado en un contador
         string generarIdProducto() {
@@ -23,11 +23,9 @@ class Producto {
         // Getters y Setters
         string getIdProducto() const { return idProducto; };
         string getNombreProducto() { return nombreProducto; };
-        string getIdMarca() { return idMarca; };
         float getPrecioUnitario() { return precioUnitario; };
         void setIdProducto(string idProducto) { this->idProducto = idProducto; };
         void setNombreProducto(string nombreProducto) { this->nombreProducto = nombreProducto; };
-        void setIdMarca(string idMarca) { this->idMarca = idMarca; };
         void setPrecioUnitario(float precioUnitario) { this->precioUnitario = precioUnitario; };
         //metodo para mostrar los datos acerca de un producto
         virtual void mostrarDatos() {
@@ -40,7 +38,6 @@ class Producto {
             cout << setw(10) << idProducto
             << setw(20) << nombreProducto
             << setw(10) << precioUnitario
-            << setw(10) << idMarca
             << endl;
         }
 };

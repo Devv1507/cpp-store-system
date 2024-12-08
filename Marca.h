@@ -28,9 +28,9 @@ class Marca {
         string getNombreMarca() { return nombreMarca; };
         void setIdMarca(string idMarca) { this->idMarca = idMarca; };
         void setNombreMarca(string nombreMarca) { this->nombreMarca = nombreMarca; };
-        /************************************************ Metodos especificos ************************************************/
-        // Metodo para agregar un producto a una marca
-        void agregarProducto(const Producto& producto) {
+        /************************************************ Métodos específicos ************************************************/
+        // Método para agregar un producto a una marca
+        void agregarProducto(Producto& producto) {
             listarProductos.push_back(producto);
         };
         // Metodo para mostrar todos los productos de una misma marca
