@@ -111,13 +111,16 @@ class Factura {
                 throw invalid_argument("La cantidad debe ser mayor que cero.");
             }
 
-            // Verificar que el producto esté disponible en stock
-            if (!stock->productoDisponible(producto, cantidad)) {
-                throw invalid_argument("No hay suficiente stock para el producto.");
+            if (tipoVenta == "venta") {
+                if (!stock->productoDisponible(producto, cantidad)) {
+                    throw invalid_argument("No hay suficiente stock para el producto.");
+                }
+                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
+            } else if (tipoVenta == "compra") {
+                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
+            } else {
+                throw invalid_argument("El tipo de venta debe ser 'venta' o 'compra'.");
             }
-
-            // Actualizar las existencias en stock
-            stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
 
             // Crear el detalle de la factura y agregarlo
             DetallesFactura detalle(producto, cantidad);

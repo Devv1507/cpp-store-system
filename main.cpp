@@ -324,7 +324,7 @@ int main() {
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
     Producto mouse("Mouse", 25.30f);
-    facturaCompra.agregarDetalle(mouse, 2); // Agregar 2 Mouse
+    facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
     facturaCompra.mostrarDatos(); // Mostrar los detalles de la
 
     while (true) {
