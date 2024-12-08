@@ -8,11 +8,18 @@ using namespace std;
 
 class Producto {
     private:
+        static int contadorProductos;
         string idProducto, nombreProducto, idMarca;
         float precioUnitario;
+        // Método para generar un identificador único basado en un contador
+        string generarIdProducto() {
+            stringstream ss;
+            ss << "P-" << setw(2) << setfill('0') << contadorProductos++;
+            return ss.str();
+        };
     public:
-        Producto(string idProducto, string nombreProducto, string idMarca, float precioUnitario):
-            idProducto(idProducto), nombreProducto(nombreProducto), idMarca(idMarca), precioUnitario(precioUnitario) {};
+        Producto(string nombreProducto, float precioUnitario):
+            idProducto(generarIdProducto()), nombreProducto(nombreProducto), precioUnitario(precioUnitario) {};
         // Getters y Setters
         string getIdProducto() const { return idProducto; };
         string getNombreProducto() { return nombreProducto; };

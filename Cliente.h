@@ -11,7 +11,7 @@ class Cliente : public Persona {
     private:
         string rut, profesion, tipoCliente;
     public:
-        Cliente(string id, string nombre, string email, int telefono, Direccion& direccion, string rut, string profesion, string tipoCliente, float totalCompras):
+        Cliente(string id, string nombre, string email, int telefono, Direccion& direccion, string rut, string profesion, string tipoCliente):
             Persona(id, nombre, email, telefono, direccion), rut(rut), profesion(profesion), tipoCliente(tipoCliente) {}
         //Getters y Setters
         string getRut(){ return rut; };
