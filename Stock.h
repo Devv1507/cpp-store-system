@@ -38,6 +38,13 @@ class Stock {
         /************************************************ Métodos específicos ************************************************/
         // Método para añadir un producto al inventario
         void anadirProducto(const Producto& producto, int cantidad, int stockMinimo) {
+            // Validar si el ID del producto ya existe
+            for (size_t i = 0; i < productos.size(); ++i) {
+                if (productos[i].getIdProducto() == producto.getIdProducto()) {
+                throw invalid_argument("Error: Ya existe un producto con el ID '" + producto.getIdProducto() + "'.");
+                }
+            }
+            
             productos.push_back(producto);
             existencias.push_back(cantidad);
             stockMinimos.push_back(stockMinimo);
@@ -121,8 +128,9 @@ class Stock {
             cout << "Inventario del almacén general:" << idStock << endl;
             for (size_t i = 0; i < productos.size(); ++i) {
                 cout << left
-                    << "ID: " << setw(10) << productos[i].getIdProducto()
+                    << "ID Producto: " << setw(10) << productos[i].getIdProducto()
                     << "Nombre: " << setw(20) << productos[i].getNombreProducto()
+                    << "ID Marca: " << setw(20) << productos[i].getIdMarca()
                     << "Precio: " << setw(10) << productos[i].getPrecioUnitario()
                     << "Cantidad: " << setw(10) << existencias[i]
                     << "Stock Mínimo: " << stockMinimos[i]

@@ -38,6 +38,7 @@ vector<Proveedor> proveedores;
 vector<Caja> cajas;
 int Caja::contadorCajas = 1;
 int Marca::contadorMarcas = 1;
+int Producto::contadorProductos = 1;
 
 // Función para limpiar el buffer de entrada
 void limpiarBuffer() {
@@ -77,23 +78,17 @@ void gestionStock() {
                 int cantidad, stockMinimo;
                 float precio;
                 
-                cout << "ID del producto: ";
-                cin.ignore();
-                cin >> id;
                 cout << "Nombre del producto: ";
-                cin.ignore();
                 getline(cin, nombre);
-                cout << "ID de la marca del producto: ";
-                cin.ignore();
-                cin >> idMarca;
                 cout << "Precio unitario: ";
+                cin.ignore();
                 cin >> precio;
                 cout << "Cantidad inicial: ";
                 cin >> cantidad;
                 cout << "Stock mínimo: ";
                 cin >> stockMinimo;
 
-                Producto nuevoProducto(id, nombre, idMarca, precio);
+                Producto nuevoProducto(nombre, precio);
                 stockGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
                 cout << "Producto agregado exitosamente.\n";
                 break;
@@ -218,7 +213,7 @@ void gestionClientes() {
                 // Crear dirección (simplificado)
                 Direccion dirGenerica("123", "Centro", "Cali", "Valle del Cauca");
                 
-                Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente, totalCompras);
+                Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
                 clientes.push_back(nuevoCliente);
                 cout << "Cliente registrado exitosamente.\n";
                 break;
@@ -282,6 +277,31 @@ void mostrarInformes() {
 }
 
 int main() {
+    // Crear una marca
+    Marca lenovo("Lenovo");
+    Producto laptop("Laptop", 1200.50f);
+    Producto smarthPhone("SmarthPhone Z10", 500);
+    lenovo.agregarProducto(laptop);
+    lenovo.agregarProducto(smarthPhone);
+    lenovo.mostrarProductos();
+
+    // Crear el stock
+    Stock almacenGeneral("Almacen Central");
+    almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock mínimo de 2
+    almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock mínimo de 5
+
+    
+    // Crear clientes
+    Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
+    Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "ABC135965", "Ingeniero", "militar");
+
+
+    // Crear una factura de venta
+    Factura facturaVenta("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
+    Producto producto1("Laptop", 1200.50f);
+    facturaVenta.agregarDetalle(producto1, 1); // Agregar 1 Laptop
+    facturaVenta.mostrarDatos(); // Mostrar los detalles de la factura
+
     while (true) {
         mostrarMenuPrincipal();
         
@@ -314,11 +334,11 @@ int main() {
     }
 }
 
-
-
     // Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
-    // Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan);
-    // Proveedor proveedorX("Proveedor X", "proveedorx@example.com", "Calle 50, Bogotá");
+    // Direccion direccionProveedorX("456", "Sur", "Cali", "Valle del Cauca");
+    // Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "13457", "Jefe", "Empleado Público", 1245);
+    // Proveedor proveedorX("245968", "Bancolombia", "11109458", "Ahorros", "133467", "Proveedor X", "provedor.x@gmail.com", 3158932781, direccionProveedorX);
+    // juan.mostrarDatos();
 
     // // Crear el stock
     // Stock almacenGeneral("Almacen Central");
