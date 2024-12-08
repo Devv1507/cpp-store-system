@@ -22,7 +22,7 @@ class Proveedor: public Persona {
             cout << left
                 << setw(10) << "RUT: " << rut << endl
                 << setw(10) << "Banco: " << banco << endl
-                << setw(10) << "Número de Cuenta: " << numeroCuenta << endl
+                << setw(10) << "Numero de Cuenta: " << numeroCuenta << endl
                 << setw(10) << "Tipo de Cuenta: " << tipoCuenta << endl;
         };
     };

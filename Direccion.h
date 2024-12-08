@@ -5,7 +5,7 @@ using namespace std;
 class Direccion {
     private:
         string numero, barrio, ciudad, departamento;
-        // Estos métodos permiten la validación interna de los datos permitidos para ciudad y departamento
+        // Estos metodos permiten la validacion interna de los datos permitidos para ciudad y departamento
         void validarCiudad(string ciudad) {
             if (ciudad != "Cali" && ciudad != "Bogota") {
                 throw invalid_argument("Ciudad no permitida. Solo se permiten 'Cali' y 'Bogota'.");
@@ -40,7 +40,7 @@ class Direccion {
             validarDepartamento(departamento);
             this->departamento = departamento;
         };
-        // Este método permite mostrar los datos completos de la dirección
+        // Este metodo permite mostrar los datos completos de la direccion
         void mostrarDireccion() {
             cout << left
                 << "Numero: " << numero << endl

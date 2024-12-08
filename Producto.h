@@ -11,7 +11,7 @@ class Producto {
         static int contadorProductos;
         string idProducto, nombreProducto, idMarca;
         float precioUnitario;
-        // Método para generar un identificador único basado en un contador
+        // Metodo para generar un identificador unico basado en un contador
         string generarIdProducto() {
             stringstream ss;
             ss << "P-" << setw(2) << setfill('0') << contadorProductos++;
@@ -29,7 +29,7 @@ class Producto {
         void setNombreProducto(string nombreProducto) { this->nombreProducto = nombreProducto; };
         void setIdMarca(string idMarca) { this->idMarca = idMarca; };
         void setPrecioUnitario(float precioUnitario) { this->precioUnitario = precioUnitario; };
-        //método para mostrar los datos acerca de un producto
+        //metodo para mostrar los datos acerca de un producto
         virtual void mostrarDatos() {
             cout << left 
             << setw(10) << "id producto"

@@ -28,36 +28,36 @@ class Tienda {
         Tienda(string nombre): nombre(nombre) {};
         string getNombre() { return nombre; };
         void setNombre(string nombre) { this->nombre = nombre; };
-        /************************************************ Métodos específicos ************************************************/
-        // Método para agregar una caja a la tienda
+        /************************************************ Metodos especificos ************************************************/
+        // Metodo para agregar una caja a la tienda
         void agregarCaja(Caja caja) {
             cajas.push_back(caja);
         };
-        // Método para agregar un empleado a la tienda
+        // Metodo para agregar un empleado a la tienda
         void agregarEmpleado(Empleado empleado) {
             empleados.push_back(empleado);
         };
-        // Método para agregar una marca a la tienda
+        // Metodo para agregar una marca a la tienda
         void agregarMarca(Marca marca) {
             marcas.push_back(marca);
         };
-        // Método para definir el mes con mayor ventas
+        // Metodo para definir el mes con mayor ventas
         string mesMayorVenta() {
             for (size_t i = 0; i < cajas.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
                     ventasPorMes[j - 1] += cajas[i].calcularTotalVentasMensuales(j);
                 }
             }
-            int mesMayor = distance(ventasPorMes.begin(), max_element(ventasPorMes.begin(), ventasPorMes.end())); //se utiliza para encontrar el índice del elemento con el valor máximo en el vector ventasPorMes.
+            int mesMayor = distance(ventasPorMes.begin(), max_element(ventasPorMes.begin(), ventasPorMes.end())); //se utiliza para encontrar el indice del elemento con el valor maximo en el vector ventasPorMes.
             return obtenerNombreMes(mesMayor + 1);
         };
 
-        string obtenerNombreMes(int mes) { // Método auxiliar para obtener el nombre del mes
+        string obtenerNombreMes(int mes) { // Metodo auxiliar para obtener el nombre del mes
             static const char* nombresMes[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
             return nombresMes[mes - 1];
         };
 
-        // Método para calcular el total de compras de un cliente
+        // Metodo para calcular el total de compras de un cliente
         void calcularTotalComprasPorCliente() {
             for (Caja& caja : cajas) {
                 for (Factura& factura : caja.getFacturas()) {
@@ -67,7 +67,7 @@ class Tienda {
             }
         };
         
-        // Método para obtener los tres mejores clientes, depende del mapa totalComprasPorCliente
+        // Metodo para obtener los tres mejores clientes, depende del mapa totalComprasPorCliente
         string tresMejoresClientes() {
             // Actualizar el mapa de total de compras por cliente
             calcularTotalComprasPorCliente();
@@ -97,7 +97,7 @@ class Tienda {
             return resultado;
         };
     
-        // Método para obtener el empleado del mes
+        // Metodo para obtener el empleado del mes
         string empleadoDelMes() {
             // Verificar si la tienda tiene empleados
             if (empleados.empty()) {
@@ -107,7 +107,7 @@ class Tienda {
             // Inicializamos el empleado del mes con el primer empleado
             Empleado empleadoDelMes = empleados[0];
 
-            // Iterar sobre los empleados para encontrar al que más ventas ha realizado
+            // Iterar sobre los empleados para encontrar al que mas ventas ha realizado
             for (size_t i = 1; i < empleados.size(); ++i) {
                 if (empleados[i].getVentasRealizadas() > empleadoDelMes.getVentasRealizadas()) {
                     empleadoDelMes = empleados[i];
@@ -118,7 +118,7 @@ class Tienda {
             return "Empleado del mes: " + empleadoDelMes.getNombre();
         };
 
-        // Método para obtener la marca más vendida de la tienda, depende del mapa ventasPorMarca
+        // Metodo para obtener la marca mas vendida de la tienda, depende del mapa ventasPorMarca
         Marca marcaMasVendida() {
         // Verificar si hay marcas registradas
         if (marcas.empty()) {
@@ -146,7 +146,7 @@ class Tienda {
             }
         }
 
-        // Encontrar la marca con más ventas
+        // Encontrar la marca con mas ventas
         string idMarcaMasVendida;
         int maxVentas = 0;
 

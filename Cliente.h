@@ -20,12 +20,12 @@ class Cliente : public Persona {
         void setRut(string rut) { this->rut = rut; };
         void setProfesion(string profesion) { this->profesion = profesion; };
         void setTipoCliente(string tipoCliente) { this->tipoCliente = tipoCliente; };
-        //Método para mostrar los datos completos del cliente
+        //Metodo para mostrar los datos completos del cliente
         void mostrarDatos() override {
             Persona::mostrarDatos();
             cout << left 
                 << setw(10) << "RUT: " << rut << endl
-                << setw(10) << "Profesión: " << profesion << endl
+                << setw(10) << "Profesion: " << profesion << endl
                 << setw(10) << "Tipo de Cliente: " << tipoCliente << endl;
         };
 };
