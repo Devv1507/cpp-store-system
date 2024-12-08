@@ -15,13 +15,13 @@ class Persona {
     public:
         /* 
         * Esta clase representa una superclase persona con los siguientes atributos:
-        *   id: identificación de la persona
+        *   id: identificacion de la persona
         *   nombre: nombre de la persona
-        *   email: correo electrónico de la persona
-        *   telefono: número de teléfono de la persona
-        *   direccion: objeto de la clase Direccion que contiene la dirección de la persona
+        *   email: correo electronico de la persona
+        *   telefono: numero de telefono de la persona
+        *   direccion: objeto de la clase Direccion que contiene la direccion de la persona
         */
-        Persona(string id, string nombre, string email, int telefono, Direccion& direccion): // creo que el paso por referencia ayudaría a evitar problemas de copia
+        Persona(string id, string nombre, string email, int telefono, Direccion& direccion): // creo que el paso por referencia ayudaria a evitar problemas de copia
             id(id), nombre(nombre), email(email), telefono(telefono), direccion(direccion) {};
         // Getters y Setters
         string getId() { return id; };
@@ -33,7 +33,7 @@ class Persona {
         void setNombre(string nombre) { this->nombre = nombre; };
         void setEmail(string email) { this->email = email; };
         void setTelefono(int telefono) { this->telefono = telefono; };
-        // Este método permite mostrar los datos completos de la persona en cuestión
+        // Este metodo permite mostrar los datos completos de la persona en cuestion
         virtual void mostrarDatos() {
             cout << left 
                 << setw(10) << "id"

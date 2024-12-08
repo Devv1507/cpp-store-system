@@ -10,10 +10,10 @@ using namespace std;
 
 class Marca {
     private:
-        static int contadorMarcas; // Contador estático para generar IDs únicos
+        static int contadorMarcas; // Contador estatico para generar IDs unicos
         string idMarca, nombreMarca;
         vector<Producto> listarProductos; //vector para guardar los productos de una marca
-        // Método para generar un identificador único basado en un contador
+        // Metodo para generar un identificador unico basado en un contador
         string generarIdMarca() {
             stringstream ss;
             ss << "M-" << setw(2) << setfill('0') << contadorMarcas++;
@@ -30,10 +30,10 @@ class Marca {
         void setNombreMarca(string nombreMarca) { this->nombreMarca = nombreMarca; };
         /************************************************ Métodos específicos ************************************************/
         // Método para agregar un producto a una marca
-        void agregarProducto(const Producto& producto) {
+        void agregarProducto(Producto& producto) {
             listarProductos.push_back(producto);
         };
-        // Método para mostrar todos los productos de una misma marca
+        // Metodo para mostrar todos los productos de una misma marca
         void mostrarProductos() {
             cout << "Productos de la marca " << nombreMarca << ":" << endl;
             for (size_t i = 0; i < listarProductos.size(); i++) {
@@ -41,7 +41,7 @@ class Marca {
             }
         };
 
-        // Declaración de la sobrecarga del operador << como función amiga
+        // Declaracion de la sobrecarga del operador << como funcion amiga
         friend ostream& operator<<(ostream& os, const Marca& marca);
 };
 

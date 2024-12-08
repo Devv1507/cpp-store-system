@@ -1,6 +1,6 @@
 /**
- * Programa principal para la gestión de un comercio electrónico
- * Este main.cpp representa un CLI para interactuar con el sistema de gestión de un comercio electrónico.
+ * Programa principal para la gestion de un comercio electronico
+ * Este main.cpp representa un CLI para interactuar con el sistema de gestion de un comercio electronico.
  * 
  * Autores:
  *  - David Esteban Valencia Valencia   -   2415092
@@ -9,7 +9,7 @@
  *  - Nicolle Andrea Paz                -   2419714
  * 
  * Fecha de entrega: 09 de diciembre de 2024
- * Tecnología en Desarrollo de Software (2724)
+ * Tecnologia en Desarrollo de Software (2724)
  * Universidad del Valle
  */
 
@@ -24,7 +24,7 @@
 
 using namespace std;
 
-// Definición de la sobrecarga del operador << para Marca
+// Definicion de la sobrecarga del operador << para Marca
 ostream& operator<<(ostream& os, const Marca& marca) {
     os << "ID: " << marca.idMarca << ", Nombre: " << marca.nombreMarca;
     return os;
@@ -41,33 +41,51 @@ int Factura::contadorFacturas = 1;
 int Marca::contadorMarcas = 1;
 int Producto::contadorProductos = 1;
 
-// Función para limpiar el buffer de entrada
+// Funcion para limpiar el buffer de entrada
 void limpiarBuffer() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// Función para mostrar el menú principal
-void mostrarMenuPrincipal() {
-    cout << "\n=== Bienvenid@ al CLI del sistema de gestión del comercio electrónico " << tienda.getNombre() << " ===\n";
-    cout << "1. Gestión de Stock\n";
-    cout << "2. Gestión de Cajas\n";
-    cout << "3. Gestión de Clientes\n";
-    cout << "4. Gestión de Proveedores\n";
-    cout << "5. Informes\n";
-    cout << "0. Salir\n";
-    cout << "Seleccione una opción: ";
+// Funcion para leer un entero de la entrada estandar
+int leerEntero() {
+    int valor;
+    while (true) {
+        try {
+            cin >> valor;
+            if (cin.fail()) {
+                throw invalid_argument("Entrada no válida. Por favor, ingrese un número entero.");
+            }
+            return valor;
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            cin.clear(); // Limpiar el estado de error de cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada inválida
+        }
+    }
 }
 
-// Función para el menú de gestión de stock
+// Funcion para mostrar el menu principal
+void mostrarMenuPrincipal() {
+    cout << "\n=== Bienvenid@ al CLI del sistema de gestion del comercio electronico " << tienda.getNombre() << " ===\n";
+    cout << "1. Gestion de Stock\n";
+    cout << "2. Gestion de Cajas\n";
+    cout << "3. Gestion de Clientes\n";
+    cout << "4. Gestion de Proveedores\n";
+    cout << "5. Informes\n";
+    cout << "0. Salir\n";
+    cout << "Seleccione una opcion: ";
+}
+
+// Funcion para el menu de gestion de stock
 void gestionStock() {
     while (true) {
-        cout << "\n************************* GESTIÓN DE STOCK *************************\n";
+        cout << "\n************************* GESTIoN DE STOCK *************************\n";
         cout << "1. Agregar producto\n";
         cout << "2. Editar producto\n";
         cout << "3. Mostrar inventario\n";
-        cout << "0. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
+        cout << "0. Volver al menu principal\n";
+        cout << "Seleccione una opcion: ";
         
         int opcion;
         cin >> opcion;
@@ -86,7 +104,7 @@ void gestionStock() {
                 cin >> precio;
                 cout << "Cantidad inicial: ";
                 cin >> cantidad;
-                cout << "Stock mínimo: ";
+                cout << "Stock minimo: ";
                 cin >> stockMinimo;
 
                 Producto nuevoProducto(nombre, precio);
@@ -114,21 +132,21 @@ void gestionStock() {
             case 0:
                 return;
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opcion invalida.\n";
         }
     }
 }
 
-// Función para el menú de gestión de cajas
+// Funcion para el menu de gestion de cajas
 void gestionCajas() {
     while (true) {
-        cout << "\n************************* GESTIÓN DE CAJAS *************************\n";
+        cout << "\n************************* GESTIoN DE CAJAS *************************\n";
         cout << "1. Abrir nueva caja\n";
         cout << "2. Cerrar caja\n";
         cout << "3. Registrar venta\n";
-        cout << "4. Ver facturas del día\n";
-        cout << "0. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
+        cout << "4. Ver facturas del dia\n";
+        cout << "0. Volver al menu principal\n";
+        cout << "Seleccione una opcion: ";
         
         int opcion;
         cin >> opcion;
@@ -147,7 +165,7 @@ void gestionCajas() {
                     cout << "No hay cajas abiertas.\n";
                     break;
                 }
-                // Por simplicidad, cerramos la última caja
+                // Por simplicidad, cerramos la ultima caja
                 cajas.back().cerrarCaja();
                 break;
             }
@@ -156,7 +174,7 @@ void gestionCajas() {
                     cout << "No hay cajas abiertas.\n";
                     break;
                 }
-                // Aquí iría la lógica para registrar una venta
+                // Aqui iria la logica para registrar una venta
                 cout << "Funcionalidad en desarrollo.\n";
                 break;
             }
@@ -171,23 +189,21 @@ void gestionCajas() {
             case 0:
                 return;
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opcion invalida.\n";
         }
     }
 }
 
-// Función para el menú de gestión de clientes
+// Funcion para el menu de gestion de clientes
 void gestionClientes() {
     while (true) {
-        cout << "\n************************* GESTIÓN DE CLIENTES *************************\n";
+        cout << "\n************************* GESTIoN DE CLIENTES *************************\n";
         cout << "1. Registrar nuevo cliente\n";
         cout << "2. Ver lista de clientes\n";
-        cout << "0. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
+        cout << "0. Volver al menu principal\n";
+        cout << "Seleccione una opcion: ";
         
-        int opcion;
-        cin >> opcion;
-        limpiarBuffer();
+        int opcion = leerEntero();
 
         switch (opcion) {
             case 1: {
@@ -201,17 +217,17 @@ void gestionClientes() {
                 getline(cin, nombre);
                 cout << "Email: ";
                 getline(cin, email);
-                cout << "Teléfono: ";
+                cout << "Telefono: ";
                 cin >> telefono;
                 limpiarBuffer();
                 cout << "RUT: ";
                 getline(cin, rut);
-                cout << "Profesión: ";
+                cout << "Profesion: ";
                 getline(cin, profesion);
                 cout << "Tipo de cliente: ";
                 getline(cin, tipoCliente);
 
-                // Crear dirección (simplificado)
+                // Crear direccion (simplificado)
                 Direccion dirGenerica("123", "Centro", "Cali", "Valle del Cauca");
                 
                 Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
@@ -226,9 +242,8 @@ void gestionClientes() {
                     break;
                 }
                 else {
-                    for (const auto& cliente : clientes) {
-                        const_cast<Cliente&>(cliente).mostrarDatos();
-                        cout << "------------------------\n";
+                    for (Cliente cliente : clientes) {
+                        cliente.mostrarDatos();
                     }
                 }
                 break;
@@ -236,25 +251,23 @@ void gestionClientes() {
             case 0:
                 return;
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opcion invalida.\n";
         }
     }
 }
 
-// Función para el menú de informes
+// Funcion para el menu de informes
 void mostrarInformes() {
     while (true) {
         cout << "\n************************* INFORMES *************************\n";
         cout << "1. Mes con mayores ventas\n";
         cout << "2. Tres mejores clientes\n";
         cout << "3. Empleado del mes\n";
-        cout << "4. Marca más vendida\n";
-        cout << "0. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
+        cout << "4. Marca mas vendida\n";
+        cout << "0. Volver al menu principal\n";
+        cout << "Seleccione una opcion: ";
         
-        int opcion;
-        cin >> opcion;
-        limpiarBuffer();
+        int opcion = leerEntero();
 
         switch (opcion) {
             case 1:
@@ -272,7 +285,7 @@ void mostrarInformes() {
             case 0:
                 return;
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opcion invalida.\n";
         }
     }
 }
@@ -285,16 +298,18 @@ int main() {
     lenovo.agregarProducto(laptop);
     lenovo.agregarProducto(smarthPhone);
     lenovo.mostrarProductos();
+    tienda.agregarMarca(lenovo);
 
     // Crear el stock
     Stock almacenGeneral("Almacen Central");
-    almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock mínimo de 2
-    almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock mínimo de 5
+    almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock minimo de 2
+    almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock minimo de 5
     almacenGeneral.mostrarInventario();
 
     // Crear empleadops
     Direccion direccionDavid("123", "Norte", "Cali", "Valle del Cauca");
     Empleado david("1107526634", "David Pérez", "david@supercommerce.com", 5551234, direccionDavid, "9am-6pm", 5000.0f, 0);
+    tienda.agregarEmpleado(david);
 
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
@@ -316,6 +331,7 @@ int main() {
     caja1.agregarFactura(facturaJuan);
     caja1.agregarFactura(facturaMaria);
     caja1.mostrarFacturas();
+    tienda.agregarCaja(caja1);
 
     // Crear un proveedor
     Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
@@ -324,15 +340,15 @@ int main() {
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
     Producto mouse("Mouse", 25.30f);
-    facturaCompra.agregarDetalle(mouse, 2); // Agregar 2 Mouse
+    facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
     facturaCompra.mostrarDatos(); // Mostrar los detalles de la
+
+    almacenGeneral.mostrarInventario();
 
     while (true) {
         mostrarMenuPrincipal();
         
-        int opcion;
-        cin >> opcion;
-        limpiarBuffer();
+        int opcion = leerEntero();
 
         switch (opcion) {
             case 1:
@@ -345,16 +361,16 @@ int main() {
                 gestionClientes();
                 break;
             case 4:
-                cout << "Gestión de proveedores en desarrollo.\n";
+                // Lógica para gestionar proveedores
                 break;
             case 5:
                 mostrarInformes();
                 break;
             case 0:
-                cout << "¡Gracias por usar el sistema!\n";
+                cout << "Saliendo del programa..." << endl;
                 return 0;
             default:
-                cout << "Opción inválida.\n";
+                cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
         }
     }
 }

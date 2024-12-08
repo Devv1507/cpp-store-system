@@ -14,7 +14,7 @@ using namespace std;
 
 class Factura {
     private:
-        static int contadorFacturas; // Contador estático para generar IDs únicos
+        static int contadorFacturas; // Contador estatico para generar IDs unicos
         string fechaFactura, horaFactura, tipoVenta;
         string idFactura, idCliente, idProveedor;
         Persona* persona;  // Puntero a un objeto Persona (puede ser un Cliente o un Proveedor)
@@ -22,14 +22,14 @@ class Factura {
         float totalFactura;
         Stock* stock;
 
-        // Método para generar un identificador único basado en un contador
+        // Metodo para generar un identificador unico basado en un contador
         string generarIdFactura() {
             stringstream stringstream;
             stringstream << "F-" << setw(2) << setfill('0') << contadorFacturas++;
             return stringstream.str();
         };
 
-        // Método para obtener la fecha actual en formato YYYY-MM-DD
+        // Metodo para obtener la fecha actual en formato YYYY-MM-DD
         string obtenerFechaActual() {
             time_t t = time(0);
             tm* now = localtime(&t);
@@ -40,7 +40,7 @@ class Factura {
             return stringstream.str();
         }
 
-        // Método para obtener la hora actual en formato HH:MM:SS
+        // Metodo para obtener la hora actual en formato HH:MM:SS
         string obtenerHoraActual() {
             time_t t = time(0);
             tm* now = localtime(&t);
@@ -53,12 +53,12 @@ class Factura {
     public:
     /**
      * Esta clase representa una factura con los siguientes atributos:
-     *      idFactura: identificación de la factura
+     *      idFactura: identificacion de la factura
      *      fechaFactura: fecha de la factura
      *      horaFactura: hora de la factura
      *      tipoVenta: tipo de venta (compra o venta)
-     *      idCliente: identificación del cliente
-     *      idProveedor: identificación del proveedor
+     *      idCliente: identificacion del cliente
+     *      idProveedor: identificacion del proveedor
      *      totalFactura: valor total de la factura
      *      detallesFactura: vector que contiene los detalles de la factura
      */
@@ -103,21 +103,24 @@ class Factura {
         void setIdCliente(string idCliente) { this->idCliente = idCliente; };
         void setIdProveedor(string idProveedor) { this->idProveedor = idProveedor; };
         void setTotalFactura(float totalFactura) { this->totalFactura = totalFactura; };
-        /************************************************ Métodos específicos ************************************************/
-        // Método para agregar un detalle a la factura
+        /************************************************ Metodos especificos ************************************************/
+        // Metodo para agregar un detalle a la factura
         void agregarDetalle(Producto &producto, int cantidad) {
-            // Verificar si la cantidad es válida antes de modificar existencias
+            // Verificar si la cantidad es valida antes de modificar existencias
             if (cantidad <= 0) {
                 throw invalid_argument("La cantidad debe ser mayor que cero.");
             }
 
-            // Verificar que el producto esté disponible en stock
-            if (!stock->productoDisponible(producto, cantidad)) {
-                throw invalid_argument("No hay suficiente stock para el producto.");
+            if (tipoVenta == "venta") {
+                if (!stock->productoDisponible(producto, cantidad)) {
+                    throw invalid_argument("No hay suficiente stock para el producto.");
+                }
+                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
+            } else if (tipoVenta == "compra") {
+                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
+            } else {
+                throw invalid_argument("El tipo de venta debe ser 'venta' o 'compra'.");
             }
-
-            // Actualizar las existencias en stock
-            stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
 
             // Crear el detalle de la factura y agregarlo
             DetallesFactura detalle(producto, cantidad);
@@ -127,14 +130,14 @@ class Factura {
             totalFactura += detalle.getSubtotalProducto();
         };
 
-        // Método para filtrar por tipo de venta
+        // Metodo para filtrar por tipo de venta
         string getFacturaPorTipo(string tipoVenta) {
             if (this->tipoVenta == tipoVenta) {
                 return idFactura;
             }
         };
 
-        // Método para mostrar los datos completos de la factura
+        // Metodo para mostrar los datos completos de la factura
         void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
                 << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta

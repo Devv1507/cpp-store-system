@@ -33,7 +33,7 @@ class Empleado : public Persona {
             stock.modificarExistencias(idProducto, cantidad, tipoOperacion);
         }
 
-        // Mostrar información del empleado
+        // Mostrar informacion del empleado
         void mostrarDatos() override {
             Persona::mostrarDatos();
             cout << left 
