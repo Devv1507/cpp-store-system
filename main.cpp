@@ -32,11 +32,12 @@ ostream& operator<<(ostream& os, const Marca& marca) {
 
 // Variables globales para mantener el estado del programa
 Stock stockGeneral("STOCK-01");
-Tienda tienda("SuperTech");
+Tienda tienda("SuperCommerce");
 vector<Cliente> clientes;
 vector<Proveedor> proveedores;
 vector<Caja> cajas;
 int Caja::contadorCajas = 1;
+int Factura::contadorFacturas = 1;
 int Marca::contadorMarcas = 1;
 int Producto::contadorProductos = 1;
 
@@ -290,6 +291,10 @@ int main() {
     almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock mínimo de 2
     almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock mínimo de 5
     almacenGeneral.mostrarInventario();
+
+    // Crear empleadops
+    Direccion direccionDavid("123", "Norte", "Cali", "Valle del Cauca");
+    Empleado david("1107526634", "David Pérez", "david@supercommerce.com", 5551234, direccionDavid, "9am-6pm", 5000.0f, 0);
 
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
