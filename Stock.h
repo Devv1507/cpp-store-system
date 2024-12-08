@@ -121,8 +121,9 @@ class Stock {
             cout << "Inventario del almacén general:" << idStock << endl;
             for (size_t i = 0; i < productos.size(); ++i) {
                 cout << left
-                    << "ID: " << setw(10) << productos[i].getIdProducto()
+                    << "ID Producto: " << setw(10) << productos[i].getIdProducto()
                     << "Nombre: " << setw(20) << productos[i].getNombreProducto()
+                    << "ID Marca: " << setw(20) << productos[i].getIdMarca()
                     << "Precio: " << setw(10) << productos[i].getPrecioUnitario()
                     << "Cantidad: " << setw(10) << existencias[i]
                     << "Stock Mínimo: " << stockMinimos[i]

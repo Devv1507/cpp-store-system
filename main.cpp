@@ -78,14 +78,13 @@ void gestionStock() {
                 float precio;
                 
                 cout << "ID del producto: ";
-                cin.ignore();
                 cin >> id;
-                cout << "Nombre del producto: ";
                 cin.ignore();
+                cout << "Nombre del producto: ";
                 getline(cin, nombre);
                 cout << "ID de la marca del producto: ";
-                cin.ignore();
                 cin >> idMarca;
+                cin.ignore();
                 cout << "Precio unitario: ";
                 cin >> precio;
                 cout << "Cantidad inicial: ";
@@ -308,11 +307,19 @@ int main() {
     }
 }
 
+/*
+    int main() {
+        Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
+        Direccion direccionProveedorX("456", "Sur", "Cali", "Valle del Cauca");
+        Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "13457", "Jefe", "Empleado Público", 1245);
+        Proveedor proveedorX("245968", "Bancolombia", "11109458", "Ahorros", "133467", "Proveedor X", "provedor.x@gmail.com", 3158932781, direccionProveedorX);
+        juan.mostrarDatos();
 
+        Producto pc("5867", "PC", "4856", 100000);
+        pc.mostrarDatos();
+    }
+*/
 
-    // Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
-    // Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan);
-    // Proveedor proveedorX("Proveedor X", "proveedorx@example.com", "Calle 50, Bogotá");
 
     // // Crear el stock
     // Stock almacenGeneral("Almacen Central");
