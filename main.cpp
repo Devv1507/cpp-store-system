@@ -93,8 +93,13 @@ void gestionStock() {
                 cin >> stockMinimo;
 
                 Producto nuevoProducto(id, nombre, idMarca, precio);
-                stockGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
-                cout << "Producto agregado exitosamente.\n";
+                try {
+                    stockGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
+                    cout << "Producto agregado exitosamente.\n";
+                } catch (const invalid_argument &e) {
+                    cout << e.what() << endl;
+                    cout << "Por favor, intente de nuevo." << endl;
+                }
                 break;
             }
             case 2: {
@@ -307,19 +312,11 @@ int main() {
     }
 }
 
-/*
-    int main() {
-        Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
-        Direccion direccionProveedorX("456", "Sur", "Cali", "Valle del Cauca");
-        Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "13457", "Jefe", "Empleado Público", 1245);
-        Proveedor proveedorX("245968", "Bancolombia", "11109458", "Ahorros", "133467", "Proveedor X", "provedor.x@gmail.com", 3158932781, direccionProveedorX);
-        juan.mostrarDatos();
-
-        Producto pc("5867", "PC", "4856", 100000);
-        pc.mostrarDatos();
-    }
-*/
-
+    // Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
+    // Direccion direccionProveedorX("456", "Sur", "Cali", "Valle del Cauca");
+    // Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "13457", "Jefe", "Empleado Público", 1245);
+    // Proveedor proveedorX("245968", "Bancolombia", "11109458", "Ahorros", "133467", "Proveedor X", "provedor.x@gmail.com", 3158932781, direccionProveedorX);
+    // juan.mostrarDatos();
 
     // // Crear el stock
     // Stock almacenGeneral("Almacen Central");

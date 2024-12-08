@@ -14,7 +14,7 @@ class Producto {
         Producto(string idProducto, string nombreProducto, string idMarca, float precioUnitario):
             idProducto(idProducto), nombreProducto(nombreProducto), idMarca(idMarca), precioUnitario(precioUnitario) {};
         // Getters y Setters
-        string getIdProducto() { return idProducto; };
+        string getIdProducto() const { return idProducto; };
         string getNombreProducto() { return nombreProducto; };
         string getIdMarca() { return idMarca; };
         float getPrecioUnitario() { return precioUnitario; };
