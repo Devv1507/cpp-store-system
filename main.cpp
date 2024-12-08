@@ -47,6 +47,24 @@ void limpiarBuffer() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+// Funcion para leer un entero de la entrada estandar
+int leerEntero() {
+    int valor;
+    while (true) {
+        try {
+            cin >> valor;
+            if (cin.fail()) {
+                throw invalid_argument("Entrada no válida. Por favor, ingrese un número entero.");
+            }
+            return valor;
+        } catch (const invalid_argument& e) {
+            cout << e.what() << endl;
+            cin.clear(); // Limpiar el estado de error de cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada inválida
+        }
+    }
+}
+
 // Funcion para mostrar el menu principal
 void mostrarMenuPrincipal() {
     cout << "\n=== Bienvenid@ al CLI del sistema de gestion del comercio electronico " << tienda.getNombre() << " ===\n";
@@ -185,9 +203,7 @@ void gestionClientes() {
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
-        int opcion;
-        cin >> opcion;
-        limpiarBuffer();
+        int opcion = leerEntero();
 
         switch (opcion) {
             case 1: {
@@ -226,9 +242,8 @@ void gestionClientes() {
                     break;
                 }
                 else {
-                    for (const auto& cliente : clientes) {
-                        const_cast<Cliente&>(cliente).mostrarDatos();
-                        cout << "------------------------\n";
+                    for (Cliente cliente : clientes) {
+                        cliente.mostrarDatos();
                     }
                 }
                 break;
@@ -252,9 +267,7 @@ void mostrarInformes() {
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
-        int opcion;
-        cin >> opcion;
-        limpiarBuffer();
+        int opcion = leerEntero();
 
         switch (opcion) {
             case 1:
@@ -278,61 +291,10 @@ void mostrarInformes() {
 }
 
 int main() {
-    // Crear una marca
-    Marca lenovo("Lenovo");
-    Producto laptop("Laptop", 1200.50f);
-    Producto smarthPhone("SmarthPhone Z10", 500);
-    lenovo.agregarProducto(laptop);
-    lenovo.agregarProducto(smarthPhone);
-    lenovo.mostrarProductos();
-
-    // Crear el stock
-    Stock almacenGeneral("Almacen Central");
-    almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock minimo de 2
-    almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock minimo de 5
-    almacenGeneral.mostrarInventario();
-
-    // Crear empleadops
-    Direccion direccionDavid("123", "Norte", "Cali", "Valle del Cauca");
-    Empleado david("1107526634", "David Perez", "david@supercommerce.com", 5551234, direccionDavid, "9am-6pm", 5000.0f, 0);
-
-    // Crear clientes
-    Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
-    Direccion direccionMaria("456", "Sur", "Cali", "Valle del Cauca");
-    Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "ABC135965", "Ingeniero", "militar");
-    Cliente maria("1107526815", "Maria Rodriguez", "maria.rodriguez@gmail.com", 3143677338, direccionMaria, "ABC135966", "Veterinaria", "pensionada");
-
-    // Crear una factura de venta
-    Factura facturaJuan("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
-    facturaJuan.agregarDetalle(laptop, 1); // Agregar 1 Laptop
-    facturaJuan.agregarDetalle(smarthPhone, 1); // Agregar 1 SmathPhone
-    facturaJuan.mostrarDatos(); // Mostrar los detalles de la factura
-
-    Factura facturaMaria("venta", &maria, &almacenGeneral); // Pasamos el cliente y el stock
-    facturaMaria.agregarDetalle(smarthPhone, 10); // Agregar 10 SmathPhone
-
-    // Crear una caja y agregar las facturas
-    Caja caja1;
-    caja1.agregarFactura(facturaJuan);
-    caja1.agregarFactura(facturaMaria);
-    caja1.mostrarFacturas();
-
-    // Crear un proveedor
-    Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
-    Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", 3158932781, direccionGerardoTech);
-    
-    // Crear una factura de compra
-    Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
-    Producto mouse("Mouse", 25.30f);
-    facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
-    facturaCompra.mostrarDatos(); // Mostrar los detalles de la
-
     while (true) {
         mostrarMenuPrincipal();
         
-        int opcion;
-        cin >> opcion;
-        limpiarBuffer();
+        int opcion = leerEntero();
 
         switch (opcion) {
             case 1:
@@ -345,16 +307,16 @@ int main() {
                 gestionClientes();
                 break;
             case 4:
-                cout << "Gestion de proveedores en desarrollo.\n";
+                // Lógica para gestionar proveedores
                 break;
             case 5:
                 mostrarInformes();
                 break;
             case 0:
-                cout << "¡Gracias por usar el sistema!\n";
+                cout << "Saliendo del programa..." << endl;
                 return 0;
             default:
-                cout << "Opcion invalida.\n";
+                cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
         }
     }
 }
