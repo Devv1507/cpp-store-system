@@ -44,7 +44,7 @@ class DetallesFactura {
         // Este método permite imprimir el detalle particular
         void mostrarDetalle() {
             cout << "Producto: " << producto.getNombreProducto()
-             << ", Cantidad: " << cantidad
-             << ", Subtotal: $" << setprecision(2) << subtotalProducto << endl;
+            << ", Cantidad: " << cantidad
+            << ", Subtotal: $" << setprecision(2) << subtotalProducto << endl;
         };
 };

@@ -35,8 +35,8 @@ class Factura {
             tm* now = localtime(&t);
             stringstream stringstream;
             stringstream << (now->tm_year + 1900) << "-"
-               << (now->tm_mon + 1) << "-"
-               << now->tm_mday;
+                << (now->tm_mon + 1) << "-"
+                << now->tm_mday;
             return stringstream.str();
         }
 
@@ -46,8 +46,8 @@ class Factura {
             tm* now = localtime(&t);
             stringstream stringstream;
             stringstream << now->tm_hour << ":"
-               << now->tm_min << ":"
-               << now->tm_sec;
+                << now->tm_min << ":"
+                << now->tm_sec;
             return stringstream.str();
         }
     public:
@@ -137,8 +137,8 @@ class Factura {
         // Método para mostrar los datos completos de la factura
         void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
-                 << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta
-                 << ", Total: $" << setprecision(2) << totalFactura << endl;
+                << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta
+                << ", Total: $" << setprecision(2) << totalFactura << endl;
 
             if (tipoVenta == "venta") {
                 cout << "Cliente ID: " << persona->getId() << endl;

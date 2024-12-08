@@ -8,7 +8,7 @@
  *  - Juan Pablo Escamilla              -   2415667
  *  - Nicolle Andrea Paz                -   2419714
  * 
- * Fecha de entrega: 08 de diciembre de 2024
+ * Fecha de entrega: 09 de diciembre de 2024
  * Tecnología en Desarrollo de Software (2724)
  * Universidad del Valle
  */
@@ -225,9 +225,15 @@ void gestionClientes() {
             }
             case 2: {
                 cout << "\nLista de clientes:\n";
-                for (const auto& cliente : clientes) {
-                    const_cast<Cliente&>(cliente).mostrarDatos();
-                    cout << "------------------------\n";
+                if (clientes.empty()) {
+                    cout << "No hay clientes registrados.\n";
+                    break;
+                }
+                else {
+                    for (const auto& cliente : clientes) {
+                        const_cast<Cliente&>(cliente).mostrarDatos();
+                        cout << "------------------------\n";
+                    }
                 }
                 break;
             }
