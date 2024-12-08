@@ -24,12 +24,6 @@
 
 using namespace std;
 
-// Definicion de la sobrecarga del operador << para Marca
-ostream& operator<<(ostream& os, const Marca& marca) {
-    os << "ID: " << marca.idMarca << ", Nombre: " << marca.nombreMarca;
-    return os;
-}
-
 // Variables globales para mantener el estado del programa
 Stock stockGeneral("STOCK-01");
 Tienda tienda("SuperCommerce");
@@ -277,10 +271,10 @@ void mostrarInformes() {
                 tienda.tresMejoresClientes();
                 break;
             case 3:
-                cout << tienda.empleadoDelMes() << endl;
+                tienda.empleadoDelMes();
                 break;
             case 4:
-                cout << tienda.marcaMasVendida() << endl;
+                tienda.marcaMasVendida();
                 break;
             case 0:
                 return;

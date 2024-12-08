@@ -21,7 +21,6 @@ class Tienda {
         vector<Empleado> empleados; // Arreglo de empleados de la tienda
         vector<Marca> marcas; // Arreglo de marcas de la tienda
         unordered_map<string, float> totalComprasPorCliente; // Mapa para almacenar clientes por ID
-        unordered_map<string, int> ventasPorMarca; // Mapa para acumular las ventas por marca
         unordered_map<string, Marca*> productoAMarca; // Relación producto -> marca
         vector<float> ventasPorMes = vector<float>(12, 0); // Vector para almacenar las ventas por mes. Se inicializa con 12 elementos en 0
     public:
@@ -66,19 +65,6 @@ class Tienda {
                     totalComprasPorCliente[idCliente] += factura.getTotalFactura();
                 }
             }
-        };
-
-        void registrarProductoEnMarca(Producto& producto, Marca& marca) {
-            marca.agregarProducto(producto); // Asocia el producto con la marca
-            productoAMarca[producto.getIdProducto()] = &marca; // Almacena la relación
-        };
-
-        Marca* obtenerMarcaDeProducto(const Producto& producto) {
-            auto it = productoAMarca.find(producto.getIdProducto());
-            if (it != productoAMarca.end()) {
-                return it->second;
-            }
-            return nullptr;
         };
         
         // Metodo para obtener los tres mejores clientes, depende del mapa totalComprasPorCliente
@@ -133,7 +119,8 @@ class Tienda {
         };
 
         // Metodo para obtener la marca mas vendida de la tienda, depende del mapa ventasPorMarca
-        Marca marcaMasVendida() {
+        void marcaMasVendida() {
+            unordered_map<string, int> ventasPorMarca; // Mapa para acumular las ventas por marca
             // Verificar si hay marcas registradas
             if (marcas.empty()) {
                 throw runtime_error("No hay marcas registradas en la tienda.");
@@ -141,18 +128,22 @@ class Tienda {
     
             // Recorrer todas las cajas y sus facturas
             for (Caja caja : cajas) {
-                const auto& facturas = caja.getFacturas();
+                vector<Factura> facturas = caja.getFacturas();
     
                 for (Factura factura : facturas) {
-                    const auto& detallesFactura = factura.getDetallesFactura();
+                     vector<DetallesFactura> detallesFactura = factura.getDetallesFactura();
     
                     for (DetallesFactura detalle : detallesFactura) {
+                        cout << "Producto: " << detalle.getProducto().getNombreProducto() << endl;
                         Producto producto = detalle.getProducto();
-                        Marca* marca = obtenerMarcaDeProducto(producto);
+                        // Marca* marca = obtenerMarcaDeProducto(producto);
     
-                        if (marca) {
-                            ventasPorMarca[marca->getIdMarca()] += detalle.getCantidad();
-                        }
+                        // if (marca) {
+                        //     cout << "Marca: " << marca->getNombreMarca() << endl;
+                        //     ventasPorMarca[marca->getIdMarca()] += detalle.getCantidad();
+                        // } else {
+                        //     cout << "Producto sin marca." << endl;
+                        // }
                     }
                 }
             }
@@ -161,20 +152,31 @@ class Tienda {
             string idMarcaMasVendida;
             int maxVentas = 0;
     
-            for (const auto& venta : ventasPorMarca) {
-                if (venta.second > maxVentas) {
-                    maxVentas = venta.second;
-                    idMarcaMasVendida = venta.first;
+            if (ventasPorMarca.empty()) {
+                throw runtime_error("El prolbema es de ventasPorMarca.");
+            } else if (ventasPorMarca.size() == 1) {
+                idMarcaMasVendida = ventasPorMarca.begin()->first;
+                maxVentas = ventasPorMarca.begin()->second;
+            } else {
+                for (const auto& venta : ventasPorMarca) {
+                    if (venta.second > maxVentas) {
+                        maxVentas = venta.second;
+                        idMarcaMasVendida = venta.first;
+                    }
                 }
             }
     
             // Buscar la marca correspondiente
             for (Marca marca : marcas) {
                 if (marca.getIdMarca() == idMarcaMasVendida) {
-                    return marca;
+                    cout << "La marca mas vendida es: " << marca.getNombreMarca() << endl;
+                    cout << "Productos vendidos de esta marca: " << maxVentas << endl;
+                }
+                else {
+                    cout << idMarcaMasVendida << endl;
+                    cout << "Problem hereeeeeeeeee." << endl;
                 }
             }
-            throw runtime_error("No se pudo determinar la marca más vendida.");
     }
 };
 #endif // TIENDA_H
