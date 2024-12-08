@@ -289,18 +289,38 @@ int main() {
     Stock almacenGeneral("Almacen Central");
     almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock mínimo de 2
     almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock mínimo de 5
+    almacenGeneral.mostrarInventario();
 
-    
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
+    Direccion direccionMaria("456", "Sur", "Cali", "Valle del Cauca");
     Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "ABC135965", "Ingeniero", "militar");
-
+    Cliente maria("1107526815", "Maria Rodriguez", "maria.rodriguez@gmail.com", 3143677338, direccionMaria, "ABC135966", "Veterinaria", "pensionada");
 
     // Crear una factura de venta
-    Factura facturaVenta("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
-    Producto producto1("Laptop", 1200.50f);
-    facturaVenta.agregarDetalle(producto1, 1); // Agregar 1 Laptop
-    facturaVenta.mostrarDatos(); // Mostrar los detalles de la factura
+    Factura facturaJuan("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
+    facturaJuan.agregarDetalle(laptop, 1); // Agregar 1 Laptop
+    facturaJuan.agregarDetalle(smarthPhone, 1); // Agregar 1 SmathPhone
+    facturaJuan.mostrarDatos(); // Mostrar los detalles de la factura
+
+    Factura facturaMaria("venta", &maria, &almacenGeneral); // Pasamos el cliente y el stock
+    facturaMaria.agregarDetalle(smarthPhone, 10); // Agregar 10 SmathPhone
+
+    // Crear una caja y agregar las facturas
+    Caja caja1;
+    caja1.agregarFactura(facturaJuan);
+    caja1.agregarFactura(facturaMaria);
+    caja1.mostrarFacturas();
+
+    // Crear un proveedor
+    Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
+    Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", 3158932781, direccionGerardoTech);
+    
+    // Crear una factura de compra
+    Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
+    Producto mouse("Mouse", 25.30f);
+    facturaCompra.agregarDetalle(mouse, 2); // Agregar 2 Mouse
+    facturaCompra.mostrarDatos(); // Mostrar los detalles de la
 
     while (true) {
         mostrarMenuPrincipal();
@@ -333,43 +353,3 @@ int main() {
         }
     }
 }
-
-    // Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
-    // Direccion direccionProveedorX("456", "Sur", "Cali", "Valle del Cauca");
-    // Cliente juan("122346", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "13457", "Jefe", "Empleado Público", 1245);
-    // Proveedor proveedorX("245968", "Bancolombia", "11109458", "Ahorros", "133467", "Proveedor X", "provedor.x@gmail.com", 3158932781, direccionProveedorX);
-    // juan.mostrarDatos();
-
-    // // Crear el stock
-    // Stock almacenGeneral("Almacen Central");
-    // Producto laptop("001", "Laptop", 1200.50f);
-    // Producto mouse("002", "Mouse", 25.00f);
-    // almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock mínimo de 2
-    // almacenGeneral.anadirProducto(mouse, 50, 5);  // 50 unidades, stock mínimo de 5
-
-    // // Crear una factura de venta
-    // Factura facturaVenta("venta", &juan); // Pasamos el cliente
-    // Producto producto1("Laptop", 1200.50f);
-    // facturaVenta.agregarDetalle(producto1, 1); // Agregar 1 Laptop
-    // facturaVenta.mostrarDatos(); // Mostrar los detalles de la factura
-
-    // // Crear una factura de compra
-    // Factura facturaCompra("compra", &proveedorX); // Pasamos el proveedor
-    // Producto producto2("Mouse", 25.30f);
-    // facturaCompra.agregarDetalle(producto2, 2); // Agregar 2 Mouse
-    // facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
-
-    // // Crear una marca
-    // Marca marca("001", "Lenovo");
-    // Producto prod1("P001", "Telefono móvil", 1, 1000000);
-    // Producto prod2("P002", "Portatil", 1, 2000000);
-    // marca.agregarProducto(prod1);
-    // marca.agregarProducto(prod2);
-    // marca.mostrarProductos();
-
-    // Caja caja("V001");
-    // caja.agregarFactura(facturaVenta);
-    // caja.agregarFactura(facturaCompra);
-    // caja.mostrarFacturas();
-
-    // almacenCentral.mostrarInventario();
