@@ -20,11 +20,27 @@ class Persona {
          * @param telefono Número de teléfono a validar.
          * @throws invalid_argument Si el número de teléfono no tiene 10 dígitos.
          */
-        void validarTelefono(string telefono) {
-            if (telefono.length() != 10)
-                throw invalid_argument("El numero de telefono debe tener 10 digitos.");
+        bool validarTelefono(string telefono) {
+            if (telefono.length() != 10) return false;
         }
 
+         /**
+         * @brief Valida si el correo electrónico tiene un formato válido.
+         * @param email Correo electrónico a validar.
+         * @return `true` si el correo es válido; de lo contrario, `false`.
+         */
+        bool esEmailValido(string email) {
+            size_t arrobaPos = email.find('@');
+            if (arrobaPos == string::npos || arrobaPos == 0 || arrobaPos == email.size() - 1) {
+                return false;
+            }
+            // Verificar que no contenga espacios
+            if (email.find(' ') != string::npos) {
+                return false;
+            }
+
+            return true;
+        }
     public:
         /**
          * @brief Constructor.
@@ -36,9 +52,15 @@ class Persona {
          * @param telefono Número de teléfono de la persona. E.g, "3104756821"
          * @param direccion Referencia a un objeto de la clase Direccion.
          */
-        Persona(string id, string nombre, string email, string telefono, Direccion& direccion): id(id), nombre(nombre), email(email), direccion(direccion) {
-            validarTelefono(telefono); // Valida que el teléfono tenga 10 dígitos
+        Persona(string id, string nombre, string email, string telefono, Direccion& direccion): id(id), nombre(nombre), direccion(direccion) {
+            if (!validarTelefono(telefono)) {
+                throw invalid_argument("El número de teléfono debe tener 10 dígitos.");
+            }
             this->telefono = telefono;
+            if (!esEmailValido(email)) {
+                throw invalid_argument("El correo electronico no es valido.");
+            }
+            this->email = email;
         }
 
         // Getters
@@ -52,6 +74,7 @@ class Persona {
         void setNombre(string nombre) { this->nombre = nombre; };
         void setEmail(string email) { this->email = email; };
         void setTelefono(string telefono) {
+            validarTelefono(telefono);
             validarTelefono(telefono);
             this->telefono = telefono;
         };
