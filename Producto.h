@@ -27,7 +27,7 @@ class Producto {
             time_t t = time(nullptr);
             tm* now = localtime(&t);
         
-            ss << "M-" 
+            ss << "P-" 
                << setw(2) << setfill('0') << (now->tm_mon + 1)
                << setw(2) << setfill('0') << now->tm_mday  
                << "-" 
