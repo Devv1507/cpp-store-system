@@ -25,7 +25,7 @@ class Caja {
 
         string generarIdCaja() {
             stringstream ss;
-            ss << "C-" << setw(2) << setfill('0') << contadorCajas++;
+            ss << "C-" << setw(3) << setfill('0') << contadorCajas++;
             return ss.str();
         };
     public:
