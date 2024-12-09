@@ -126,9 +126,9 @@ class Stock {
          * @return int Índice del producto en el vector de productos, o -1 si no se encuentra.
          */
         int buscarIndiceProducto(const string& idProducto) {
-            for (size_t i = 0; i < productos.size(); ++i) {
-                if (productos[i].getIdProducto() == idProducto) {
-                    return i;
+            for (Producto& producto : productos) {
+                if (producto.getIdProducto() == idProducto) {
+                    cout << "Producto encontrado: " << producto.getNombreProducto() << endl;
                 }
             }
             return -1; // Producto no encontrado
