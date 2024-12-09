@@ -13,6 +13,7 @@ class Producto {
         static int contadorProductos; // Contador estático para generar IDs únicos
         string idProducto; // Identificador único del producto
         string nombreProducto; // Nombre del producto
+        string descripcion;
         float precioUnitario; // Precio unitario del producto
         Marca& marcaAsociada;
         /**
@@ -32,16 +33,18 @@ class Producto {
          * @param nombreProducto Nombre del producto.
          * @param precioUnitario Precio unitario del producto.
          */
-        Producto(string nombreProducto, float precioUnitario, Marca& marca):
-            idProducto(generarIdProducto()), nombreProducto(nombreProducto), precioUnitario(precioUnitario), marcaAsociada(marca) {};
+        Producto(string nombreProducto, string descripcion, float precioUnitario, Marca& marca):
+            idProducto(generarIdProducto()), nombreProducto(nombreProducto), descripcion(descripcion), precioUnitario(precioUnitario), marcaAsociada(marca) {};
         // Getters
         string getIdProducto() const { return idProducto; };
         string getNombreProducto() { return nombreProducto; };
+        string getDescripcion() { return descripcion; };
         Marca& getMarcaAsociada() { return marcaAsociada; };
         float getPrecioUnitario() { return precioUnitario; };
        // Setters
         void setIdProducto(string idProducto) { this->idProducto = idProducto; };
         void setNombreProducto(string nombreProducto) { this->nombreProducto = nombreProducto; };
+        void setDescripcion(string descripcion) { this->descripcion = descripcion; };
         void setPrecioUnitario(float precioUnitario) { this->precioUnitario = precioUnitario; };
 
         /**
@@ -58,6 +61,7 @@ class Producto {
                 << setw(20) << nombreProducto
                 << setw(10) << precioUnitario
                 << endl;
+            cout << "Descripción: " << descripcion << endl;
         }
 };
 
