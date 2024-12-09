@@ -43,6 +43,8 @@ class Caja {
         vector<Factura> getFacturas() { return facturas; };
         Stock* getStock() { return stock; };
         void setIdCaja(string idCaja) { this->idCaja = idCaja; };
+        void setNumeroFacturasDia(int numeroFacturasDia) { this->numeroFacturasDia = numeroFacturasDia; };
+        void setStock(Stock* stock) { this->stock = stock; };
         /************************************************ Metodos especificos ************************************************/
         /**
          * @brief Registra una transacción en la caja.
