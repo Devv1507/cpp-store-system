@@ -9,6 +9,7 @@
 #include "DetallesFactura.h"
 #include "Persona.h"
 #include "Stock.h"
+#include "Marca.h"
 
 using namespace std;
 
@@ -17,10 +18,9 @@ class Factura {
         static int contadorFacturas; // Contador estatico para generar IDs unicos
         string fechaFactura, horaFactura, tipoVenta; // Atributos de la factura
         string idFactura, idCliente, idProveedor; // Identificadores de la factura
+        float totalFactura; // Total de la factura
         Persona* persona;  // Puntero a un objeto Persona (puede ser un Cliente o un Proveedor)
         vector<DetallesFactura> detallesFactura; // Vector que contiene los detalles de la factura
-        float totalFactura; // Total de la factura
-        Stock* stock; // Puntero al stock asociado a la factura.
 
 
         /**
@@ -67,14 +67,13 @@ class Factura {
          * @param persona Puntero a un objeto Persona (Cliente o Proveedor).
          * @param stock Puntero al stock asociado a la factura.
          */
-        Factura(string tipoVenta, Persona* persona, Stock* stock):
+        Factura(string tipoVenta, Persona* persona):
             tipoVenta(tipoVenta),
             persona(persona),
             idFactura(generarIdFactura()),
             fechaFactura(obtenerFechaActual()),
             horaFactura(obtenerHoraActual()),
-            totalFactura(0),
-            stock(stock) {
+            totalFactura(0) {
                 // Determinar si se trata de una compra o venta
                 if (tipoVenta == "venta") {
                     idCliente = persona->getId();
@@ -119,17 +118,6 @@ class Factura {
             // Verificar si la cantidad es valida antes de modificar existencias
             if (cantidad <= 0) {
                 throw invalid_argument("La cantidad debe ser mayor que cero.");
-            }
-
-            if (tipoVenta == "venta") {
-                if (!stock->productoDisponible(producto, cantidad)) {
-                    throw invalid_argument("No hay suficiente stock para el producto.");
-                }
-                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
-            } else if (tipoVenta == "compra") {
-                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoVenta);
-            } else {
-                throw invalid_argument("El tipo de venta debe ser 'venta' o 'compra'.");
             }
 
             // Crear el detalle de la factura y agregarlo
