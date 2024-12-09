@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <vector>
 #include "Persona.h"
 
 using namespace std;
@@ -12,6 +13,7 @@ class Cliente : public Persona {
         string rut; // RUT (Registro Único Tributario) del cliente.
         string profesion; // Profesión u ocupación del cliente.
         string tipoCliente; // Tipo de cliente (ej: regular, VIP, etc.).
+        static vector<Cliente> clientes;
 
     public:
         /**
@@ -36,6 +38,9 @@ class Cliente : public Persona {
         void setRut(string rut) { this->rut = rut; };
         void setProfesion(string profesion) { this->profesion = profesion; };
         void setTipoCliente(string tipoCliente) { this->tipoCliente = tipoCliente; };
+        static void agregarCliente(const Cliente& cliente) {
+            clientes.push_back(cliente);
+        };
         
         /**
          * @brief Muestra los datos completos del cliente.
@@ -48,6 +53,16 @@ class Cliente : public Persona {
                 << setw(10) << "Profesion: " << profesion << endl
                 << setw(10) << "Tipo de Cliente: " << tipoCliente << endl;
         };
+
+        static Cliente* buscarCliente(const string& idCliente) {
+            for (auto& cliente : clientes) {
+                if (cliente.getId() == idCliente) 
+                    return &cliente; // Retorna la dirección del cliente encontrado
+            }
+            return nullptr; // No se encontró el cliente
+        }
 };
+
+vector<Cliente> Cliente::clientes;
 
 #endif // CLIENTE_H

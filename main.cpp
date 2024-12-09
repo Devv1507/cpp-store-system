@@ -82,18 +82,19 @@ void gestionProveedores() {
                 try {
                     cout << "Por favor, ingrese los siguientes campos para registrarse como proveedor:\n";
                     cout << "ID del proveedor: ";
-                    limpiarBuffer();
-                    getline(cin, id);
+                    cin >> id;
                     cout << "Nombre: ";
                     getline(cin, nombre);
+                    limpiarBuffer();
                     cout << "Email: ";
-                    getline(cin, email);
+                    cin >> email;
                     cout << "Banco: ";
-                    getline(cin, banco);
+                    cin >> banco;
                     cout << "Numero de cuenta: ";
-                    getline(cin, cuenta);
+                    cin >> cuenta;
                     cout << "Tipo de cuenta (Ahorros/Corriente): ";
                     getline(cin, tipoCuenta);
+                    limpiarBuffer();
                     cout << "Telefono: ";
                     getline(cin, telefono);
 
@@ -108,20 +109,25 @@ void gestionProveedores() {
             case 2: {
                 cout << "Por favor, ingrese los siguientes campos para registrar la venta:\n";
                 string idProveedor, nombreMarca, nombreProducto, descripcionProducto;
+                int cantidad;
                 float precioUnitario;
                 cout << "ID del proveedor: ";
                 cin >> idProveedor;
                 cout << "Nombre del producto: ";
                 getline(cin, nombreProducto);
+                limpiarBuffer();
                 cout << "Descripcion: ";
                 getline(cin, descripcionProducto);
                 cout << "Precio Unitario: ";
-                limpiarBuffer();
                 cin >> precioUnitario;
                 cout << "Marca del producto: ";
                 cin >> nombreMarca;
+                cout << "Cantidad: ";
+                cin >> cantidad;
                 Marca newMarca(nombreMarca);
                 Producto newProducto(nombreProducto, descripcionProducto, precioUnitario, newMarca);
+                almacenGeneral.anadirProducto(newProducto, cantidad, 5);  // Añadir al inventario con stock mínimo de 5
+                cout << "Producto comprado y agregado al inventario exitosamente.\n";
                 break;
             }
             case 3: {
@@ -311,7 +317,7 @@ void gestionClientes() {
                     cout << "Email: ";
                     cin >> email;
                     cout << "Telefono: ";
-                    cin >> email;
+                    cin >> telefono;
                     cout << "RUT: ";
                     cin >> rut;
                     limpiarBuffer();
@@ -321,17 +327,51 @@ void gestionClientes() {
                     getline(cin, tipoCliente);
 
                     Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
+                    Cliente::agregarCliente(nuevoCliente);
                     cout << "Cliente registrado exitosamente.\n";
                     break;
                 } catch(const invalid_argument& e) {
                     cout << "Error: " << e.what() << endl;
                     cout << "Por favor, ingrese nuevamente los datos.\n";
                 }
-                
             }
             case 2: {
-                cout << "\nRegistar compra:\n";
-                // tienda.
+                cout << "Por favor, ingrese los siguientes campos para registrar la compra:\n";
+                string idCliente, idProducto;
+                float cantidad;
+                cout << "ID del cliente: ";
+                cin >> idCliente;
+                Cliente* cliente = Cliente::buscarCliente(idCliente);
+                cout << "Cliente encontrado: " << endl;
+
+                almacenGeneral.mostrarInventario();
+
+                cout << "ID del producto que desea comprar: ";
+                cin >> idProducto;
+
+                // Buscar el producto en el inventario
+                int indiceProducto = almacenGeneral.buscarIndiceProducto(idProducto);
+                if (indiceProducto == -1) {
+                    cout << "Producto no encontrado.\n";
+                    break;
+                }
+
+                Producto& producto = almacenGeneral.getProductos()[indiceProducto];
+
+                cout << "Cantidad: ";
+                cin >> cantidad;
+
+                // Verificar si el producto está disponible
+                if (almacenGeneral.productoDisponible(producto, cantidad)) {
+                    Factura facturaCliente("venta", cliente);
+                    facturaCliente.agregarDetalle(producto, cantidad);
+
+                    // Actualizar existencias en el inventario
+                    almacenGeneral.modificarExistencias(producto.getIdProducto(), cantidad, "venta");
+                    cout << "Factura generada para el cliente.\n";
+                } else {
+                    cout << "No hay suficiente stock.";
+                }
                 break;
             }
             case 0:
