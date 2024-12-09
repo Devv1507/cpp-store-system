@@ -20,12 +20,11 @@
 #include "Tienda.h"
 #include "Cliente.h"
 #include "Proveedor.h"
-#include "Marca.h"
 
 using namespace std;
 
 // Variables globales para mantener el estado del programa
-Stock stockGeneral("STOCK-01");
+Stock almacenGeneral("Almacen Central");
 Tienda tienda("SuperCommerce");
 vector<Cliente> clientes;
 vector<Proveedor> proveedores;
@@ -84,7 +83,7 @@ void mostrarMenuPrincipal() {
  */
 void gestionStock() {
     while (true) {
-        cout << "\n************************* GESTIoN DE STOCK *************************\n";
+        cout << "\n************************* GESTION DE STOCK *************************\n";
         cout << "1. Agregar producto\n";
         cout << "2. Editar producto\n";
         cout << "3. Mostrar inventario\n";
@@ -97,12 +96,14 @@ void gestionStock() {
 
         switch (opcion) {
             case 1: {
-                string id, nombre, idMarca;
+                string id, nombreProducto;
                 int cantidad, stockMinimo;
                 float precio;
+
+                Marca marca("random");
                 
                 cout << "Nombre del producto: ";
-                getline(cin, nombre);
+                getline(cin, nombreProducto);
                 cout << "Precio unitario: ";
                 cin.ignore();
                 cin >> precio;
@@ -111,8 +112,8 @@ void gestionStock() {
                 cout << "Stock minimo: ";
                 cin >> stockMinimo;
 
-                Producto nuevoProducto(nombre, precio);
-                stockGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
+                Producto nuevoProducto(nombreProducto, precio, marca);
+                almacenGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
                 cout << "Producto agregado exitosamente.\n";
                 break;
             }
@@ -127,11 +128,11 @@ void gestionStock() {
                 cout << "Nuevo precio: ";
                 cin >> precio;
 
-                stockGeneral.editarProducto(id, nombre, precio);
+                almacenGeneral.editarProducto(id, nombre, precio);
                 break;
             }
             case 3:
-                stockGeneral.mostrarInventario();
+                almacenGeneral.mostrarInventario();
                 break;
             case 0:
                 return;
@@ -160,7 +161,7 @@ void gestionCajas() {
 
         switch (opcion) {
             case 1: {
-                Caja nuevaCaja;
+                Caja nuevaCaja(&almacenGeneral);
                 nuevaCaja.abrirCaja();
                 cajas.push_back(nuevaCaja);
                 cout << "Caja " << nuevaCaja.getIdCaja() << " abierta.\n";
@@ -315,12 +316,10 @@ void mostrarInformes() {
 int main() {
     // Crear una marca
     Marca lenovo("Lenovo");
-    Producto laptop("Laptop", 1200.50f);
-    Producto smarthPhone("SmarthPhone Z10", 500);
-    lenovo.agregarProducto(laptop);
-    lenovo.agregarProducto(smarthPhone);
-    lenovo.mostrarProductos();
-    tienda.agregarMarca(lenovo);
+
+    // Crear productos y agregarlos a la marca
+    Producto laptop("Laptop", 1200.50f, lenovo);
+    Producto smarthPhone("SmarthPhone Z10", 500, lenovo);
 
     // Crear el stock
     Stock almacenGeneral("Almacen Central");
@@ -344,28 +343,28 @@ int main() {
     Cliente miguel("1049358695", "Miguel Duarte", "miguel.duarte@gmail.com", "3174679435", direccionMiguel, "ABC135968", "Contador", "Empleado público");
 
     // Crear una factura de venta
-    Factura facturaJuan("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
+    Factura facturaJuan("venta", &juan);
     facturaJuan.agregarDetalle(laptop, 1); // Agregar 1 Laptop
     facturaJuan.agregarDetalle(smarthPhone, 1); // Agregar 1 SmathPhone
     facturaJuan.mostrarDatos(); // Mostrar los detalles de la factura
 
-    Factura facturaMaria("venta", &maria, &almacenGeneral); // Pasamos el cliente y el stock
+    Factura facturaMaria("venta", &maria); 
     facturaMaria.agregarDetalle(smarthPhone, 10); // Agregar 10 SmathPhone
     facturaMaria.mostrarDatos();
 
-    Factura facturaEsteban("venta", &esteban, &almacenGeneral); // Pasamos el cliente y el stock
+    Factura facturaEsteban("venta", &esteban);
     facturaEsteban.agregarDetalle(laptop, 5); // Agregar 5 laptop's
     facturaEsteban.mostrarDatos();
 
-    Factura facturaMiguel("venta", &miguel, &almacenGeneral);
+    Factura facturaMiguel("venta", &miguel);
     facturaMiguel.agregarDetalle(smarthPhone, 10);
     facturaMiguel.mostrarDatos();
 
 
     // Crear una caja y agregar las facturas
-    Caja caja1;
-    caja1.agregarFactura(facturaJuan);
-    caja1.agregarFactura(facturaMaria);
+    Caja caja1(&almacenGeneral);
+    caja1.registrarTransaccion(facturaJuan);
+    caja1.registrarTransaccion(facturaMaria);
     caja1.agregarFactura(facturaEsteban);
     caja1.agregarFactura(facturaMiguel);
     caja1.mostrarFacturas();
@@ -376,8 +375,8 @@ int main() {
     Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", "3158932781", direccionGerardoTech);
     
     // Crear una factura de compra
-    Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
-    Producto mouse("Mouse", 25.30f);
+    Factura facturaCompra("compra", &gerardopTech); // Pasamos el proveedor
+    Producto mouse("Mouse", 25.30f, lenovo);
     facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
     facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
 
