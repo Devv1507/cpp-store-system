@@ -286,13 +286,16 @@ void gestionCajas() {
                 break;
             }
             case 5: {
-                cout << "Facturas de un mes particular:\n";
-                // tienda.getCajas()[0].listarFacturasPorMes("mayo");
+                int mes;
+                cout << "Ingrese el mes a consultar: ";
+                cin >> mes;
+                cout << "Ventas de un mes particular:\n";
+                tienda.getCajas()[0].calcularTotalVentasMensuales(mes);
                 break;
             }
             case 6: {
-                cout << "Facturas del mes de mayo:\n";
-                // tienda.getCajas()[0].listarFacturasPorMes("mayo");
+                cout << "Ventas del mes de mayo:\n";
+                tienda.getCajas()[0].calcularTotalVentasMensuales(5);
                 break;
             }
             case 0:
