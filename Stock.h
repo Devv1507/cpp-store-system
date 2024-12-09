@@ -185,6 +185,36 @@ class Stock {
             }
         };
 
+        void mostrarProductosConBajoStock() {
+            cout << "\nProductos con bajo stock:\n";
+            cout << left
+                 << setw(15) << "ID Producto"
+                 << setw(25) << "Nombre"
+                 << setw(10) << "Precio"
+                 << setw(10) << "Existencias"
+                 << setw(10) << "Stock Minimo"
+                 << endl;
+            cout << string(75, '-') << endl;
+
+            bool hayProductosConBajoStock = false;
+
+            for (size_t i = 0; i < productos.size(); ++i) {
+                if (existencias[i] < stockMinimos[i]) {
+                    hayProductosConBajoStock = true;
+                    cout << left
+                         << setw(15) << productos[i].getIdProducto()
+                         << setw(25) << productos[i].getNombreProducto()
+                         << setw(10) << productos[i].getPrecioUnitario()
+                         << setw(10) << existencias[i]
+                         << setw(10) << stockMinimos[i]
+                         << endl;
+                }
+            }
+
+            if (!hayProductosConBajoStock)
+                cout << "No hay productos con bajo stock.\n";
+        }
+
         /** 
          * @brief Verifica si un producto está disponible en el stock.
          * 

@@ -20,6 +20,7 @@
 #include "Tienda.h"
 #include "Cliente.h"
 #include "Proveedor.h"
+#include "Stock.h"
 
 using namespace std;
 
@@ -158,6 +159,7 @@ void gestionStock() {
         cout << "5. Buscar producto\n";
         cout << "6. Filtrar productos por marca\n";
         cout << "7. Agregar marca\n";
+        cout << "8. Listar productos con pocas existencias\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -238,6 +240,10 @@ void gestionStock() {
                 cout << "Nombre de la marca: ";
                 getline(cin, nombreMarca);
                 almacenGeneral.agregarMarca(nombreMarca);
+                break;
+            }
+            case 8: {
+                almacenGeneral.mostrarProductosConBajoStock();
                 break;
             }
             case 0:
@@ -367,7 +373,7 @@ void gestionClientes() {
 
                 // Buscar el producto en el inventario
                 int indiceProducto = almacenGeneral.buscarIndiceProducto(idProducto);
-                if (indiceProducto == -1) {
+                if (indiceProducto == -2) {
                     cout << "Producto no encontrado.\n";
                     break;
                 }
