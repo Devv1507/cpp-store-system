@@ -22,7 +22,7 @@ class Persona {
          */
         void validarTelefono(string telefono) {
             if (telefono.length() != 10)
-                throw invalid_argument("El número de teléfono debe tener 10 dígitos.");
+                throw invalid_argument("El numero de telefono debe tener 10 digitos.");
         }
 
     public:
