@@ -4,24 +4,26 @@
 
 using namespace std;
 
+
 class DetallesFactura {
     private:
-        Producto producto;
-        int cantidad;
-        float subtotalProducto;
+        Producto producto; // Objeto de la clase Producto que contiene los datos del producto
+        int cantidad; // Cantidad de productos comprados
+        float subtotalProducto; // Valor total de la compra de un producto
     public:
-        /** Esta clase representa los detalles de una factura, con los siguientes atributos:
-         *      producto: objeto de la clase Producto que contiene los datos del producto
-         *      cantidad: cantidad de productos comprados
-         *      subtotalProducto: valor total de la compra de un producto
+        /**
+         * @brief Constructor de la clase DetallesFactura.
+         * @param producto Referencia a un objeto de la clase Producto.
+         * @param cantidad Cantidad de productos comprados.
          */
         DetallesFactura(Producto &producto, int cantidad): producto(producto), cantidad(cantidad) {
             validarCantidad();
             calcularSubtotal();
         };
+        
         // Getters y Setters
         int getCantidad() { return cantidad; };
-        float getSubtotalProducto() { return subtotalProducto; };
+        float setSubtotalProducto() { return subtotalProducto; };
         Producto getProducto() const { return producto; };
         void setCantidad(int cantidad) {
             this->cantidad = cantidad;
@@ -29,19 +31,27 @@ class DetallesFactura {
             calcularSubtotal();
         };
         void setSubtotalProducto(float subtotal) { this->subtotalProducto = subtotal; };
-        /************************************************ Metodos especificos ************************************************/
-        // Este metodo permite validar que la cantidad de productos sea positiva y mayor a 0
+
+        /**
+         * @brief Valida que la cantidad de productos sea positiva y mayor a 0.
+         */
         void validarCantidad() {
             if (cantidad <= 0) {
                 throw invalid_argument("La cantidad de productos debe ser mayor a 0.");
             }
         };
-        // Este metodo permite calcular el subtotal de la compra de un producto
+
+        /**
+         * @brief Calcula el subtotal de la compra de un producto.
+         */
         void calcularSubtotal() {
             float precioProducto = producto.getPrecioUnitario();
             this->subtotalProducto = precioProducto * cantidad;
         };
-        // Este metodo permite imprimir el detalle particular
+
+        /**
+         * @brief Imprime el detalle particular.
+         */
         void mostrarDetalle() {
             cout << "Producto: " << producto.getNombreProducto()
             << ", Cantidad: " << cantidad

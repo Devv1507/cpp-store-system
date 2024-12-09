@@ -35,13 +35,19 @@ int Factura::contadorFacturas = 1;
 int Marca::contadorMarcas = 1;
 int Producto::contadorProductos = 1;
 
-// Funcion para limpiar el buffer de entrada
+/**
+ * @brief Función para limpiar el buffer de entrada.
+ */
 void limpiarBuffer() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// Funcion para leer un entero de la entrada estandar
+/**
+ * @brief Función para leer un entero de la entrada estándar.
+ * 
+ * @return int El valor entero leído.
+ */
 int leerEntero() {
     int valor;
     while (true) {
@@ -59,7 +65,9 @@ int leerEntero() {
     }
 }
 
-// Funcion para mostrar el menu principal
+/**
+ * @brief Función para mostrar el menu principal.
+ */
 void mostrarMenuPrincipal() {
     cout << "\n=== Bienvenid@ al CLI del sistema de gestion del comercio electronico " << tienda.getNombre() << " ===\n";
     cout << "1. Gestion de Stock\n";
@@ -71,7 +79,9 @@ void mostrarMenuPrincipal() {
     cout << "Seleccione una opcion: ";
 }
 
-// Funcion para el menu de gestion de stock
+/**
+ * @brief Función para gestionar el stock.
+ */
 void gestionStock() {
     while (true) {
         cout << "\n************************* GESTIoN DE STOCK *************************\n";
@@ -131,7 +141,9 @@ void gestionStock() {
     }
 }
 
-// Funcion para el menu de gestion de cajas
+/**
+ * @brief Función para gestionar las cajas.
+ */
 void gestionCajas() {
     while (true) {
         cout << "\n************************* GESTIoN DE CAJAS *************************\n";
@@ -188,6 +200,9 @@ void gestionCajas() {
     }
 }
 
+/**
+ * @brief Función para gestionar los clientes.
+ */
 // Funcion para el menu de gestion de clientes
 void gestionClientes() {
     while (true) {
@@ -256,7 +271,9 @@ void gestionClientes() {
     }
 }
 
-// Funcion para el menu de informes
+/**
+ * @brief Función para mostrar los informes de la tienda.
+ */
 void mostrarInformes() {
     while (true) {
         cout << "\n************************* INFORMES *************************\n";
@@ -290,6 +307,11 @@ void mostrarInformes() {
     }
 }
 
+/**
+ * @brief Función principal del programa.
+ * 
+ * @return int Código de estado de la ejecución del programa.
+ */
 int main() {
     // Crear una marca
     Marca lenovo("Lenovo");

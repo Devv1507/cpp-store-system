@@ -10,36 +10,55 @@ using namespace std;
 
 class Marca {
     private:
-        static int contadorMarcas; // Contador estatico para generar IDs unicos
-        string idMarca, nombreMarca;
-        vector<Producto> listarProductos; //vector para guardar los productos de una marca
-        // Metodo para generar un identificador unico basado en un contador
+        static int contadorMarcas; // Contador estático para generar IDs únicos
+        string idMarca; // Identificador único de la marca
+        string nombreMarca; // Nombre de la marca
+        vector<Producto> listarProductos; // Vector para guardar los productos de una marca
+
+        /**
+         * @brief Método para generar un identificador único basado en un contador.
+         * 
+         * @return string Identificador único generado.
+         */
         string generarIdMarca() {
             stringstream ss;
             ss << "M-" << setw(2) << setfill('0') << contadorMarcas++;
             return ss.str();
         };
     public:
-        // Constructor
+        /**
+         * @brief Constructor de la clase Marca.
+         * 
+         * @param nombreMarca Nombre de la marca.
+         */
         Marca(string nombreMarca): 
             idMarca(generarIdMarca()), nombreMarca(nombreMarca) {}
+
         // Getters y setters
         string getIdMarca() { return idMarca; };
         string getNombreMarca() { return nombreMarca; };
         void setIdMarca(string idMarca) { this->idMarca = idMarca; };
         void setNombreMarca(string nombreMarca) { this->nombreMarca = nombreMarca; };
+
         /************************************************ Métodos específicos ************************************************/
-        // Método para agregar un producto a una marca
+        
+        /**
+         * @brief Método para agregar un producto a una marca.
+         * 
+         * @param producto Referencia a un objeto de la clase Producto.
+         */
         void agregarProducto(Producto& producto) {
             listarProductos.push_back(producto);
         };
-        // Metodo para mostrar todos los productos de una misma marca
-        void mostrarProductos() {
-            cout << "Productos de la marca " << nombreMarca << ":" << endl;
-            for (size_t i = 0; i < listarProductos.size(); i++) {
-                listarProductos[i].mostrarDatos();
-            }
-        };
+
+        /**
+         * @brief Método para obtener la lista de productos de la marca.
+         * 
+         * @return vector<Producto> Lista de productos de la marca.
+         */
+        vector<Producto> getListarProductos() {
+            return listarProductos;
+        }
 
         // Declaracion de la sobrecarga del operador << como funcion amiga
         friend ostream& operator<<(ostream& os, const Marca& marca);
