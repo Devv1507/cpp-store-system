@@ -201,32 +201,38 @@ void gestionClientes() {
 
         switch (opcion) {
             case 1: {
-                string id, nombre, email, rut, profesion, tipoCliente;
-                int telefono;
-                float totalCompras = 0;
-                
-                cout << "ID del cliente: ";
-                getline(cin, id);
-                cout << "Nombre: ";
-                getline(cin, nombre);
-                cout << "Email: ";
-                getline(cin, email);
-                cout << "Telefono: ";
-                cin >> telefono;
-                limpiarBuffer();
-                cout << "RUT: ";
-                getline(cin, rut);
-                cout << "Profesion: ";
-                getline(cin, profesion);
-                cout << "Tipo de cliente: ";
-                getline(cin, tipoCliente);
+                while (true) {
+                    string id, nombre, email, rut, profesion, tipoCliente, telefono;
+                    float totalCompras = 0;
+                    try {
+                        cout << "ID del cliente: ";
+                        getline(cin, id);
+                        limpiarBuffer();
+                        cout << "Nombre: ";
+                        getline(cin, nombre);
+                        cout << "Email: ";
+                        getline(cin, email);
+                        cout << "Telefono: ";
+                        getline(cin, telefono);
+                        cout << "RUT: ";
+                        getline(cin, rut);
+                        cout << "Profesion: ";
+                        getline(cin, profesion);
+                        cout << "Tipo de cliente: ";
+                        getline(cin, tipoCliente);
 
-                // Crear direccion (simplificado)
-                Direccion dirGenerica("123", "Centro", "Cali", "Valle del Cauca");
-                
-                Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
-                clientes.push_back(nuevoCliente);
-                cout << "Cliente registrado exitosamente.\n";
+                        Direccion dirGenerica("123", "Centro", "Cali", "Valle del Cauca");
+
+                        Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
+                        clientes.push_back(nuevoCliente);
+
+                        cout << "Cliente registrado exitosamente.\n";
+                        break;
+                    } catch (const invalid_argument& e) {
+                        cout << "Error: " << e.what() << endl;
+                        cout << "Por favor, ingrese nuevamente los datos.\n";
+                    }
+                }
                 break;
             }
             case 2: {
@@ -302,14 +308,14 @@ int main() {
 
     // Crear empleadops
     Direccion direccionDavid("123", "Norte", "Cali", "Valle del Cauca");
-    Empleado david("1107526634", "David Pérez", "david@supercommerce.com", 5551234, direccionDavid, "9am-6pm", 5000.0f, 0);
+    Empleado david("1107526634", "David Pérez", "david@supercommerce.com", "5551234678", direccionDavid, "9am-6pm", 5000.0f, 0);
     tienda.agregarEmpleado(david);
 
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
     Direccion direccionMaria("456", "Sur", "Cali", "Valle del Cauca");
-    Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", 3143677337, direccionJuan, "ABC135965", "Ingeniero", "militar");
-    Cliente maria("1107526815", "Maria Rodriguez", "maria.rodriguez@gmail.com", 3143677338, direccionMaria, "ABC135966", "Veterinaria", "pensionada");
+    Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", "3143677337", direccionJuan, "ABC135965", "Ingeniero", "militar");
+    Cliente maria("1107526815", "Maria Rodriguez", "maria.rodriguez@gmail.com", "3143677338", direccionMaria, "ABC135966", "Veterinaria", "pensionada");
 
     // Crear una factura de venta
     Factura facturaJuan("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
@@ -329,7 +335,7 @@ int main() {
 
     // Crear un proveedor
     Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
-    Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", 3158932781, direccionGerardoTech);
+    Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", "3158932781", direccionGerardoTech);
     
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor

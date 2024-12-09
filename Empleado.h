@@ -12,7 +12,7 @@ class Empleado : public Persona {
         int ventasRealizadas;
         float salario;
     public:
-        Empleado(string id, string nombre, string email, int telefono, Direccion& direccion, string horario, float salario, int ventasRealizadas):
+        Empleado(string id, string nombre, string email, string telefono, Direccion& direccion, string horario, float salario, int ventasRealizadas):
             Persona(id, nombre, email, telefono, direccion), horario(horario), salario(salario), ventasRealizadas(0) {}
         //Getters y Setters
         float getSalario() { return salario; };
