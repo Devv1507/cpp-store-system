@@ -451,15 +451,18 @@ void mostrarMenuPrincipal() {
 int main() {
     // Crear una marca
     Marca lenovo("Lenovo");
+    Marca samsung("Samsung");
 
     // Crear productos y agregarlos a la marca
     Producto laptop("Laptop", 1200.50f, lenovo);
     Producto smarthPhone("SmarthPhone Z10", 500, lenovo);
+    Producto smarthPhone2("SmarthPhone S20", 800, samsung);
 
     // Crear el stock
     Stock almacenGeneral("Almacen Central");
     almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock minimo de 2
     almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock minimo de 5
+    almacenGeneral.anadirProducto(smarthPhone2, 30, 5);  // 30 unidades, stock minimo de 5
     almacenGeneral.mostrarInventario();
 
     // Crear empleadops
@@ -480,19 +483,23 @@ int main() {
     // Crear una factura de venta
     Factura facturaJuan("venta", &juan);
     facturaJuan.agregarDetalle(laptop, 1); // Agregar 1 Laptop
-    facturaJuan.agregarDetalle(smarthPhone, 1); // Agregar 1 SmathPhone
+    facturaJuan.agregarDetalle(smarthPhone2, 1); // Agregar 1 SmathPhone
+    cout << endl;
     facturaJuan.mostrarDatos(); // Mostrar los detalles de la factura
 
     Factura facturaMaria("venta", &maria); 
     facturaMaria.agregarDetalle(smarthPhone, 10); // Agregar 10 SmathPhone
+    cout << endl;
     facturaMaria.mostrarDatos();
 
     Factura facturaEsteban("venta", &esteban);
     facturaEsteban.agregarDetalle(laptop, 5); // Agregar 5 laptop's
+    cout << endl;
     facturaEsteban.mostrarDatos();
 
     Factura facturaMiguel("venta", &miguel);
-    facturaMiguel.agregarDetalle(smarthPhone, 10);
+    facturaMiguel.agregarDetalle(smarthPhone2, 10);
+    cout << endl;
     facturaMiguel.mostrarDatos();
 
 
@@ -511,12 +518,14 @@ int main() {
     
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech); // Pasamos el proveedor
-    Producto mouse("Mouse", 25.30f, lenovo);
+    Producto mouse("Mouse", 25.3, lenovo);
     facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
+    cout << endl;
     facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
 
     almacenGeneral.mostrarInventario();
-    cout << tienda.tresMejoresClientes() << endl;
+    cout << endl;
+    tienda.tresMejoresClientes();
 
    while (true) {
         mostrarMenuPrincipal();

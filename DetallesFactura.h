@@ -57,6 +57,6 @@ class DetallesFactura {
         void mostrarDetalle() {
             cout << "Producto: " << producto.getNombreProducto()
             << ", Cantidad: " << cantidad
-            << ", Subtotal: $" << setprecision(2) << subtotalProducto << endl;
+            << ", Subtotal: $" << subtotalProducto << endl;
         };
 };

@@ -145,7 +145,7 @@ class Factura {
         void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
                 << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta
-                << ", Total: $" << setprecision(2) << totalFactura << endl;
+                << ", Total: $" << totalFactura << endl;
 
             if (tipoVenta == "venta") {
                 cout << "Cliente ID: " << persona->getId() << endl;

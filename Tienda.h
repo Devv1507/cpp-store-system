@@ -82,16 +82,15 @@ class Tienda {
         };
         
         /**
-         * @brief Obtiene los tres mejores clientes.
-         * @return Información de los tres mejores clientes.
+         * @brief Muestra la información de los tres mejores clientes (aquellos con mayor total de compras).
          */        
-        string tresMejoresClientes() {
+        void tresMejoresClientes() {
             // Actualizar el mapa de total de compras por cliente
             calcularTotalComprasPorCliente();
             // Verificar si hay datos en el mapa
             if (totalComprasPorCliente.empty()) {
                 string mensajeFallo = "No hay datos de clientes disponibles.";
-                return mensajeFallo;
+                cout << mensajeFallo << endl;
             }
 
             // Convertir el mapa en un vector para ordenar
@@ -104,7 +103,6 @@ class Tienda {
             });
 
             // Mostrar los tres mejores clientes
-            cout << "Los tres mejores clientes son:" << endl;
             string resultado = "Los tres mejores clientes son:\n";
             for (size_t i = 0; i < comprasPorCliente.size() && i < 3; ++i) {
                 string idCliente = comprasPorCliente[i].first;
@@ -114,7 +112,7 @@ class Tienda {
                 // Concatenar al resultado
                 resultado += "Cliente ID: " + idCliente + ", Total Compras: $" + streamTotalCompras.str() + "\n";
                 }
-            return resultado;
+            cout << resultado << endl;
         };
     
         /**

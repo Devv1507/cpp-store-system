@@ -143,10 +143,13 @@ class Caja {
          * @brief Muestra la información de las facturas almacenadas.
         */
         void mostrarFacturas() {
+            cout << string(75, '-') << endl;
+            cout << "\nFacturas registradas para la caja " << idCaja << ": " << endl;
             for (size_t i = 0; i < facturas.size(); i++) {
-                cout << "Factura " << i + 1 << endl;
+                cout << "\nFactura " << i + 1 << endl;
                 facturas[i].mostrarDatos();
             }
+            cout << string(75, '-') << endl;
         };
 
         /**

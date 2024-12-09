@@ -205,15 +205,21 @@ class Stock {
          * @brief Muestra el inventario del stock.
          */
         void mostrarInventario() {
-            cout << "Inventario del almacen general:" << idStock << endl;
+            cout << "\nInventario del almacen: " << idStock << endl;
+            cout << left
+                    << setw(15) << "ID Producto" 
+                    << setw(25) << "Nombre" 
+                    << setw(10) << "Precio" 
+                    << setw(10) << "Cantidad" 
+                    << setw(10) << "Stock Minimo"<< endl;
+            cout << string(75, '-') << endl;
             for (size_t i = 0; i < productos.size(); ++i) {
                 cout << left
-                    << "ID Producto: " << setw(10) << productos[i].getIdProducto()
-                    << "Nombre: " << setw(20) << productos[i].getNombreProducto()
-                    << "Precio: " << setw(10) << productos[i].getPrecioUnitario()
-                    << "Cantidad: " << setw(10) << existencias[i]
-                    << "Stock Minimo: " << stockMinimos[i]
-                    << endl;
+                    << setw(15) << productos[i].getIdProducto()
+                    << setw(25) << productos[i].getNombreProducto()
+                    << setw(10) << productos[i].getPrecioUnitario()
+                    << setw(10) << existencias[i]
+                    << setw(10) << stockMinimos[i] << endl;
             }
         };
     };
