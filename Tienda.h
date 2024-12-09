@@ -120,10 +120,12 @@ class Tienda {
             for (size_t i = 0; i < comprasPorCliente.size() && i < 3; ++i) {
                 string idCliente = comprasPorCliente[i].first;
                 float totalCompras = comprasPorCliente[i].second;
-                resultado += "Cliente ID: " + idCliente + ", Total Compras: $" + to_string(totalCompras) + "\n";
-            }
+                ostringstream streamTotalCompras;
+                streamTotalCompras << fixed << setprecision(2) << totalCompras;
+                // Concatenar al resultado
+                resultado += "Cliente ID: " + idCliente + ", Total Compras: $" + streamTotalCompras.str() + "\n";
+                }
             return resultado;
-        };
     
         /**
          * @brief Obtiene el empleado del mes.
