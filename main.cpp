@@ -40,11 +40,10 @@ int Producto::contadorProductos = 1;
 void limpiarBuffer() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
+};
 
 /**
  * @brief Función para leer un entero de la entrada estándar.
- * 
  * @return int El valor entero leído.
  */
 int leerEntero() {
@@ -62,20 +61,70 @@ int leerEntero() {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignorar la entrada inválida
         }
     }
-}
+};
 
 /**
- * @brief Función para mostrar el menu principal.
+ * @brief Función para gestionar proveedores.
  */
-void mostrarMenuPrincipal() {
-    cout << "\n=== Bienvenid@ al CLI del sistema de gestion del comercio electronico " << tienda.getNombre() << " ===\n";
-    cout << "1. Gestion de Stock\n";
-    cout << "2. Gestion de Cajas\n";
-    cout << "3. Gestion de Clientes\n";
-    cout << "4. Gestion de Proveedores\n";
-    cout << "5. Informes\n";
-    cout << "0. Salir\n";
-    cout << "Seleccione una opcion: ";
+void gestionProveedores() {
+    while (true) {
+        cout << "*******************************************************" << endl;
+        cout << "\n     Submenu de Gestion de Proveedores     \n";
+        cout << "1. Registrar nuevo proveedor\n";
+        cout << "2. Ver lista de proveedores\n";
+        cout << "0. Volver al menu anterior\n";
+        cout << "Seleccione una opcion: ";
+        
+        int opcion = leerEntero();
+
+        switch (opcion) {
+            case 1: {
+                string id, nombre, email, banco, cuenta, tipoCuenta, telefono;
+                Direccion direccionGenerica("123", "Centro", "Bogota", "Cundinamarca");
+                try {
+                    cout << "ID del proveedor: ";
+                    limpiarBuffer();
+                    getline(cin, id);
+                    cout << "Nombre: ";
+                    getline(cin, nombre);
+                    cout << "Email: ";
+                    getline(cin, email);
+                    cout << "Banco: ";
+                    getline(cin, banco);
+                    cout << "Numero de cuenta: ";
+                    getline(cin, cuenta);
+                    cout << "Tipo de cuenta (Ahorros/Corriente): ";
+                    getline(cin, tipoCuenta);
+                    cout << "Telefono: ";
+                    getline(cin, telefono);
+
+                    Proveedor nuevoProveedor(id, banco, cuenta, tipoCuenta, id, nombre, email, telefono, direccionGenerica);
+                    proveedores.push_back(nuevoProveedor);
+
+                    cout << "Proveedor registrado exitosamente.\n";
+                } catch (const invalid_argument& e) {
+                    cout << "Error: " << e.what() << endl;
+                    cout << "Por favor, ingrese nuevamente los datos.\n";
+                }
+                break;
+            }
+            case 2: {
+                cout << "\nLista de proveedores:\n";
+                if (proveedores.empty()) {
+                    cout << "No hay proveedores registrados.\n";
+                } else {
+                    for (Proveedor proveedor : proveedores) {
+                        proveedor.mostrarDatos();
+                    }
+                }
+                break;
+            }
+            case 0:
+                return;
+            default:
+                cout << "Opcion invalida.\n";
+        }
+    }
 }
 
 /**
@@ -83,10 +132,11 @@ void mostrarMenuPrincipal() {
  */
 void gestionStock() {
     while (true) {
-        cout << "\n************************* GESTION DE STOCK *************************\n";
-        cout << "1. Agregar producto\n";
+        cout << "*******************************************************" << endl;
+        cout << "\n     Submenu de Gestion de Inventario     \n";
+        cout << "1. Mostrar inventario\n";
         cout << "2. Editar producto\n";
-        cout << "3. Mostrar inventario\n";
+        cout << "3. Agregar producto\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -95,7 +145,24 @@ void gestionStock() {
         limpiarBuffer();
 
         switch (opcion) {
-            case 1: {
+            case 1:
+                almacenGeneral.mostrarInventario();
+                break;
+            case 2: {
+                string id, nombre;
+                float precio;
+                
+                cout << "ID del producto a editar: ";
+                getline(cin, id);
+                cout << "Nuevo nombre: ";
+                getline(cin, nombre);
+                cout << "Nuevo precio: ";
+                cin >> precio;
+
+                almacenGeneral.editarProducto(id, nombre, precio);
+                break;
+            }
+            case 3: {
                 string id, nombreProducto;
                 int cantidad, stockMinimo;
                 float precio;
@@ -117,23 +184,6 @@ void gestionStock() {
                 cout << "Producto agregado exitosamente.\n";
                 break;
             }
-            case 2: {
-                string id, nombre;
-                float precio;
-                
-                cout << "ID del producto a editar: ";
-                getline(cin, id);
-                cout << "Nuevo nombre: ";
-                getline(cin, nombre);
-                cout << "Nuevo precio: ";
-                cin >> precio;
-
-                almacenGeneral.editarProducto(id, nombre, precio);
-                break;
-            }
-            case 3:
-                almacenGeneral.mostrarInventario();
-                break;
             case 0:
                 return;
             default:
@@ -147,7 +197,8 @@ void gestionStock() {
  */
 void gestionCajas() {
     while (true) {
-        cout << "\n************************* GESTIoN DE CAJAS *************************\n";
+        cout << "*******************************************************" << endl;
+        cout << "\n     Submenu de Gestion de Cajas     \n";
         cout << "1. Abrir nueva caja\n";
         cout << "2. Cerrar caja\n";
         cout << "3. Registrar venta\n";
@@ -207,7 +258,8 @@ void gestionCajas() {
 // Funcion para el menu de gestion de clientes
 void gestionClientes() {
     while (true) {
-        cout << "\n************************* GESTIoN DE CLIENTES *************************\n";
+        cout << "*******************************************************" << endl;
+        cout << "\n     Submenu de Gestion de Clientes     \n";
         cout << "1. Registrar nuevo cliente\n";
         cout << "2. Ver lista de clientes\n";
         cout << "0. Volver al menu principal\n";
@@ -273,11 +325,12 @@ void gestionClientes() {
 }
 
 /**
- * @brief Función para mostrar los informes de la tienda.
+ * @brief Función para mostrar los reportes de la tienda.
  */
-void mostrarInformes() {
+void mostrarReportes() {
     while (true) {
-        cout << "\n************************* INFORMES *************************\n";
+        cout << "*******************************************************" << endl;
+        cout << "\n     Submenu de Gestion de Reportes     \n";
         cout << "1. Mes con mayores ventas\n";
         cout << "2. Tres mejores clientes\n";
         cout << "3. Empleado del mes\n";
@@ -308,9 +361,91 @@ void mostrarInformes() {
     }
 }
 
+
+/**
+ * @brief Función para imprimir las opciones del menu administrativo
+ */
+void mostrarMenuAdministrativo() {
+    cout << "*******************************************************" << endl;
+    cout << "\n     Menu Administrativo     \n";
+    cout << "1. Gestion de Inventario\n";
+    cout << "2. Gestion de Cajas\n";
+    cout << "3. Reportes\n";
+    cout << "0. Volver al menu principal\n";
+    cout << "Seleccione una opcion: ";
+};
+
+/**
+ * @brief Función para definir la lógica del menú administrativo.
+ */
+void menuAdministrativo() {
+    while (true) {
+        mostrarMenuAdministrativo(); 
+        int opcion = leerEntero();
+
+        switch (opcion) {
+            case 1:
+                gestionStock();
+                break;
+            case 2:
+                gestionCajas();
+                break;
+            case 3:
+                mostrarReportes();
+                break;
+            case 0:
+                return;
+            default:
+                cout << "Opcion invalida. Por favor, intente de nuevo.\n";
+        }
+    }
+}
+
+void opcionesMenuUsuarios() {
+    cout << "*******************************************************" << endl;
+    cout << "\n     Menu de Usuarios     \n";
+    cout << "1. Gestion de Clientes\n";
+    cout << "2. Gestion de Proveedores\n";
+    cout << "0. Volver al menu principal\n";
+    cout << "Seleccione una opcion: ";
+};
+
+/**
+ * @brief Función para mostrar el menú de usuarios (clientes y proveedores).
+ */
+void menuUsuarios() {
+    while (true) {
+        opcionesMenuUsuarios();
+        int opcion = leerEntero();
+
+        switch (opcion) {
+            case 1:
+                gestionClientes();
+                break;
+            case 2:
+                gestionProveedores();
+                break;
+            case 0:
+                return;
+            default:
+                cout << "Opcion invalida. Por favor, intente de nuevo.\n";
+        }
+    }
+}
+
+/**
+ * @brief Función para mostrar el menu principal.
+ */
+void mostrarMenuPrincipal() {
+    cout << "\n     Bienvenid@ al CLI del Sistema de Gestion de E-commerce     " << tienda.getNombre() << " ===\n";
+    cout << "1. Menu Administrativo\n";
+    cout << "2. Menu de Usuarios\n";
+    cout << "0. Salir\n";
+    cout << "Seleccione una opcion: ";
+};
+
 /**
  * @brief Función principal del programa.
- * 
  * @return int Código de estado de la ejecución del programa.
  */
 int main() {
@@ -383,32 +518,22 @@ int main() {
     almacenGeneral.mostrarInventario();
     cout << tienda.tresMejoresClientes() << endl;
 
-    while (true) {
+   while (true) {
         mostrarMenuPrincipal();
-        
         int opcion = leerEntero();
 
         switch (opcion) {
             case 1:
-                gestionStock();
+                menuAdministrativo();
                 break;
             case 2:
-                gestionCajas();
-                break;
-            case 3:
-                gestionClientes();
-                break;
-            case 4:
-                // Lógica para gestionar proveedores
-                break;
-            case 5:
-                mostrarInformes();
+                menuUsuarios();
                 break;
             case 0:
                 cout << "Saliendo del programa..." << endl;
                 return 0;
             default:
-                cout << "Opcion invalida. Por favor, intente de nuevo." << endl;
+                cout << "Opcion invalida. Por favor, intente de nuevo.\n";
         }
     }
 }
