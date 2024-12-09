@@ -15,21 +15,28 @@ using namespace std;
 class Factura {
     private:
         static int contadorFacturas; // Contador estatico para generar IDs unicos
-        string fechaFactura, horaFactura, tipoVenta;
-        string idFactura, idCliente, idProveedor;
+        string fechaFactura, horaFactura, tipoVenta; // Atributos de la factura
+        string idFactura, idCliente, idProveedor; // Identificadores de la factura
         Persona* persona;  // Puntero a un objeto Persona (puede ser un Cliente o un Proveedor)
-        vector<DetallesFactura> detallesFactura;
-        float totalFactura;
-        Stock* stock;
+        vector<DetallesFactura> detallesFactura; // Vector que contiene los detalles de la factura
+        float totalFactura; // Total de la factura
+        Stock* stock; // Puntero al stock asociado a la factura.
 
-        // Metodo para generar un identificador unico basado en un contador
+
+        /**
+         * @brief Genera un identificador único basado en un contador.
+         * @return Identificador único de la factura.
+         */
         string generarIdFactura() {
             stringstream stringstream;
             stringstream << "F-" << setw(2) << setfill('0') << contadorFacturas++;
             return stringstream.str();
         };
 
-        // Metodo para obtener la fecha actual en formato YYYY-MM-DD
+        /**
+         * @brief Obtiene la fecha actual en formato YYYY-MM-DD.
+         * @return Fecha actual.
+         */
         string obtenerFechaActual() {
             time_t t = time(0);
             tm* now = localtime(&t);
@@ -40,7 +47,10 @@ class Factura {
             return stringstream.str();
         }
 
-        // Metodo para obtener la hora actual en formato HH:MM:SS
+        /**
+         * @brief Obtiene la hora actual en formato HH:MM:SS.
+         * @return Hora actual.
+         */
         string obtenerHoraActual() {
             time_t t = time(0);
             tm* now = localtime(&t);
@@ -51,17 +61,12 @@ class Factura {
             return stringstream.str();
         }
     public:
-    /**
-     * Esta clase representa una factura con los siguientes atributos:
-     *      idFactura: identificacion de la factura
-     *      fechaFactura: fecha de la factura
-     *      horaFactura: hora de la factura
-     *      tipoVenta: tipo de venta (compra o venta)
-     *      idCliente: identificacion del cliente
-     *      idProveedor: identificacion del proveedor
-     *      totalFactura: valor total de la factura
-     *      detallesFactura: vector que contiene los detalles de la factura
-     */
+        /**
+         * @brief Constructor de la clase Factura.
+         * @param tipoVenta Tipo de venta (compra o venta).
+         * @param persona Puntero a un objeto Persona (Cliente o Proveedor).
+         * @param stock Puntero al stock asociado a la factura.
+         */
         Factura(string tipoVenta, Persona* persona, Stock* stock):
             tipoVenta(tipoVenta),
             persona(persona),
@@ -104,7 +109,12 @@ class Factura {
         void setIdProveedor(string idProveedor) { this->idProveedor = idProveedor; };
         void setTotalFactura(float totalFactura) { this->totalFactura = totalFactura; };
         /************************************************ Metodos especificos ************************************************/
-        // Metodo para agregar un detalle a la factura
+        
+        /**
+         * @brief Agrega un detalle a la factura.
+         * @param producto Referencia al producto.
+         * @param cantidad Cantidad del producto.
+         */
         void agregarDetalle(Producto &producto, int cantidad) {
             // Verificar si la cantidad es valida antes de modificar existencias
             if (cantidad <= 0) {
@@ -130,14 +140,20 @@ class Factura {
             totalFactura += detalle.getSubtotalProducto();
         };
 
-        // Metodo para filtrar por tipo de venta
+        /**
+         * @brief Filtra la factura por tipo de venta.
+         * @param tipoVenta Tipo de venta (compra o venta).
+         * @return Identificador de la factura si coincide con el tipo de venta.
+         */
         string getFacturaPorTipo(string tipoVenta) {
             if (this->tipoVenta == tipoVenta) {
                 return idFactura;
             }
         };
 
-        // Metodo para mostrar los datos completos de la factura
+        /**
+         * @brief Muestra los datos completos de la factura.
+         */
         void mostrarDatos() {
             cout << "Factura ID: " << idFactura << ", Fecha: " << fechaFactura
                 << ", Hora: " << horaFactura << ", Tipo: " << tipoVenta

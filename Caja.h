@@ -13,30 +13,43 @@ using namespace std;
 class Caja {
     private:
         static int contadorCajas; // Contador estatico para generar IDs unicos
-        string idCaja;
-        int numeroFacturasDia;
-        vector<Factura> facturas;
+        string idCaja; // Identificación de la caja.
+        int numeroFacturasDia; // Número de facturas registradas en el día.
+        vector<Factura> facturas; // Vector de facturas registradas en la caja.
 
-        // Metodo para generar un identificador unico basado en un contador
+        /**
+         * @brief Genera un identificador único basado en un contador.
+         * @return Identificador único de la caja.
+         */
+
         string generarIdCaja() {
             stringstream ss;
             ss << "C-" << setw(2) << setfill('0') << contadorCajas++;
             return ss.str();
         };
     public:
-        // Constructor
+        /**
+         * @brief Constructor de la clase Caja.
+         */
         Caja(): idCaja(generarIdCaja()), numeroFacturasDia(0) {};
+
         // Getters y Setters
         string getIdCaja() { return idCaja; };
         int getNumeroFacturasDia() { return numeroFacturasDia; };
         vector<Factura> getFacturas() { return facturas; };
         void setIdCaja(string idCaja) { this->idCaja = idCaja; };
         /************************************************ Metodos especificos ************************************************/
+        /**
+         * @brief Abre la caja para iniciar operaciones diarias.
+         */
         void abrirCaja() {
             numeroFacturasDia = 0;
             // Initialize daily operations
         }
         
+        /**
+         * @brief Cierra la caja y calcula el total de ventas del día.
+         */
         void cerrarCaja() {
             // Calcular el total de las ventas del dia
             float totalDiario = 0;
@@ -53,18 +66,30 @@ class Caja {
             numeroFacturasDia = 0;
         }
 
-        // Este metodo permite agregar una factura a la caja
+
+        /**
+         * @brief Agrega una factura a la caja.
+         * @param factura Factura a agregar.
+         */
         void agregarFactura(Factura factura) {
             facturas.push_back(factura);
             numeroFacturasDia++;
         };
 
-         // Metodo auxiliar para obtener el mes
+        /**
+         * @brief Obtiene el mes de una fecha.
+         * @param fecha Fecha en formato YYYY-MM-DD.
+         * @return Mes de la fecha.
+         */
         int obtenerMes(const string &fecha) {
             return stoi(fecha.substr(5, 2)); // asume el formato YYYY-MM-DD
         };
 
-        // Este metodo permite calcular el total de ventas mensuales
+        /**
+         * @brief Calcula el total de ventas mensuales.
+         * @param mes Mes para el cual se calculan las ventas.
+         * @return Total de ventas del mes.
+         */
         float calcularTotalVentasMensuales(int mes) {
             float totalVentas = 0;
             for (size_t i = 0; i < facturas.size(); i++) {
@@ -75,7 +100,9 @@ class Caja {
             return totalVentas;
         };
 
-        // Este metodo permite imprimir la informacion de las facturas almacenadas
+        /**
+         * @brief Muestra la información de las facturas almacenadas.
+        */
         void mostrarFacturas() {
             for (size_t i = 0; i < facturas.size(); i++) {
                 cout << "Factura " << i + 1 << endl;
@@ -83,7 +110,10 @@ class Caja {
             }
         };
 
-        // Este metodo permite listar las facturas por tipo de venta
+        /**
+         * @brief Lista las facturas por tipo de venta.
+         * @param tipoFactura Tipo de venta (compra o venta).
+         */
         void listarFacturasPorTipo(string tipoFactura) {
             cout << "--- Facturas del tipo: " << tipoFactura << " ---" << endl;
             for (size_t i = 0; i < facturas.size(); i++) {

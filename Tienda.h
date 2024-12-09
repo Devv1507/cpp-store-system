@@ -14,8 +14,6 @@ using namespace std;
 
 class Tienda {
     string nombre;
-    // TO_DO: revisar si es necesario definir alguna clase Mes o Dia para manejar este tipo de datos
-    // ["Enero", "Febrero", Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     private:
         vector<Caja> cajas; // Arreglo de cajas de la tienda
         vector<Empleado> empleados; // Arreglo de empleados de la tienda
@@ -24,24 +22,44 @@ class Tienda {
         unordered_map<string, Marca*> productoAMarca; // Relación producto -> marca
         vector<float> ventasPorMes = vector<float>(12, 0); // Vector para almacenar las ventas por mes. Se inicializa con 12 elementos en 0
     public:
-        // Constructor
+        /**
+         * @brief Constructor de la clase Tienda.
+         * @param nombre Nombre de la tienda.
+         */
         Tienda(string nombre): nombre(nombre) {};
+
+        // Getters y Setters
         string getNombre() { return nombre; };
         void setNombre(string nombre) { this->nombre = nombre; };
         /************************************************ Metodos especificos ************************************************/
-        // Metodo para agregar una caja a la tienda
+        /**
+         * @brief Agrega una caja a la tienda.
+         * @param caja Caja a agregar.
+         */
         void agregarCaja(Caja caja) {
             cajas.push_back(caja);
         };
-        // Metodo para agregar un empleado a la tienda
+
+        /**
+         * @brief Agrega un empleado a la tienda.
+         * @param empleado Empleado a agregar.
+         */
         void agregarEmpleado(Empleado empleado) {
             empleados.push_back(empleado);
         };
-        // Metodo para agregar una marca a la tienda
+
+        /**
+         * @brief Agrega una marca a la tienda.
+         * @param marca Marca a agregar.
+         */
         void agregarMarca(Marca marca) {
             marcas.push_back(marca);
         };
-        // Metodo para definir el mes con mayor ventas
+
+        /**
+         * @brief Define el mes con mayor ventas.
+         * @return Nombre del mes con mayor ventas.
+         */
         string mesMayorVenta() {
             for (size_t i = 0; i < cajas.size(); i++) {
                 for (int j = 1; j <= 12; j++) {
@@ -52,12 +70,19 @@ class Tienda {
             return obtenerNombreMes(mesMayor + 1);
         };
 
+        /**
+         * @brief Obtiene el nombre del mes.
+         * @param mes Número del mes (1-12).
+         * @return Nombre del mes.
+         */
         string obtenerNombreMes(int mes) { // Metodo auxiliar para obtener el nombre del mes
             static const char* nombresMes[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
             return nombresMes[mes - 1];
         };
 
-        // Metodo para calcular el total de compras de un cliente
+        /**
+         * @brief Calcula el total de compras de un cliente.
+         */
         void calcularTotalComprasPorCliente() {
             for (Caja& caja : cajas) {
                 for (Factura& factura : caja.getFacturas()) {
@@ -67,7 +92,10 @@ class Tienda {
             }
         };
         
-        // Metodo para obtener los tres mejores clientes, depende del mapa totalComprasPorCliente
+        /**
+         * @brief Obtiene los tres mejores clientes.
+         * @return Información de los tres mejores clientes.
+         */        
         string tresMejoresClientes() {
             // Actualizar el mapa de total de compras por cliente
             calcularTotalComprasPorCliente();
@@ -97,7 +125,10 @@ class Tienda {
             return resultado;
         };
     
-        // Metodo para obtener el empleado del mes
+        /**
+         * @brief Obtiene el empleado del mes.
+         * @return Nombre del empleado del mes.
+         */
         string empleadoDelMes() {
             // Verificar si la tienda tiene empleados
             if (empleados.empty()) {
@@ -118,7 +149,9 @@ class Tienda {
             return "Empleado del mes: " + empleadoDelMes.getNombre();
         };
 
-        // Metodo para obtener la marca mas vendida de la tienda, depende del mapa ventasPorMarca
+        /**
+         * @brief Obtiene la marca más vendida de la tienda.
+         */
         void marcaMasVendida() {
             unordered_map<string, int> ventasPorMarca; // Mapa para acumular las ventas por marca
             // Verificar si hay marcas registradas
