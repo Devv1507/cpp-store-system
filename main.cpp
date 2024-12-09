@@ -109,7 +109,7 @@ void gestionProveedores() {
             case 2: {
                 cout << "Por favor, ingrese los siguientes campos para registrar la venta:\n";
                 string idProveedor, nombreMarca, nombreProducto, descripcionProducto;
-                int cantidad;
+                int cantidad, stockMinimo;
                 float precioUnitario;
                 cout << "ID del proveedor: ";
                 cin >> idProveedor;
@@ -124,9 +124,11 @@ void gestionProveedores() {
                 cin >> nombreMarca;
                 cout << "Cantidad: ";
                 cin >> cantidad;
+                cout << "Stock mínimo";
+                cin >> stockMinimo;
                 Marca newMarca(nombreMarca);
                 Producto newProducto(nombreProducto, descripcionProducto, precioUnitario, newMarca);
-                almacenGeneral.anadirProducto(newProducto, cantidad, 5);  // Añadir al inventario con stock mínimo de 5
+                almacenGeneral.anadirProducto(newProducto, precioUnitario, cantidad, stockMinimo);
                 cout << "Producto comprado y agregado al inventario exitosamente.\n";
                 break;
             }
@@ -202,32 +204,41 @@ void gestionStock() {
                 cin >> stockMinimo;
 
                 Producto nuevoProducto(nombreProducto, descripcionProducto, precio, marca);
-                almacenGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
+                almacenGeneral.anadirProducto(nuevoProducto, precio, cantidad, stockMinimo);
                 cout << "Producto agregado exitosamente.\n";
                 break;
             }
-            case 4: 
-                // Eliminar producto
+            case 4: {
+                cout << "Ingrese el ID del producto a eliminar: ";
+                string idProducto;
+                cin >> idProducto;
+
+                try {
+                almacenGeneral.eliminarProducto(idProducto);
+                } catch (const runtime_error& e) {
+                    cout << "Error: " << e.what() << endl;
+                }
                 break;
+            }
             case 5: {
                 string id;
                 cout << "ID del producto a buscar: ";
                 getline(cin, id);
-                // almacenGeneral.buscarProducto(id);
+                almacenGeneral.buscarIndiceProducto(id);
                 break;
             }
             case 6: {
                 string marca;
                 cout << "Nombre de la marca: ";
                 getline(cin, marca);
-                // almacenGeneral.filtrarPorMarca(marca);
+                almacenGeneral.filtrarPorMarca(marca);
                 break;
             }
             case 7: {
                 string nombreMarca;
                 cout << "Nombre de la marca: ";
                 getline(cin, nombreMarca);
-                // almacenGeneral.agregarMarca(nombreMarca);
+                almacenGeneral.agregarMarca(nombreMarca);
                 break;
             }
             case 0:
@@ -518,9 +529,9 @@ int main() {
 
     // Crear el stock
     Stock almacenGeneral("Almacen Central");
-    almacenGeneral.anadirProducto(laptop, 10, 2);  // 10 unidades, stock minimo de 2
-    almacenGeneral.anadirProducto(smarthPhone, 50, 5);  // 50 unidades, stock minimo de 5
-    almacenGeneral.anadirProducto(smarthPhone2, 30, 5);  // 30 unidades, stock minimo de 5
+    almacenGeneral.anadirProducto(laptop, 50000.0, 10, 2);  // 10 unidades, stock minimo de 2
+    almacenGeneral.anadirProducto(smarthPhone, 30000.0, 50, 5);  // 50 unidades, stock minimo de 5
+    almacenGeneral.anadirProducto(smarthPhone2, 30000.0, 30, 5);  // 30 unidades, stock minimo de 5
     almacenGeneral.mostrarInventario();
 
     // Crear empleadops

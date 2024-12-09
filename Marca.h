@@ -34,7 +34,7 @@ class Marca {
             idMarca(generarIdMarca()), nombreMarca(nombreMarca), ventasDeMarca(0) {}
         // Getters y setters
         string getIdMarca() { return idMarca; };
-        string getNombreMarca() { return nombreMarca; };
+        string getNombreMarca () const { return nombreMarca; };
         void setIdMarca(string idMarca) { this->idMarca = idMarca; };
         void setNombreMarca(string nombreMarca) { this->nombreMarca = nombreMarca; };
 

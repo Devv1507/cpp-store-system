@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 #include "Marca.h"
 #include "Producto.h"
 
@@ -52,7 +53,7 @@ class Stock {
          * @param cantidad Cantidad del producto a agregar.
          * @param stockMinimo Stock mínimo del producto.
          */
-        void anadirProducto(Producto& producto, int cantidad, int stockMinimo) {
+        void anadirProducto(Producto& producto, float precio, int cantidad, int stockMinimo) {
             // Validar si el ID del producto ya existe
             for (size_t i = 0; i < productos.size(); ++i) {
                 if (productos[i].getIdProducto() == producto.getIdProducto()) {
@@ -82,6 +83,21 @@ class Stock {
             existencias.push_back(cantidad);
             stockMinimos.push_back(stockMinimo);
         };
+
+        void eliminarProducto(const string& idProducto) {
+            int index = buscarIndiceProducto(idProducto);
+
+            // Si el producto no existe aparece error
+            if (index == -1)
+                throw runtime_error("El producto con ID '" + idProducto + "' no se encuentra en el stock.");
+
+            // Eliminar el producto y sus datos
+            productos.erase(productos.begin() + index);
+            existencias.erase(existencias.begin() + index);
+            stockMinimos.erase(stockMinimos.begin() + index);
+
+            cout << "El producto con ID '" << idProducto << "' ha sido eliminado." << endl;
+        }
 
         /**
          * @brief Edita la información de un producto en el stock.
@@ -205,6 +221,47 @@ class Stock {
             }
             throw runtime_error("La marca no existe: " + nombreMarca);
         };
+
+        void filtrarPorMarca(const string& nombreMarca) {
+            bool marcaEncontrada = false;
+            cout << "\nProductos asociados a la marca '" << nombreMarca << "':\n";
+            cout << left
+                 << setw(15) << "ID Producto"
+                 << setw(25) << "Nombre"
+                 << setw(10) << "Precio"
+                 << setw(10) << "Cantidad"
+                 << endl;
+            cout << string(65, '-') << endl;
+
+            for (size_t i = 0; i < productos.size(); ++i) {
+                if (productos[i].getMarcaAsociada().getNombreMarca() == nombreMarca) {
+                    marcaEncontrada = true;
+                    cout << left
+                         << setw(15) << productos[i].getIdProducto()
+                         << setw(25) << productos[i].getNombreProducto()
+                         << setw(10) << productos[i].getPrecioUnitario()
+                         << setw(10) << existencias[i]
+                         << endl;
+                }
+            }
+
+            if (!marcaEncontrada)
+                cout << "No se encontraron productos para la marca '" << nombreMarca << "'.\n";
+        }
+
+        void agregarMarca(const string& nombreMarca) {
+            // Verificar si la marca ya existe
+            for (const Marca& marca : marcas) {
+                if (marca.getNombreMarca() == nombreMarca) {
+                    cout << "La marca '" << nombreMarca << "' ya existe en el inventario." << endl;
+                    return;
+                }
+            }
+
+            Marca nuevaMarca(nombreMarca);
+            marcas.push_back(nuevaMarca);
+            cout << "Marca '" << nombreMarca << "' agregada correctamente." << endl;
+        }
 
         /**
          * @brief Muestra el inventario del stock.

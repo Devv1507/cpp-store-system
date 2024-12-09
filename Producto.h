@@ -14,8 +14,8 @@ class Producto {
         string idProducto; 
         string nombreProducto; 
         string descripcion;
-        float precioUnitario; 
-        Marca& marcaAsociada;
+        float precioUnitario;
+        Marca marcaAsociada;
         /**
          * @brief Método para generar un identificador único basado en un contador.
          * 
