@@ -440,7 +440,7 @@ void mostrarReportes() {
  * @brief Función para imprimir las opciones del menu administrativo
  */
 void mostrarMenuAdministrativo() {
-    cout << "*******************************************************" << endl;
+    cout << string(75, '-') << endl;
     cout << "\n     Menu Administrativo     \n";
     cout << "1. Gestion de Inventario\n";
     cout << "2. Gestion de Cajas\n";
@@ -533,7 +533,6 @@ int main() {
     Producto smarthPhone2("SmarthPhone S20", "SmathPhone tematica Arcane", 800, samsung);
 
     // Crear el stock
-    Stock almacenGeneral("Almacen Central");
     almacenGeneral.anadirProducto(laptop, 50000.0, 10, 2);  // 10 unidades, stock minimo de 2
     almacenGeneral.anadirProducto(smarthPhone, 30000.0, 50, 5);  // 50 unidades, stock minimo de 5
     almacenGeneral.anadirProducto(smarthPhone2, 30000.0, 30, 5);  // 30 unidades, stock minimo de 5
