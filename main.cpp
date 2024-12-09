@@ -437,7 +437,7 @@ void menuUsuarios() {
  * @brief Función para mostrar el menu principal.
  */
 void mostrarMenuPrincipal() {
-    cout << "\n     Bienvenid@ al CLI del Sistema de Gestion de E-commerce     " << tienda.getNombre() << " ===\n";
+    cout << "\n     Bienvenid@ al CLI del Sistema de Gestion de E-commerce " << tienda.getNombre() << "     \n";
     cout << "1. Menu Administrativo\n";
     cout << "2. Menu de Usuarios\n";
     cout << "0. Salir\n";
