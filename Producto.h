@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include "Marca.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ class Producto {
         string idProducto; // Identificador único del producto
         string nombreProducto; // Nombre del producto
         float precioUnitario; // Precio unitario del producto
-
+        Marca& marcaAsociada;
         /**
          * @brief Método para generar un identificador único basado en un contador.
          * 
@@ -31,13 +32,14 @@ class Producto {
          * @param nombreProducto Nombre del producto.
          * @param precioUnitario Precio unitario del producto.
          */
-        Producto(string nombreProducto, float precioUnitario):
-            idProducto(generarIdProducto()), nombreProducto(nombreProducto), precioUnitario(precioUnitario) {};
-
-        // Getters y Setters
+        Producto(string nombreProducto, float precioUnitario, Marca& marca):
+            idProducto(generarIdProducto()), nombreProducto(nombreProducto), precioUnitario(precioUnitario), marcaAsociada(marca) {};
+        // Getters
         string getIdProducto() const { return idProducto; };
         string getNombreProducto() { return nombreProducto; };
+        Marca& getMarcaAsociada() { return marcaAsociada; };
         float getPrecioUnitario() { return precioUnitario; };
+       // Setters
         void setIdProducto(string idProducto) { this->idProducto = idProducto; };
         void setNombreProducto(string nombreProducto) { this->nombreProducto = nombreProducto; };
         void setPrecioUnitario(float precioUnitario) { this->precioUnitario = precioUnitario; };
