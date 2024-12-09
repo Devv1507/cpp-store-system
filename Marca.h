@@ -4,8 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "Stock.h"
-#include "Producto.h"
+
 using namespace std;
 
 class Marca {
@@ -13,8 +12,7 @@ class Marca {
         static int contadorMarcas; // Contador estático para generar IDs únicos
         string idMarca; // Identificador único de la marca
         string nombreMarca; // Nombre de la marca
-        vector<Producto> listarProductos; // Vector para guardar los productos de una marca
-
+        int ventasDeMarca;
         /**
          * @brief Método para generar un identificador único basado en un contador.
          * 
@@ -32,8 +30,7 @@ class Marca {
          * @param nombreMarca Nombre de la marca.
          */
         Marca(string nombreMarca): 
-            idMarca(generarIdMarca()), nombreMarca(nombreMarca) {}
-
+            idMarca(generarIdMarca()), nombreMarca(nombreMarca), ventasDeMarca(0) {}
         // Getters y setters
         string getIdMarca() { return idMarca; };
         string getNombreMarca() { return nombreMarca; };
@@ -41,27 +38,18 @@ class Marca {
         void setNombreMarca(string nombreMarca) { this->nombreMarca = nombreMarca; };
 
         /************************************************ Métodos específicos ************************************************/
-        
         /**
-         * @brief Método para agregar un producto a una marca.
-         * 
-         * @param producto Referencia a un objeto de la clase Producto.
+         * Método para incrementar las ventas totales de una marca.
+         * @param cantidad: cantidad de productos vendidos
          */
-        void agregarProducto(Producto& producto) {
-            listarProductos.push_back(producto);
+        void incrementarVentas(int cantidad) {
+            ventasDeMarca += cantidad;
         };
 
         /**
-         * @brief Método para obtener la lista de productos de la marca.
-         * 
-         * @return vector<Producto> Lista de productos de la marca.
+         * Método para obtener la cantidad de productos vendidos de una marca.
          */
-        vector<Producto> getListarProductos() {
-            return listarProductos;
-        }
-
-        // Declaracion de la sobrecarga del operador << como funcion amiga
-        friend ostream& operator<<(ostream& os, const Marca& marca);
+        int getVentasDeMarca() { return ventasDeMarca; };
 };
 
 #endif // MARCA_H
