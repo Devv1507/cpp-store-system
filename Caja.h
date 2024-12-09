@@ -40,7 +40,9 @@ class Caja {
         Stock* getStock() { return stock; };
         void setIdCaja(string idCaja) { this->idCaja = idCaja; };
         /************************************************ Metodos especificos ************************************************/
-        
+        /**
+         * @brief Registra una transacción en la caja.
+         */
         void registrarTransaccion(Factura& factura) {
             string tipoTransaccion = factura.getTipoVenta();
         
@@ -136,6 +138,39 @@ class Caja {
                     facturas[i].mostrarDatos();
                 }
             }
+        };
+
+        /**
+        * @brief Muestra la cantidad y el valor total de las facturas de venta y compra, y calcula las ganancias.
+        */
+        void mostrarResumenFacturas() {
+            int cantidadVentas = 0, cantidadCompras = 0;
+            float totalVentas = 0.0, totalCompras = 0.0;
+
+            // Iterar sobre las facturas y acumular totales según el tipo
+            for (Factura& factura : facturas) {
+                if (factura.getTipoVenta() == "venta") {
+                    cantidadVentas++;
+                    totalVentas += factura.getTotalFactura();
+                } else if (factura.getTipoVenta() == "compra") {
+                    cantidadCompras++;
+                    totalCompras += factura.getTotalFactura();
+                }
+            }
+
+            // Mostrar resumen
+            cout << "\n     Resumen de Facturas:    \n";
+            cout << string(75, '-') << endl;
+            cout << "Ventas:\n";
+            cout << " - Cantidad de facturas: " << cantidadVentas << endl;
+            cout << " - Total de ventas: $" << fixed << setprecision(2) << totalVentas << endl;
+            cout << "\nCompras:\n";
+            cout << " - Cantidad de facturas: " << cantidadCompras << endl;
+            cout << " - Total de compras: $" << fixed << setprecision(2) << totalCompras << endl;
+
+            // Calcular y mostrar ganancias
+            float ganancias = totalVentas - totalCompras;
+            cout << "\nGanancias totales: $" << fixed << setprecision(2) << ganancias << endl;
         };
 };
 

@@ -69,7 +69,7 @@ void gestionProveedores() {
         cout << "\n     Submenu de Gestion de Proveedores     \n";
         cout << "1. Registrar nuevo proveedor\n";
         cout << "2. Registrar venta a proveedor\n";
-        cout << "3. Ver lista de proveedores\n";
+        cout << "3. Imprimir cantidad de facturas de compra por proveedor\n";
         cout << "0. Volver al menu anterior\n";
         cout << "Seleccione una opcion: ";
         
@@ -125,8 +125,8 @@ void gestionProveedores() {
                 break;
             }
             case 3: {
-                cout << "\nLista de proveedores:\n";
-                // aca se enlistan los proveedores
+                cout << "\nCantidad de facturas de compra por proveedor:\n";
+                // aca se enlistan esas cantidades
                 break;
             }
             case 0:
@@ -239,10 +239,11 @@ void gestionCajas() {
     while (true) {
         cout << "*******************************************************" << endl;
         cout << "\n     Submenu de Gestion de Cajas     \n";
-        cout << "1. Imprimir ganancias actuales\n";
+        cout << "1. Imprimir resumen ejecutivo (ganancias) \n";
         cout << "2. Imprimir facturas de compra (proveedores)\n";
         cout << "3. Imprimir facturas de venta (clientes)\n";
-        cout << "4. Imprimir facturas del mes\n";
+        cout << "4. Imprimir facturas de un mes\n";
+        cout << "5. Imprimir facturas del mes de mayo\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -252,8 +253,7 @@ void gestionCajas() {
 
         switch (opcion) {
             case 1: {
-                // Aqui iria la logica para imprimir las ganancias actuales
-                cout << "Funcionalidad en desarrollo.\n";
+                tienda.getCajas()[0].mostrarResumenFacturas();
                 break;
             }
             case 2: {
@@ -266,6 +266,11 @@ void gestionCajas() {
             }
             case 4: {
                 tienda.getCajas()[0].listarFacturasPorTipo("venta");
+                break;
+            }
+            case 5: {
+                cout << "Facturas del mes de mayo:\n";
+                // tienda.getCajas()[0].listarFacturasPorMes("mayo");
                 break;
             }
             case 0:
@@ -286,7 +291,6 @@ void gestionClientes() {
         cout << "\n     Submenu de Gestion de Clientes     \n";
         cout << "1. Registrar nuevo cliente\n";
         cout << "2. Registrar compra a cliente\n";
-        cout << "3. Ver lista de clientes\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -330,11 +334,6 @@ void gestionClientes() {
                 // tienda.
                 break;
             }
-            case 3: {
-                cout << "\nLista de clientes:\n";
-                // tienda.
-                break;
-            }
             case 0:
                 return;
             default:
@@ -349,7 +348,7 @@ void gestionClientes() {
 void mostrarReportes() {
     while (true) {
         cout << "*******************************************************" << endl;
-        cout << "\n     Submenu de Gestion de Reportes     \n";
+        cout << "\n     Submenu de Gestion de Indicadores/Reportes     \n";
         cout << "1. Mes con mayores ventas\n";
         cout << "2. Tres mejores clientes\n";
         cout << "3. Empleado del mes\n";
@@ -389,7 +388,7 @@ void mostrarMenuAdministrativo() {
     cout << "\n     Menu Administrativo     \n";
     cout << "1. Gestion de Inventario\n";
     cout << "2. Gestion de Cajas\n";
-    cout << "3. Reportes\n";
+    cout << "3. Indicadores del Negocio\n";
     cout << "0. Volver al menu principal\n";
     cout << "Seleccione una opcion: ";
 };
