@@ -6,14 +6,16 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include "Marca.h"
 #include "Producto.h"
 
 using namespace std;
 
 class Stock {
     private:
-        string idStock;            // Identificador del stock
-        vector<Producto> productos; // Vector para almacenar los productos
+        string idStock;
+        vector<Producto> productos;
+        vector<Marca> marcas;
         vector<int> existencias;    // Vector para almacenar la cantidad por producto
         vector<int> stockMinimos;   // Vector para almacenar el stock minimo por producto
 
@@ -30,9 +32,10 @@ class Stock {
             }
             this->idStock = idStock;
         };
-
         // Getters y Setters
         string getIdStock() { return idStock; };
+        vector<Producto> getProductos() { return productos; };
+        vector<Marca> getMarcas() { return marcas; };
         void setIdStock(string idStock) {
             if (idStock.empty()) {
                 throw invalid_argument("El nombre del almacen no puede estar vacio.");
@@ -48,7 +51,7 @@ class Stock {
          * @param cantidad Cantidad del producto a agregar.
          * @param stockMinimo Stock mínimo del producto.
          */
-        void anadirProducto(const Producto& producto, int cantidad, int stockMinimo) {
+        void anadirProducto(Producto& producto, int cantidad, int stockMinimo) {
             // Validar si el ID del producto ya existe
             for (size_t i = 0; i < productos.size(); ++i) {
                 if (productos[i].getIdProducto() == producto.getIdProducto()) {
@@ -57,6 +60,24 @@ class Stock {
             }
             
             productos.push_back(producto);
+            Marca& marcaParticular = producto.getMarcaAsociada();
+            bool marcaExiste = false;
+
+            
+            for (Marca& marca : marcas) {
+                if (marca.getNombreMarca() == marcaParticular.getNombreMarca()) {
+                    marca.incrementarVentas(cantidad);
+                    marcaExiste = true;
+                    break;
+                }
+            }
+
+            // Si la marca no existía, agregarla
+            if (!marcaExiste) {
+                marcas.push_back(marcaParticular);
+                marcas.back().incrementarVentas(cantidad);
+            }
+
             existencias.push_back(cantidad);
             stockMinimos.push_back(stockMinimo);
         };
@@ -164,6 +185,20 @@ class Stock {
             }
             // Si no se encuentra el producto
             return false;
+        };
+
+        /**
+         * Método para obtener una marca por su nombre.
+         */
+        Marca obtenerMarcaPorNombre(string nombreMarca) {
+            for (Marca& marca : marcas) {
+                cout << "Marca: " << marca.getNombreMarca() << endl;
+                cout << "Nombre introducido: " << nombreMarca << endl;
+                if (marca.getNombreMarca() == nombreMarca) {
+                    return marca;
+                }
+            }
+            throw runtime_error("La marca no existe: " + nombreMarca);
         };
 
         /**
