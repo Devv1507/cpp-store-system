@@ -26,9 +26,6 @@ using namespace std;
 // Variables globales para mantener el estado del programa
 Stock almacenGeneral("Almacen Central");
 Tienda tienda("SuperCommerce");
-vector<Cliente> clientes;
-vector<Proveedor> proveedores;
-vector<Caja> cajas;
 int Caja::contadorCajas = 1;
 int Factura::contadorFacturas = 1;
 int Marca::contadorMarcas = 1;
@@ -71,7 +68,8 @@ void gestionProveedores() {
         cout << "*******************************************************" << endl;
         cout << "\n     Submenu de Gestion de Proveedores     \n";
         cout << "1. Registrar nuevo proveedor\n";
-        cout << "2. Ver lista de proveedores\n";
+        cout << "2. Registrar venta a proveedor\n";
+        cout << "3. Ver lista de proveedores\n";
         cout << "0. Volver al menu anterior\n";
         cout << "Seleccione una opcion: ";
         
@@ -82,6 +80,7 @@ void gestionProveedores() {
                 string id, nombre, email, banco, cuenta, tipoCuenta, telefono;
                 Direccion direccionGenerica("123", "Centro", "Bogota", "Cundinamarca");
                 try {
+                    cout << "Por favor, ingrese los siguientes campos para registrarse como proveedor:\n";
                     cout << "ID del proveedor: ";
                     limpiarBuffer();
                     getline(cin, id);
@@ -99,8 +98,6 @@ void gestionProveedores() {
                     getline(cin, telefono);
 
                     Proveedor nuevoProveedor(id, banco, cuenta, tipoCuenta, id, nombre, email, telefono, direccionGenerica);
-                    proveedores.push_back(nuevoProveedor);
-
                     cout << "Proveedor registrado exitosamente.\n";
                 } catch (const invalid_argument& e) {
                     cout << "Error: " << e.what() << endl;
@@ -109,14 +106,27 @@ void gestionProveedores() {
                 break;
             }
             case 2: {
+                cout << "Por favor, ingrese los siguientes campos para registrar la venta:\n";
+                string idProveedor, nombreMarca, nombreProducto, descripcionProducto;
+                float precioUnitario;
+                cout << "ID del proveedor: ";
+                cin >> idProveedor;
+                cout << "Nombre del producto: ";
+                getline(cin, nombreProducto);
+                cout << "Descripcion: ";
+                getline(cin, descripcionProducto);
+                cout << "Precio Unitario: ";
+                limpiarBuffer();
+                cin >> precioUnitario;
+                cout << "Marca del producto: ";
+                cin >> nombreMarca;
+                Marca newMarca(nombreMarca);
+                Producto newProducto(nombreProducto, descripcionProducto, precioUnitario, newMarca);
+                break;
+            }
+            case 3: {
                 cout << "\nLista de proveedores:\n";
-                if (proveedores.empty()) {
-                    cout << "No hay proveedores registrados.\n";
-                } else {
-                    for (Proveedor proveedor : proveedores) {
-                        proveedor.mostrarDatos();
-                    }
-                }
+                // aca se enlistan los proveedores
                 break;
             }
             case 0:
@@ -137,6 +147,10 @@ void gestionStock() {
         cout << "1. Mostrar inventario\n";
         cout << "2. Editar producto\n";
         cout << "3. Agregar producto\n";
+        cout << "4. Eliminar producto\n";
+        cout << "5. Buscar producto\n";
+        cout << "6. Filtrar productos por marca\n";
+        cout << "7. Agregar marca\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -163,7 +177,7 @@ void gestionStock() {
                 break;
             }
             case 3: {
-                string id, nombreProducto;
+                string id, nombreProducto, descripcionProducto;
                 int cantidad, stockMinimo;
                 float precio;
 
@@ -171,6 +185,8 @@ void gestionStock() {
                 
                 cout << "Nombre del producto: ";
                 getline(cin, nombreProducto);
+                cout << "Breve descripcion del producto: ";
+                getline(cin, descripcionProducto);
                 cout << "Precio unitario: ";
                 cin.ignore();
                 cin >> precio;
@@ -179,9 +195,33 @@ void gestionStock() {
                 cout << "Stock minimo: ";
                 cin >> stockMinimo;
 
-                Producto nuevoProducto(nombreProducto, precio, marca);
+                Producto nuevoProducto(nombreProducto, descripcionProducto, precio, marca);
                 almacenGeneral.anadirProducto(nuevoProducto, cantidad, stockMinimo);
                 cout << "Producto agregado exitosamente.\n";
+                break;
+            }
+            case 4: 
+                // Eliminar producto
+                break;
+            case 5: {
+                string id;
+                cout << "ID del producto a buscar: ";
+                getline(cin, id);
+                // almacenGeneral.buscarProducto(id);
+                break;
+            }
+            case 6: {
+                string marca;
+                cout << "Nombre de la marca: ";
+                getline(cin, marca);
+                // almacenGeneral.filtrarPorMarca(marca);
+                break;
+            }
+            case 7: {
+                string nombreMarca;
+                cout << "Nombre de la marca: ";
+                getline(cin, nombreMarca);
+                // almacenGeneral.agregarMarca(nombreMarca);
                 break;
             }
             case 0:
@@ -199,10 +239,10 @@ void gestionCajas() {
     while (true) {
         cout << "*******************************************************" << endl;
         cout << "\n     Submenu de Gestion de Cajas     \n";
-        cout << "1. Abrir nueva caja\n";
-        cout << "2. Cerrar caja\n";
-        cout << "3. Registrar venta\n";
-        cout << "4. Ver facturas del dia\n";
+        cout << "1. Imprimir ganancias actuales\n";
+        cout << "2. Imprimir facturas de compra (proveedores)\n";
+        cout << "3. Imprimir facturas de venta (clientes)\n";
+        cout << "4. Imprimir facturas del mes\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -212,36 +252,20 @@ void gestionCajas() {
 
         switch (opcion) {
             case 1: {
-                Caja nuevaCaja(&almacenGeneral);
-                nuevaCaja.abrirCaja();
-                cajas.push_back(nuevaCaja);
-                cout << "Caja " << nuevaCaja.getIdCaja() << " abierta.\n";
-                break;
-            }
-            case 2: {
-                if (cajas.empty()) {
-                    cout << "No hay cajas abiertas.\n";
-                    break;
-                }
-                // Por simplicidad, cerramos la ultima caja
-                cajas.back().cerrarCaja();
-                break;
-            }
-            case 3: {
-                if (cajas.empty()) {
-                    cout << "No hay cajas abiertas.\n";
-                    break;
-                }
-                // Aqui iria la logica para registrar una venta
+                // Aqui iria la logica para imprimir las ganancias actuales
                 cout << "Funcionalidad en desarrollo.\n";
                 break;
             }
+            case 2: {
+                tienda.getCajas()[0].mostrarFacturas();
+                break;
+            }
+            case 3: {
+                tienda.getCajas()[0].listarFacturasPorTipo("compra");
+                break;
+            }
             case 4: {
-                if (cajas.empty()) {
-                    cout << "No hay cajas abiertas.\n";
-                    break;
-                }
-                cajas.back().mostrarFacturas();
+                tienda.getCajas()[0].listarFacturasPorTipo("venta");
                 break;
             }
             case 0:
@@ -261,7 +285,8 @@ void gestionClientes() {
         cout << "*******************************************************" << endl;
         cout << "\n     Submenu de Gestion de Clientes     \n";
         cout << "1. Registrar nuevo cliente\n";
-        cout << "2. Ver lista de clientes\n";
+        cout << "2. Registrar compra a cliente\n";
+        cout << "3. Ver lista de clientes\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -269,51 +294,45 @@ void gestionClientes() {
 
         switch (opcion) {
             case 1: {
-                while (true) {
-                    string id, nombre, email, rut, profesion, tipoCliente, telefono;
-                    float totalCompras = 0;
-                    try {
-                        cout << "ID del cliente: ";
-                        getline(cin, id);
-                        limpiarBuffer();
-                        cout << "Nombre: ";
-                        getline(cin, nombre);
-                        cout << "Email: ";
-                        getline(cin, email);
-                        cout << "Telefono: ";
-                        getline(cin, telefono);
-                        cout << "RUT: ";
-                        getline(cin, rut);
-                        cout << "Profesion: ";
-                        getline(cin, profesion);
-                        cout << "Tipo de cliente: ";
-                        getline(cin, tipoCliente);
+                string id, nombre, email, rut, profesion, tipoCliente, telefono;
+                Direccion dirGenerica("123", "Centro", "Cali", "Valle del Cauca");
+                float totalCompras = 0;
 
-                        Direccion dirGenerica("123", "Centro", "Cali", "Valle del Cauca");
+                try {
+                    cout << "ID del cliente: ";
+                    cin >> id;
+                    cout << "Nombre: ";
+                    getline(cin, nombre);
+                    limpiarBuffer();
+                    cout << "Email: ";
+                    cin >> email;
+                    cout << "Telefono: ";
+                    cin >> email;
+                    cout << "RUT: ";
+                    cin >> rut;
+                    limpiarBuffer();
+                    cout << "Profesion: ";
+                    getline(cin, profesion);
+                    cout << "Tipo de cliente: ";
+                    getline(cin, tipoCliente);
 
-                        Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
-                        clientes.push_back(nuevoCliente);
-
-                        cout << "Cliente registrado exitosamente.\n";
-                        break;
-                    } catch (const invalid_argument& e) {
-                        cout << "Error: " << e.what() << endl;
-                        cout << "Por favor, ingrese nuevamente los datos.\n";
-                    }
+                    Cliente nuevoCliente(id, nombre, email, telefono, dirGenerica, rut, profesion, tipoCliente);
+                    cout << "Cliente registrado exitosamente.\n";
+                    break;
+                } catch(const invalid_argument& e) {
+                    cout << "Error: " << e.what() << endl;
+                    cout << "Por favor, ingrese nuevamente los datos.\n";
                 }
-                break;
+                
             }
             case 2: {
+                cout << "\nRegistar compra:\n";
+                // tienda.
+                break;
+            }
+            case 3: {
                 cout << "\nLista de clientes:\n";
-                if (clientes.empty()) {
-                    cout << "No hay clientes registrados.\n";
-                    break;
-                }
-                else {
-                    for (Cliente cliente : clientes) {
-                        cliente.mostrarDatos();
-                    }
-                }
+                // tienda.
                 break;
             }
             case 0:
@@ -454,9 +473,9 @@ int main() {
     Marca samsung("Samsung");
 
     // Crear productos y agregarlos a la marca
-    Producto laptop("Laptop", 1200.50f, lenovo);
-    Producto smarthPhone("SmarthPhone Z10", 500, lenovo);
-    Producto smarthPhone2("SmarthPhone S20", 800, samsung);
+    Producto laptop("Laptop", "Laptop Plus Ultra", 1200.50f, lenovo);
+    Producto smarthPhone("SmarthPhone Z10", "SmarthPhone con DirectX", 500, lenovo);
+    Producto smarthPhone2("SmarthPhone S20", "SmathPhone tematica Arcane", 800, samsung);
 
     // Crear el stock
     Stock almacenGeneral("Almacen Central");
@@ -518,7 +537,7 @@ int main() {
     
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech); // Pasamos el proveedor
-    Producto mouse("Mouse", 25.3, lenovo);
+    Producto mouse("Mouse", "Mouse Ergonomico Vertical", 25.3, lenovo);
     facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
     cout << endl;
     facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
