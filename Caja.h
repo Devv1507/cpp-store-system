@@ -16,6 +16,7 @@ class Caja {
         string idCaja; // Identificación de la caja.
         int numeroFacturasDia; // Número de facturas registradas en el día.
         vector<Factura> facturas; // Vector de facturas registradas en la caja.
+        Stock* stock;
 
         /**
          * @brief Genera un identificador único basado en un contador.
@@ -31,21 +32,59 @@ class Caja {
         /**
          * @brief Constructor de la clase Caja.
          */
-        Caja(): idCaja(generarIdCaja()), numeroFacturasDia(0) {};
-
+        Caja(Stock* stock): idCaja(generarIdCaja()), numeroFacturasDia(0), stock(stock) {};
         // Getters y Setters
         string getIdCaja() { return idCaja; };
         int getNumeroFacturasDia() { return numeroFacturasDia; };
         vector<Factura> getFacturas() { return facturas; };
+        Stock* getStock() { return stock; };
         void setIdCaja(string idCaja) { this->idCaja = idCaja; };
         /************************************************ Metodos especificos ************************************************/
+        
+        void registrarTransaccion(Factura& factura) {
+            string tipoTransaccion = factura.getTipoVenta();
+        
+            // Procesar los detalles de la factura
+            for (DetallesFactura& detalle : factura.getDetallesFactura()) {
+                Producto producto = detalle.getProducto();
+                int cantidad = detalle.getCantidad();
+
+                if (tipoTransaccion == "venta") {
+                    // Validar existencia suficiente en el stock
+                    if (!stock->productoDisponible(producto, cantidad)) {
+                        throw invalid_argument("No hay suficiente stock para el producto: " + producto.getNombreProducto());
+                    }
+                }
+
+                // Actualizar existencias en el stock
+                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoTransaccion);
+
+                // Si es una venta, actualizar estadísticas de la marca
+                if (tipoTransaccion == "venta") {
+                    Marca marca = producto.getMarcaAsociada();
+                    marca.incrementarVentas(cantidad);
+                }
+            }
+
+            // Agregar la factura a la lista de facturas de la caja
+            agregarFactura(factura);
+
+            // Incrementar el contador de facturas diarias
+            numeroFacturasDia++;
+
+            // Mostrar un mensaje de confirmación
+            string transaccion = (tipoTransaccion == "venta") ? "Venta" : "Compra";
+            cout << transaccion << " registrada exitosamente. Total: $"
+                << fixed << setprecision(2) << factura.getTotalFactura() << endl; 
+        };
+        
         /**
          * @brief Abre la caja para iniciar operaciones diarias.
          */
         void abrirCaja() {
             numeroFacturasDia = 0;
             // Initialize daily operations
-        }
+        };
         
         /**
          * @brief Cierra la caja y calcula el total de ventas del día.
@@ -64,7 +103,7 @@ class Caja {
 
             // TO_DO: Aca podria haber mas logica, como guardar el total en un archivo, un reporte, etc.
             numeroFacturasDia = 0;
-        }
+        };
 
 
         /**
