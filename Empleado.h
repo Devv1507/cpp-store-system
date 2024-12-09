@@ -1,7 +1,8 @@
+#ifndef EMPLEADO_H
+#define EMPLEADO_H
 #include <iostream>
 #include <iomanip>
 #include "Persona.h"
-#include "Caja.h"
 #include "Stock.h"
 
 using namespace std;
@@ -37,17 +38,6 @@ class Empleado : public Persona {
         void setVentasRealizadas(int ventasRealizadas) { this->ventasRealizadas = ventasRealizadas; };
 
         /**
-         * @brief Registra una venta usando la clase Caja.
-         * 
-         * @param caja Referencia a un objeto de la clase Caja.
-         * @param factura Referencia a un objeto de la clase Factura.
-         */
-        void registrarVenta(Caja &caja, Factura &factura) {
-            caja.agregarFactura(factura);
-            ventasRealizadas++;
-        }
-
-        /**
          * @brief Maneja el inventario usando la clase Stock.
          * 
          * @param stock Referencia a un objeto de la clase Stock.
@@ -69,4 +59,6 @@ class Empleado : public Persona {
                 << setw(10) << "Salario: " << salario << endl
                 << setw(10) << "Ventas Realizadas: " << ventasRealizadas << endl;
         }
-};  
+};
+
+#endif // EMPLEADO_H

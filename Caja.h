@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "Factura.h"
+#include "Empleado.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ class Caja {
         /**
          * @brief Registra una transacción en la caja.
          */
-        void registrarTransaccion(Factura& factura) {
+        void registrarTransaccion(Factura& factura, Empleado& empleado) {
             string tipoTransaccion = factura.getTipoVenta();
 
             for (DetallesFactura& detalle : factura.getDetallesFactura()) {
@@ -72,6 +73,7 @@ class Caja {
                     marca.incrementarVentas(cantidad);
                     int mes = obtenerMes(factura.getFechaFactura());
                     ventasMensuales[mes - 1]++;
+                    empleado.setVentasRealizadas(empleado.getVentasRealizadas() + 1);
                 }
             }
 
@@ -81,7 +83,8 @@ class Caja {
             // Mostrar un mensaje de confirmación
             string transaccion = (tipoTransaccion == "venta") ? "Venta" : "Compra";
             cout << transaccion << " registrada exitosamente. Total: $"
-                << fixed << setprecision(2) << factura.getTotalFactura() << endl; 
+                << fixed << setprecision(2) << factura.getTotalFactura() << endl;
+            cout << "Empleado " << empleado.getNombre() << " ha realizado " << empleado.getVentasRealizadas() << " ventas." << endl;
         };
 
         /**
@@ -106,7 +109,7 @@ class Caja {
         * @brief Muestra las ventas acumuladas por cada mes.
         */
         void mostrarVentasMensuales() {
-            cout << "Ventas acumuladas por mes:" << endl;
+            cout << "\nVentas acumuladas por mes:" << endl;
             for (int i = 0; i < 12; ++i) {
                 cout << "Mes " << (i + 1) << ": " << ventasMensuales[i] << " ventas" << endl;
             }
@@ -145,7 +148,7 @@ class Caja {
          * @param tipoFactura Tipo de venta (compra o venta).
          */
         void listarFacturasPorTipo(string tipoFactura) {
-            cout << "--- Facturas del tipo: " << tipoFactura << " ---" << endl;
+            cout << "\n--- Facturas del tipo: " << tipoFactura << " ---" << endl;
             for (size_t i = 0; i < facturas.size(); i++) {
                 if (facturas[i].getTipoVenta() == tipoFactura) {
                     cout << "Factura " << i + 1 << endl;

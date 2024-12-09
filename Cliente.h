@@ -32,7 +32,15 @@ class Cliente : public Persona {
          */
         Cliente(string id, string nombre, string email, string telefono, 
                 Direccion& direccion, string rut, string profesion, string tipoCliente):
-            Persona(id, nombre, email, telefono, direccion), rut(rut), profesion(profesion), tipoCliente(tipoCliente) {}
+            Persona(id, nombre, email, telefono, direccion), rut(rut), profesion(profesion), tipoCliente(tipoCliente) {
+                if (tipoCliente != "pensionado" && tipoCliente != "empleado publico" && 
+                    tipoCliente != "pensionada" && tipoCliente != "empresaria" &&
+                    tipoCliente != "empresario" && tipoCliente != "militar") {
+                throw invalid_argument("Tipo de cliente no válido. Debe ser 'pensionado', 'empleado publico', 'empresario' o 'militar'.");
+                }
+
+                this->tipoCliente = tipoCliente; 
+            }
 
         // Getters y Setters
         string getRut(){ return rut; };

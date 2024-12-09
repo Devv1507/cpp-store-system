@@ -535,6 +535,7 @@ int main() {
     // Crear una marca
     Marca lenovo("Lenovo");
     Marca samsung("Samsung");
+    Marca logitech("Logitech");
 
     // Crear productos y agregarlos a la marca
     Producto laptop("Laptop", "Laptop Plus Ultra", 1200.50f, lenovo);
@@ -549,8 +550,11 @@ int main() {
 
     // Crear empleadops
     Direccion direccionDavid("123", "Norte", "Cali", "Valle del Cauca");
-    Empleado david("1107526634", "David Pérez", "david@supercommerce.com", "5551234678", direccionDavid, "9am-6pm", 5000.0f, 0);
+    Empleado david("1107526634", "David Pérez", "david@supercommerce.com", "5551234678", direccionDavid, "9am-6pm", 5000.0, 0);
     tienda.agregarEmpleado(david);
+    Direccion direccionMariaaa("456", "Centro", "Bogota", "Cundinamarca");
+    Empleado mariaa("1107526635", "María González", "maria@supercommerce.com", "5551234789", direccionMariaaa, "10am-7pm", 4500.0, 0);
+    tienda.agregarEmpleado(mariaa);
 
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
@@ -559,8 +563,8 @@ int main() {
     Direccion direccionMiguel("045", "Sur", "Cali", "Valle del Cauca");
     Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", "3143677337", direccionJuan, "ABC135965", "Ingeniero", "militar");
     Cliente maria("1107526815", "Maria Rodriguez", "maria.rodriguez@gmail.com", "3143677338", direccionMaria, "ABC135966", "Veterinaria", "pensionada");
-    Cliente esteban("1110385638", "Esteban Muñoz", "esteban.muñoz@gmail.com", "3187560912", direccionEsteban, "ABC135967", "Abogado", "Empleado público");
-    Cliente miguel("1049358695", "Miguel Duarte", "miguel.duarte@gmail.com", "3174679435", direccionMiguel, "ABC135968", "Contador", "Empleado público");
+    Cliente esteban("1110385638", "Esteban Muñoz", "esteban.muñoz@gmail.com", "3187560912", direccionEsteban, "ABC135967", "Abogado", "empresario");
+    Cliente miguel("1049358695", "Miguel Duarte", "miguel.duarte@gmail.com", "3174679435", direccionMiguel, "ABC135968", "Contador", "empleado publico");
 
     // Crear una factura de venta
     Factura facturaJuan("venta", &juan);
@@ -588,23 +592,43 @@ int main() {
 
     // Crear una caja y agregar las facturas
     Caja caja1(&almacenGeneral);
-    caja1.registrarTransaccion(facturaJuan);
-    caja1.registrarTransaccion(facturaMaria);
-    caja1.agregarFactura(facturaEsteban);
-    caja1.agregarFactura(facturaMiguel);
+    caja1.registrarTransaccion(facturaJuan, david);
+    caja1.registrarTransaccion(facturaMaria, david);
+    caja1.registrarTransaccion(facturaEsteban, david);
+    caja1.registrarTransaccion(facturaMiguel, mariaa);
     caja1.mostrarFacturas();
    
     // Crear un proveedor
+    Direccion direccionProveedor1("456", "Ciudad Jardín", "Cali", "Valle del Cauca");
+    Proveedor proveedor1("876543", "Davivienda", "123456789", "corriente", "1234567890", "Proveedor A", "proveedorA@gmail.com", "3112233445", direccionProveedor1);
+    // Crear una dirección para otro proveedor
+    Direccion direccionProveedor2("789", "Usaquén", "Bogota", "Cundinamarca");
+    Proveedor proveedor2("245678", "BBVA", "987654321", "ahorros", "1122334455", "Proveedor B", "proveedorB@gmail.com", "3156677889", direccionProveedor2);
+    // Crear otro proveedor con diferentes datos
+    Direccion direccionProveedor3("321", "Suba", "Bogota", "Cundinamarca");
+    Proveedor proveedor3("135792", "Colpatria", "123321987", "corriente", "9988776655", "Proveedor C", "proveedorC@hotmail.com", "3142233445", direccionProveedor3);
+    
     Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
     Proveedor gerardopTech("245968", "Bancolombia", "11109458", "ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", "3158932781", direccionGerardoTech);
     
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech); // Pasamos el proveedor
+    Factura facturaCompra2("compra", &proveedor1); // Pasamos el proveedor
+    facturaCompra2.setFechaFactura("2024-12-05");
     Producto mouse("Mouse", "Mouse Ergonomico Vertical", 25.3, lenovo);
-    facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
+    Producto teclado("Teclado", "Teclado mecánico con retroiluminación RGB", 35.5, logitech);
+    Producto monitor("Monitor", "Monitor Full HD de 24 pulgadas", 120.75, samsung);
+    Producto auriculares("Auriculares", "Auriculares bluetooth con cancelación de ruido", 75.99, logitech);
+    Producto cargador("Cargador", "Cargador rápido para dispositivos móviles", 15.2, samsung);
+    facturaCompra.agregarDetalle(mouse, 20); 
+    facturaCompra2.agregarDetalle(teclado, 10); 
+    facturaCompra2.agregarDetalle(monitor, 5);  
+    facturaCompra.agregarDetalle(auriculares, 15); 
+    facturaCompra.agregarDetalle(cargador, 30); 
     cout << endl;
     facturaCompra.mostrarDatos();
     caja1.agregarFactura(facturaCompra);
+    caja1.agregarFactura(facturaCompra2);
     tienda.agregarCaja(caja1);
 
     almacenGeneral.mostrarInventario();
