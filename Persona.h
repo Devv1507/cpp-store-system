@@ -11,11 +11,8 @@ using namespace std;
 
 class Persona {
     private:
-        string id; // Identificación de la persona
-        string nombre; // Nombre de la persona
-        string email; // Correo electrónico de la persona
-        string telefono; // Número de teléfono de la persona
-        Direccion direccion; // Objeto de la clase Direccion que contiene la dirección de la persona
+        string id, nombre, email, telefono;
+        Direccion direccion;
 
         /**
          * @brief Valida que el número de teléfono tenga 10 dígitos.
@@ -30,12 +27,13 @@ class Persona {
 
     public:
         /**
-         * @brief Constructor de la clase Persona.
-         * 
-         * @param id Identificación de la persona.
-         * @param nombre Nombre de la persona.
-         * @param email Correo electrónico de la persona.
-         * @param telefono Número de teléfono de la persona.
+         * @brief Constructor.
+         * Esta clase representa una persona.
+         * A continuación se describen los parámetros necesarios para instanciar un objeto de la clase Persona:
+         * @param id Identificación de la persona. E.g, "1234567890".
+         * @param nombre Nombre de la persona. E.g, "Juan Perez".
+         * @param email Correo electrónico de la persona. E.g, "juan.perez@gmail.com"
+         * @param telefono Número de teléfono de la persona. E.g, "3104756821"
          * @param direccion Referencia a un objeto de la clase Direccion.
          */
         Persona(string id, string nombre, string email, string telefono, Direccion& direccion): id(id), nombre(nombre), email(email), direccion(direccion) {
@@ -43,12 +41,13 @@ class Persona {
             this->telefono = telefono;
         }
 
-        // Getters y Setters
+        // Getters
         string getId() { return id; };
         string getNombre() { return nombre; };
         string getEmail() { return email; };
         string getTelefono() { return telefono; };
         Direccion getDireccion() { return direccion; };
+        // Setters
         void setId(string id) { this->id = id; };
         void setNombre(string nombre) { this->nombre = nombre; };
         void setEmail(string email) { this->email = email; };

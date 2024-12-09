@@ -2,18 +2,9 @@
 
 using namespace std;
 
-/**
- * @class Direccion
- * @brief Esta clase representa una dirección.
- * 
- * @details La clase Direccion contiene los detalles de una dirección, incluyendo el número, barrio, ciudad y departamento.
- */
 class Direccion {
     private:
-        string numero; // Número de la dirección
-        string barrio; // Barrio de la dirección
-        string ciudad; // Ciudad de la dirección
-        string departamento; // Departamento de la dirección
+        string numero, barrio, ciudad, departamento;
 
         /**
          * @brief Valida que la ciudad sea válida.
@@ -40,12 +31,13 @@ class Direccion {
         }
     public:
         /**
-         * @brief Constructor de la clase Direccion.
-         * 
-         * @param numero Número de la dirección.
-         * @param barrio Barrio de la dirección.
-         * @param ciudad Ciudad de la dirección.
-         * @param departamento Departamento de la dirección.
+         * @brief Constructor.
+         * Esta clase representa una dirección.
+         * A continuación se describen los parámetros necesarios:
+         * @param numero Número de la dirección. E.g, "CL 123 #45-67".
+         * @param barrio Barrio de la dirección. E.g, "Chapinero"
+         * @param ciudad Ciudad de la dirección. E.g, "Bogotá"
+         * @param departamento Departamento de la dirección. E.g, "Cundinamarca"
          */
         Direccion(string numero, string barrio, string ciudad, string departamento): numero(numero), barrio(barrio) {
             validarCiudad(ciudad);
@@ -54,11 +46,12 @@ class Direccion {
             this->departamento = departamento;
         };
 
-       // Getters y Setters
+       // Getters
         string getNumero() { return numero; };
         string getBarrio() { return barrio; };
         string getCiudad() { return ciudad; };
         string getDepartamento() { return departamento; };
+        // Setters
         void setNumero(string numero) { this->numero = numero; };
         void setBarrio(string barrio) { this->barrio = barrio; };
         void setCiudad(string ciudad) {

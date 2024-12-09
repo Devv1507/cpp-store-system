@@ -12,19 +12,17 @@ class Proveedor: public Persona {
     public:
         /**
          * @brief Constructor de la clase Proveedor.
-         * 
+         * Esta clase representa un proveedor que suministra productos a la tienda.
+         * A continuación se describen los parámetros del constructor:
          * @param rut RUT del proveedor.
          * @param banco Banco del proveedor.
          * @param numeroCuenta Número de cuenta del proveedor.
          * @param tipoCuenta Tipo de cuenta del proveedor.
-         * @param id Identificación de la persona.
-         * @param nombre Nombre de la persona.
-         * @param email Correo electrónico de la persona.
-         * @param telefono Número de teléfono de la persona.
-         * @param direccion Referencia a un objeto de la clase Direccion.
+         * El resto de parámetros son heredados de la clase Persona.
          */
         Proveedor(string rut, string banco, string numeroCuenta, string tipoCuenta, string id, string nombre, string email, string telefono, Direccion &direccion): 
-            rut(rut), banco(banco), numeroCuenta(numeroCuenta), tipoCuenta(tipoCuenta), Persona(id, nombre, email, telefono, direccion) {};
+            rut(rut), banco(banco), numeroCuenta(numeroCuenta), tipoCuenta(tipoCuenta), 
+            Persona(id, nombre, email, telefono, direccion) {};
 
         // Getters y Setters
         string getRut() { return this->rut; };
