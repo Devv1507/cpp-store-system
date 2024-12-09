@@ -314,8 +314,12 @@ int main() {
     // Crear clientes
     Direccion direccionJuan("123", "Centro", "Cali", "Valle del Cauca");
     Direccion direccionMaria("456", "Sur", "Cali", "Valle del Cauca");
+    Direccion direccionEsteban("789", "Norte", "Cali", "Valle del Cauca");
+    Direccion direccionMiguel("045", "Sur", "Cali", "Valle del Cauca");
     Cliente juan("1107526814", "Juan Perez", "juan.perez@gmail.com", "3143677337", direccionJuan, "ABC135965", "Ingeniero", "militar");
     Cliente maria("1107526815", "Maria Rodriguez", "maria.rodriguez@gmail.com", "3143677338", direccionMaria, "ABC135966", "Veterinaria", "pensionada");
+    Cliente esteban("1110385638", "Esteban Muñoz", "esteban.muñoz@gmail.com", "3187560912", direccionEsteban, "ABC135967", "Abogado", "Empleado público");
+    Cliente miguel("1049358695", "Miguel Duarte", "miguel.duarte@gmail.com", "3174679435", direccionMiguel, "ABC135968", "Contador", "Empleado público");
 
     // Crear una factura de venta
     Factura facturaJuan("venta", &juan, &almacenGeneral); // Pasamos el cliente y el stock
@@ -325,11 +329,23 @@ int main() {
 
     Factura facturaMaria("venta", &maria, &almacenGeneral); // Pasamos el cliente y el stock
     facturaMaria.agregarDetalle(smarthPhone, 10); // Agregar 10 SmathPhone
+    facturaMaria.mostrarDatos();
+
+    Factura facturaEsteban("venta", &esteban, &almacenGeneral); // Pasamos el cliente y el stock
+    facturaEsteban.agregarDetalle(laptop, 5); // Agregar 5 laptop's
+    facturaEsteban.mostrarDatos();
+
+    Factura facturaMiguel("venta", &miguel, &almacenGeneral);
+    facturaMiguel.agregarDetalle(smarthPhone, 10);
+    facturaMiguel.mostrarDatos();
+
 
     // Crear una caja y agregar las facturas
     Caja caja1;
     caja1.agregarFactura(facturaJuan);
     caja1.agregarFactura(facturaMaria);
+    caja1.agregarFactura(facturaEsteban);
+    caja1.agregarFactura(facturaMiguel);
     caja1.mostrarFacturas();
     tienda.agregarCaja(caja1);
 
@@ -341,9 +357,10 @@ int main() {
     Factura facturaCompra("compra", &gerardopTech, &almacenGeneral); // Pasamos el proveedor
     Producto mouse("Mouse", 25.30f);
     facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
-    facturaCompra.mostrarDatos(); // Mostrar los detalles de la
+    facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
 
     almacenGeneral.mostrarInventario();
+    cout << tienda.tresMejoresClientes() << endl;
 
     while (true) {
         mostrarMenuPrincipal();
