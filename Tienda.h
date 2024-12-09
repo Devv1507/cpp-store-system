@@ -28,6 +28,7 @@ class Tienda {
         // Getters y Setters
         string getNombre() { return nombre; };
         void setNombre(string nombre) { this->nombre = nombre; };
+        vector<Caja> getCajas() { return cajas; };
         /************************************************ Metodos especificos ************************************************/
         /**
          * @brief Agrega una caja a la tienda.
