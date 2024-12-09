@@ -65,7 +65,7 @@ int leerEntero() {
  */
 void gestionProveedores() {
     while (true) {
-        cout << "*******************************************************" << endl;
+        cout << string(75, '-') << endl;
         cout << "\n     Submenu de Gestion de Proveedores     \n";
         cout << "1. Registrar nuevo proveedor\n";
         cout << "2. Registrar venta a proveedor\n";
@@ -133,8 +133,7 @@ void gestionProveedores() {
                 break;
             }
             case 3: {
-                cout << "\nCantidad de facturas de compra por proveedor:\n";
-                // aca se enlistan esas cantidades
+                tienda.mostrarCantidadFacturasPorProveedor();
                 break;
             }
             case 0:
@@ -150,7 +149,7 @@ void gestionProveedores() {
  */
 void gestionStock() {
     while (true) {
-        cout << "*******************************************************" << endl;
+        cout << string(75, '-') << endl;
         cout << "\n     Submenu de Gestion de Inventario     \n";
         cout << "1. Mostrar inventario\n";
         cout << "2. Editar producto\n";
@@ -254,13 +253,14 @@ void gestionStock() {
  */
 void gestionCajas() {
     while (true) {
-        cout << "*******************************************************" << endl;
+        cout << string(75, '-') << endl;
         cout << "\n     Submenu de Gestion de Cajas     \n";
         cout << "1. Imprimir resumen ejecutivo (ganancias) \n";
-        cout << "2. Imprimir facturas de compra (proveedores)\n";
-        cout << "3. Imprimir facturas de venta (clientes)\n";
-        cout << "4. Imprimir facturas de un mes\n";
-        cout << "5. Imprimir facturas del mes de mayo\n";
+        cout << "2. Imprimir todas las facturas\n";
+        cout << "3. Imprimir facturas de compra (proveedores)\n";
+        cout << "4. Imprimir facturas de venta (clientes)\n";
+        cout << "5. Imprimir facturas de un mes\n";
+        cout << "6. Imprimir facturas del mes de mayo\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
         
@@ -286,6 +286,11 @@ void gestionCajas() {
                 break;
             }
             case 5: {
+                cout << "Facturas de un mes particular:\n";
+                // tienda.getCajas()[0].listarFacturasPorMes("mayo");
+                break;
+            }
+            case 6: {
                 cout << "Facturas del mes de mayo:\n";
                 // tienda.getCajas()[0].listarFacturasPorMes("mayo");
                 break;
@@ -304,7 +309,7 @@ void gestionCajas() {
 // Funcion para el menu de gestion de clientes
 void gestionClientes() {
     while (true) {
-        cout << "*******************************************************" << endl;
+        cout << string(75, '-') << endl;
         cout << "\n     Submenu de Gestion de Clientes     \n";
         cout << "1. Registrar nuevo cliente\n";
         cout << "2. Registrar compra a cliente\n";
@@ -398,7 +403,7 @@ void gestionClientes() {
  */
 void mostrarReportes() {
     while (true) {
-        cout << "*******************************************************" << endl;
+        cout << string(75, '-') << endl;
         cout << "\n     Submenu de Gestion de Indicadores/Reportes     \n";
         cout << "1. Mes con mayores ventas\n";
         cout << "2. Tres mejores clientes\n";
@@ -471,7 +476,7 @@ void menuAdministrativo() {
 }
 
 void opcionesMenuUsuarios() {
-    cout << "*******************************************************" << endl;
+    cout << string(75, '-') << endl;
     cout << "\n     Menu de Usuarios     \n";
     cout << "1. Gestion de Clientes\n";
     cout << "2. Gestion de Proveedores\n";
@@ -579,8 +584,7 @@ int main() {
     caja1.agregarFactura(facturaEsteban);
     caja1.agregarFactura(facturaMiguel);
     caja1.mostrarFacturas();
-    tienda.agregarCaja(caja1);
-
+   
     // Crear un proveedor
     Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
     Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", "3158932781", direccionGerardoTech);
@@ -590,7 +594,9 @@ int main() {
     Producto mouse("Mouse", "Mouse Ergonomico Vertical", 25.3, lenovo);
     facturaCompra.agregarDetalle(mouse, 20); // Agregar 2 Mouse
     cout << endl;
-    facturaCompra.mostrarDatos(); // Mostrar los detalles de la factura
+    facturaCompra.mostrarDatos();
+    caja1.agregarFactura(facturaCompra);
+    tienda.agregarCaja(caja1);
 
     almacenGeneral.mostrarInventario();
     cout << endl;

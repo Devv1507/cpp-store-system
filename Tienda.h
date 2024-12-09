@@ -16,8 +16,9 @@ class Tienda {
         string nombre;
         vector<Caja> cajas; 
         vector<Empleado> empleados; 
-        unordered_map<string, float> totalComprasPorCliente; 
-        vector<float> ventasPorMes = vector<float>(12, 0); 
+        unordered_map<string, float> totalComprasPorCliente;
+        unordered_map<string, float> conteoPorProveedor;
+        vector<float> ventasPorMes = vector<float>(12, 0);
     public:
         /**
          * @brief Constructor de la clase Tienda.
@@ -175,6 +176,31 @@ class Tienda {
             // Imprimir resultados
             cout << "La marca mas vendida es: " << marcaMasVendida.getNombreMarca() << endl;
             cout << "Productos vendidos de esta marca: " << ventasMaximas << endl;
+        };
+
+        /**
+        * @brief Muestra la cantidad de facturas de compra por cada proveedor.
+        */
+        void mostrarCantidadFacturasPorProveedor() {
+            for (Caja& caja : cajas) {
+                for (Factura& factura : caja.getFacturas()) {
+                    if (factura.getIdProveedor() != "") {
+                        string idProveedor = factura.getIdProveedor();
+
+                        if (conteoPorProveedor.find(idProveedor) == conteoPorProveedor.end()) {
+                            conteoPorProveedor[idProveedor] = 1;
+                        } else {
+                            conteoPorProveedor[idProveedor]++;
+                        }
+                    }
+                }
+            }
+
+            // Mostrar el resultado
+            cout << "\nCantidad de facturas de compra por proveedor:" << endl;
+            for (const auto& par : conteoPorProveedor) {
+                cout << "Proveedor ID: " << par.first << ", Facturas: " << par.second << endl;
+            }
         };
 };
 
