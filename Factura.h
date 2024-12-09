@@ -25,12 +25,21 @@ class Factura {
 
         /**
          * @brief Genera un identificador único basado en un contador.
+         * Se basa en la fusión de un prefijo, la fecha actual y un contador.
          * @return Identificador único de la factura.
          */
         string generarIdFactura() {
-            stringstream stringstream;
-            stringstream << "F-" << setw(2) << setfill('0') << contadorFacturas++;
-            return stringstream.str();
+            stringstream ss;
+            time_t t = time(nullptr);
+            tm* now = localtime(&t);
+        
+            ss << "F-" 
+               << setw(2) << setfill('0') << (now->tm_mon + 1)
+               << setw(2) << setfill('0') << now->tm_mday  
+               << "-" 
+               << setw(5) << setfill('0') << contadorFacturas++;
+        
+            return ss.str();
         };
 
         /**

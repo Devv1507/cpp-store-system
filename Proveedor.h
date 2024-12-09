@@ -8,7 +8,17 @@ class Proveedor: public Persona {
         string rut; 
         string banco; 
         string numeroCuenta; 
-        string tipoCuenta; 
+        string tipoCuenta;
+
+        /**
+        * @brief Verifica que el tipo de cuenta sea válido.
+        */
+        bool verificarCuentaValida(string tipoCuenta){
+            if(tipoCuenta == "ahorros" || tipoCuenta == "corriente"){
+                return true;
+            }
+            return false;
+        }
     public:
         /**
          * @brief Constructor de la clase Proveedor.
@@ -21,8 +31,13 @@ class Proveedor: public Persona {
          * El resto de parámetros son heredados de la clase Persona.
          */
         Proveedor(string rut, string banco, string numeroCuenta, string tipoCuenta, string id, string nombre, string email, string telefono, Direccion &direccion): 
-            rut(rut), banco(banco), numeroCuenta(numeroCuenta), tipoCuenta(tipoCuenta), 
-            Persona(id, nombre, email, telefono, direccion) {};
+            rut(rut), banco(banco), numeroCuenta(numeroCuenta), 
+            Persona(id, nombre, email, telefono, direccion) {
+                if (!verificarCuentaValida(tipoCuenta)) {
+                    throw invalid_argument("El tipo de cuenta debe ser 'ahorros' o 'corriente'.");
+                }
+                this->tipoCuenta = tipoCuenta;
+            };
 
         // Getters y Setters
         string getRut() { return this->rut; };

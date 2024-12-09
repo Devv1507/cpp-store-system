@@ -17,13 +17,22 @@ class Producto {
         float precioUnitario;
         Marca marcaAsociada;
         /**
-         * @brief Método para generar un identificador único basado en un contador.
+         * @brief Método para generar un identificador único basado en un agregado.
+         * Se basa en la fusión de un prefijo, la fecha actual y un contador.
          * 
          * @return string Identificador único generado.
          */
         string generarIdProducto() {
             stringstream ss;
-            ss << "P-" << setw(2) << setfill('0') << contadorProductos++;
+            time_t t = time(nullptr);
+            tm* now = localtime(&t);
+        
+            ss << "P-" 
+               << setw(2) << setfill('0') << (now->tm_mon + 1)
+               << setw(2) << setfill('0') << now->tm_mday  
+               << "-" 
+               << setw(5) << setfill('0') << contadorProductos++;
+        
             return ss.str();
         };
     public:

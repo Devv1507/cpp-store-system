@@ -15,12 +15,21 @@ class Marca {
         int ventasDeMarca;
         /**
          * @brief Método para generar un identificador único basado en un contador.
+         * Se basa en la fusión de un prefijo, la fecha actual y un contador.
          * 
          * @return string Identificador único generado.
          */
         string generarIdMarca() {
             stringstream ss;
-            ss << "M-" << setw(2) << setfill('0') << contadorMarcas++;
+            time_t t = time(nullptr);
+            tm* now = localtime(&t);
+        
+            ss << "M-" 
+               << setw(2) << setfill('0') << (now->tm_mon + 1)
+               << setw(2) << setfill('0') << now->tm_mday  
+               << "-" 
+               << setw(5) << setfill('0') << contadorMarcas++; // Contador
+        
             return ss.str();
         };
     public:
