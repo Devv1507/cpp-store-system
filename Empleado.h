@@ -8,13 +8,14 @@ using namespace std;
 
 class Empleado : public Persona {
     private:
-        string horario; // Horario de trabajo del empleado
-        int ventasRealizadas; // Número de ventas realizadas por el empleado
-        float salario; // Salario del empleado
+        string horario; 
+        int ventasRealizadas; 
+        float salario; 
     public:
         /**
          * @brief Constructor de la clase Empleado.
          * 
+         * Para instanciar un objeto de la clase Empleado se requieren los siguientes parámetros:
          * @param id Identificación del empleado.
          * @param nombre Nombre del empleado.
          * @param email Correo electrónico del empleado.

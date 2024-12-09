@@ -14,13 +14,15 @@ using namespace std;
 class Tienda {
     private:
         string nombre;
-        vector<Caja> cajas; // Arreglo de cajas de la tienda
-        vector<Empleado> empleados; // Arreglo de empleados de la tienda
-        unordered_map<string, float> totalComprasPorCliente; // Mapa para almacenar clientes por ID
-        vector<float> ventasPorMes = vector<float>(12, 0); // Vector para almacenar las ventas por mes. Se inicializa con 12 elementos en 0
+        vector<Caja> cajas; 
+        vector<Empleado> empleados; 
+        unordered_map<string, float> totalComprasPorCliente; 
+        vector<float> ventasPorMes = vector<float>(12, 0); 
     public:
         /**
          * @brief Constructor de la clase Tienda.
+         * 
+         * Solo necesita el nombre de la tienda para instanciar un objeto de la clase Tienda.
          * @param nombre Nombre de la tienda.
          */
         Tienda(string nombre): nombre(nombre) {};

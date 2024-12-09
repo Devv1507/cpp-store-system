@@ -5,10 +5,10 @@ using namespace std;
 
 class Proveedor: public Persona {
     private:
-        string rut; // RUT del proveedor
-        string banco; // Banco del proveedor
-        string numeroCuenta; // Número de cuenta del proveedor
-        string tipoCuenta; // Tipo de cuenta del proveedor
+        string rut; 
+        string banco; 
+        string numeroCuenta; 
+        string tipoCuenta; 
     public:
         /**
          * @brief Constructor de la clase Proveedor.

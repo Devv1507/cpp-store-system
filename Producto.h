@@ -10,11 +10,11 @@ using namespace std;
 
 class Producto {
     private:
-        static int contadorProductos; // Contador estático para generar IDs únicos
-        string idProducto; // Identificador único del producto
-        string nombreProducto; // Nombre del producto
+        static int contadorProductos; 
+        string idProducto; 
+        string nombreProducto; 
         string descripcion;
-        float precioUnitario; // Precio unitario del producto
+        float precioUnitario; 
         Marca& marcaAsociada;
         /**
          * @brief Método para generar un identificador único basado en un contador.
@@ -30,8 +30,11 @@ class Producto {
         /**
          * @brief Constructor de la clase Producto.
          * 
+         * Para instanciar un objeto de la clase Producto se requieren los siguientes parámetros:
          * @param nombreProducto Nombre del producto.
+         * @param descripcion Descripción del producto.
          * @param precioUnitario Precio unitario del producto.
+         * @param marca Referencia a un objeto de la clase Marca.
          */
         Producto(string nombreProducto, string descripcion, float precioUnitario, Marca& marca):
             idProducto(generarIdProducto()), nombreProducto(nombreProducto), descripcion(descripcion), precioUnitario(precioUnitario), marcaAsociada(marca) {};

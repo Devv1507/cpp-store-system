@@ -7,12 +7,13 @@ using namespace std;
 
 class DetallesFactura {
     private:
-        Producto producto; // Objeto de la clase Producto que contiene los datos del producto
-        int cantidad; // Cantidad de productos comprados
-        float subtotalProducto; // Valor total de la compra de un producto
+        Producto producto; 
+        int cantidad; 
+        float subtotalProducto; 
 
         /**
          * @brief Valida que la cantidad de productos sea positiva y mayor a 0.
+         * @throws invalid_argument Si la cantidad es menor o igual a 0.
          */
         void validarCantidad() {
             if (cantidad <= 0) {
@@ -30,6 +31,9 @@ class DetallesFactura {
     public:
         /**
          * @brief Constructor de la clase DetallesFactura.
+         * Esta clase representa los detalles de una factura.
+         * 
+         * Se requieren los siguientes parámetros para instanciar un objeto de la clase DetallesFactura:
          * @param producto Referencia a un objeto de la clase Producto.
          * @param cantidad Cantidad de productos comprados.
          */

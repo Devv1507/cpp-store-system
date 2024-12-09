@@ -12,10 +12,10 @@ using namespace std;
 
 class Caja {
     private:
-        static int contadorCajas; // Contador estatico para generar IDs unicos
-        string idCaja; // Identificación de la caja.
-        int numeroFacturasDia; // Número de facturas registradas en el día.
-        vector<Factura> facturas; // Vector de facturas registradas en la caja.
+        static int contadorCajas; 
+        string idCaja; 
+        int numeroFacturasDia; 
+        vector<Factura> facturas; 
         Stock* stock;
 
         /**
@@ -30,9 +30,13 @@ class Caja {
         };
     public:
         /**
-         * @brief Constructor de la clase Caja.
+         * @brief Constructor de la clase Caja. 
+         * Se necesita el siguiente parametro para la creacion instanciar un objeto de la clase Caja:
+         * 
+         * @param stock Puntero al stock asociado a la caja.
          */
         Caja(Stock* stock): idCaja(generarIdCaja()), numeroFacturasDia(0), stock(stock) {};
+
         // Getters y Setters
         string getIdCaja() { return idCaja; };
         int getNumeroFacturasDia() { return numeroFacturasDia; };

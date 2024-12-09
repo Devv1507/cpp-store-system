@@ -10,14 +10,17 @@ using namespace std;
 
 class Cliente : public Persona {
     private:
-        string rut; // RUT (Registro Único Tributario) del cliente.
-        string profesion; // Profesión u ocupación del cliente.
-        string tipoCliente; // Tipo de cliente (ej: regular, VIP, etc.).
+        string rut; 
+        string profesion; 
+        string tipoCliente; 
         static vector<Cliente> clientes;
 
     public:
         /**
          * @brief Constructor de la clase Cliente.
+         * Esta clase representa un cliente.
+         * 
+         * Aqui se describen los parámetros necesarios para instanciar un objeto de la clase Cliente:
          * @param id Identificación única del cliente.
          * @param nombre Nombre completo del cliente.
          * @param email Correo electrónico del cliente.
@@ -54,6 +57,11 @@ class Cliente : public Persona {
                 << setw(10) << "Tipo de Cliente: " << tipoCliente << endl;
         };
 
+        /**
+         * @brief Busca un cliente por su identificación.
+         * @param idCliente Identificación del cliente a buscar.
+         * @return Cliente encontrado o nullptr si no se encuentra.
+         */
         static Cliente* buscarCliente(const string& idCliente) {
             for (auto& cliente : clientes) {
                 if (cliente.getId() == idCliente) 

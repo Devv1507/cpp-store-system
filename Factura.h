@@ -15,12 +15,12 @@ using namespace std;
 
 class Factura {
     private:
-        static int contadorFacturas; // Contador estatico para generar IDs unicos
-        string fechaFactura, horaFactura, tipoVenta; // Atributos de la factura
-        string idFactura, idCliente, idProveedor; // Identificadores de la factura
-        float totalFactura; // Total de la factura
-        Persona* persona;  // Puntero a un objeto Persona (puede ser un Cliente o un Proveedor)
-        vector<DetallesFactura> detallesFactura; // Vector que contiene los detalles de la factura
+        static int contadorFacturas; 
+        string fechaFactura, horaFactura, tipoVenta; 
+        string idFactura, idCliente, idProveedor; 
+        float totalFactura; 
+        Persona* persona;  
+        vector<DetallesFactura> detallesFactura; 
 
 
         /**
@@ -63,6 +63,8 @@ class Factura {
     public:
         /**
          * @brief Constructor de la clase Factura.
+         * Necesita los siguientes parámetros para instanciar un objeto de la clase Factura:
+         * 
          * @param tipoVenta Tipo de venta (compra o venta).
          * @param persona Puntero a un objeto Persona (Cliente o Proveedor).
          * @param stock Puntero al stock asociado a la factura.

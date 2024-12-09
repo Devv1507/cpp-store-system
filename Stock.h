@@ -16,13 +16,14 @@ class Stock {
         string idStock;
         vector<Producto> productos;
         vector<Marca> marcas;
-        vector<int> existencias;    // Vector para almacenar la cantidad por producto
-        vector<int> stockMinimos;   // Vector para almacenar el stock minimo por producto
+        vector<int> existencias;    
+        vector<int> stockMinimos;   
 
     public:
         /**
          * @brief Constructor de la clase Stock.
          * 
+         * Se necesita el siguiente parámetro para instanciar un objeto de la clase Stock:
          * @param idStock Identificador del stock.
          * @throws invalid_argument Si el identificador del stock está vacío.
          */
@@ -188,7 +189,11 @@ class Stock {
         };
 
         /**
-         * Método para obtener una marca por su nombre.
+         * @brief Metodo para obtener una marca por su nombre.
+         * 
+         * @param nombreMarca Nombre de la marca a buscar.
+         * @return Marca encontrada.
+         * @throws runtime_error Si la marca no existe.
          */
         Marca obtenerMarcaPorNombre(string nombreMarca) {
             for (Marca& marca : marcas) {

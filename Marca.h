@@ -9,9 +9,9 @@ using namespace std;
 
 class Marca {
     private:
-        static int contadorMarcas; // Contador estático para generar IDs únicos
-        string idMarca; // Identificador único de la marca
-        string nombreMarca; // Nombre de la marca
+        static int contadorMarcas; 
+        string idMarca; 
+        string nombreMarca; 
         int ventasDeMarca;
         /**
          * @brief Método para generar un identificador único basado en un contador.
@@ -27,6 +27,7 @@ class Marca {
         /**
          * @brief Constructor de la clase Marca.
          * 
+         * El siguiente parámetro es necesario para instanciar un objeto de la clase Marca:
          * @param nombreMarca Nombre de la marca.
          */
         Marca(string nombreMarca): 
@@ -39,7 +40,7 @@ class Marca {
 
         /************************************************ Métodos específicos ************************************************/
         /**
-         * Método para incrementar las ventas totales de una marca.
+         * @brief para incrementar las ventas totales de una marca.
          * @param cantidad: cantidad de productos vendidos
          */
         void incrementarVentas(int cantidad) {
@@ -47,7 +48,8 @@ class Marca {
         };
 
         /**
-         * Método para obtener la cantidad de productos vendidos de una marca.
+         * @brief para obtener la cantidad de productos vendidos de una marca.
+         * @return  Cantidad de productos vendidos de la marca.
          */
         int getVentasDeMarca() { return ventasDeMarca; };
 };
