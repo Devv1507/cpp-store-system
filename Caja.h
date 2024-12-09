@@ -77,34 +77,6 @@ class Caja {
             cout << transaccion << " registrada exitosamente. Total: $"
                 << fixed << setprecision(2) << factura.getTotalFactura() << endl; 
         };
-        
-        /**
-         * @brief Abre la caja para iniciar operaciones diarias.
-         */
-        void abrirCaja() {
-            numeroFacturasDia = 0;
-            // Initialize daily operations
-        };
-        
-        /**
-         * @brief Cierra la caja y calcula el total de ventas del día.
-         */
-        void cerrarCaja() {
-            // Calcular el total de las ventas del dia
-            float totalDiario = 0;
-            for (Factura &factura : facturas) {
-                if (factura.getTipoVenta() == "venta") {
-                    totalDiario += factura.getTotalFactura();
-                }
-            }
-
-            // Mostrar el total diario
-            cout << "Caja cerrada. Total de ventas del dia: $" << fixed << setprecision(2) << totalDiario << endl;
-
-            // TO_DO: Aca podria haber mas logica, como guardar el total en un archivo, un reporte, etc.
-            numeroFacturasDia = 0;
-        };
-
 
         /**
          * @brief Agrega una factura a la caja.
