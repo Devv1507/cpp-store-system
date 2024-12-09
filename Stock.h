@@ -12,13 +12,18 @@ using namespace std;
 
 class Stock {
     private:
-        string idStock;
-        vector<Producto> productos;
+        string idStock;            // Identificador del stock
+        vector<Producto> productos; // Vector para almacenar los productos
         vector<int> existencias;    // Vector para almacenar la cantidad por producto
         vector<int> stockMinimos;   // Vector para almacenar el stock minimo por producto
 
     public:
-        // Constructor
+        /**
+         * @brief Constructor de la clase Stock.
+         * 
+         * @param idStock Identificador del stock.
+         * @throws invalid_argument Si el identificador del stock está vacío.
+         */
         Stock(string idStock) {
             if (idStock.empty()) {
             throw invalid_argument("El nombre del almacen no puede estar vacio.");
@@ -36,7 +41,13 @@ class Stock {
          };
 
         /************************************************ Metodos especificos ************************************************/
-        // Metodo para añadir un producto al inventario
+        /**
+         * @brief Agrega un producto al stock.
+         * 
+         * @param producto Referencia a un objeto de la clase Producto.
+         * @param cantidad Cantidad del producto a agregar.
+         * @param stockMinimo Stock mínimo del producto.
+         */
         void anadirProducto(const Producto& producto, int cantidad, int stockMinimo) {
             // Validar si el ID del producto ya existe
             for (size_t i = 0; i < productos.size(); ++i) {
@@ -50,7 +61,14 @@ class Stock {
             stockMinimos.push_back(stockMinimo);
         };
 
-        // Metodo para editar un producto existente
+        /**
+         * @brief Edita la información de un producto en el stock.
+         * 
+         * @param idProducto Identificador del producto.
+         * @param nuevoNombre Nuevo nombre del producto.
+         * @param nuevoPrecio Nuevo precio del producto.
+         * @throws invalid_argument Si el producto no se encuentra en el stock.
+         */  
         void editarProducto(string idProducto, string nuevoNombre, float nuevoPrecio) {
             for (size_t i = 0; i < productos.size(); ++i) {
                 if (productos[i].getIdProducto() == idProducto) {
@@ -63,7 +81,12 @@ class Stock {
             cout << "Producto no encontrado." << endl;
         };
 
-        // Metodo para buscar el indice de un producto por su ID
+        /**
+         * @brief Busca el índice de un producto en el stock.
+         * 
+         * @param idProducto Identificador del producto.
+         * @return int Índice del producto en el vector de productos, o -1 si no se encuentra.
+         */
         int buscarIndiceProducto(const string& idProducto) {
             for (size_t i = 0; i < productos.size(); ++i) {
                 if (productos[i].getIdProducto() == idProducto) {
@@ -73,13 +96,23 @@ class Stock {
             return -1; // Producto no encontrado
         };
 
-        // Metodo para obtener las existencias de un producto 
+        /**
+         * @brief Obtiene el precio unitario de un producto.
+         * 
+         * @param idProducto Identificador del producto.
+         * @return float Precio unitario del producto.
+         */
         int getExistenciasProducto(string& idProducto) {
             int index = buscarIndiceProducto(idProducto);
             return existencias[index];
         };
 
-        // Metodo para modificar existencias (usado al comprar o vender)
+        /**
+         * @brief Obtiene el precio unitario de un producto.
+         * 
+         * @param idProducto Identificador del producto.
+         * @return float Precio unitario del producto.
+         */
         void modificarExistencias(const string& idProducto, int cantidad, const string& tipoFactura) {
             int index = buscarIndiceProducto(idProducto);
             if (index == -1) {
@@ -101,7 +134,11 @@ class Stock {
             verificarStockMinimo(index);
         };
 
-        // Metodo para verificar si un producto esta por debajo del stock minimo
+        /**
+         * @brief Verifica el stock mínimo de un producto.
+         * 
+         * @param index Índice del producto en el vector de productos.
+         */
         void verificarStockMinimo(int index) {
             if (existencias[index] < stockMinimos[index]) {
                 cout << "Alerta: El producto con ID '" << productos[index].getIdProducto()
@@ -110,7 +147,13 @@ class Stock {
             }
         };
 
-        // Metodo para verificar si un producto esta disponible en el stock actual
+        /** 
+         * @brief Verifica si un producto está disponible en el stock.
+         * 
+         * @param producto Referencia a un objeto de la clase Producto.
+         * @param cantidad Cantidad del producto a verificar.
+         * @return bool True si el producto está disponible, False en caso contrario.
+        */
         bool productoDisponible(Producto &producto, int cantidad) {
             // Buscar el indice del producto
             for (size_t i = 0; i < productos.size(); ++i) {
@@ -123,7 +166,9 @@ class Stock {
             return false;
         };
 
-        // Metodo para mostrar todos los productos
+        /**
+         * @brief Muestra el inventario del stock.
+         */
         void mostrarInventario() {
             cout << "Inventario del almacen general:" << idStock << endl;
             for (size_t i = 0; i < productos.size(); ++i) {

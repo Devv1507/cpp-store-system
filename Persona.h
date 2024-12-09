@@ -8,43 +8,61 @@
 
 using namespace std;
 
+
 class Persona {
     private:
-        string id, nombre, email, telefono;
-        Direccion direccion;
+        string id; // Identificación de la persona
+        string nombre; // Nombre de la persona
+        string email; // Correo electrónico de la persona
+        string telefono; // Número de teléfono de la persona
+        Direccion direccion; // Objeto de la clase Direccion que contiene la dirección de la persona
 
-        void validarTelefono(string telfono){
-            if(telfono.length() != 10)
-                throw invalid_argument("El número de telefono debe tener 10 digitos.");
+        /**
+         * @brief Valida que el número de teléfono tenga 10 dígitos.
+         * 
+         * @param telefono Número de teléfono a validar.
+         * @throws invalid_argument Si el número de teléfono no tiene 10 dígitos.
+         */
+        void validarTelefono(string telefono) {
+            if (telefono.length() != 10)
+                throw invalid_argument("El número de teléfono debe tener 10 dígitos.");
         }
 
     public:
-        /* 
-        * Esta clase representa una superclase persona con los siguientes atributos:
-        *   id: identificacion de la persona
-        *   nombre: nombre de la persona
-        *   email: correo electronico de la persona
-        *   telefono: numero de telefono de la persona
-        *   direccion: objeto de la clase Direccion que contiene la direccion de la persona
-        */
+        /**
+         * @brief Constructor de la clase Persona.
+         * 
+         * @param id Identificación de la persona.
+         * @param nombre Nombre de la persona.
+         * @param email Correo electrónico de la persona.
+         * @param telefono Número de teléfono de la persona.
+         * @param direccion Referencia a un objeto de la clase Direccion.
+         */
         Persona(string id, string nombre, string email, string telefono, Direccion& direccion): id(id), nombre(nombre), email(email), direccion(direccion) {
-            validarTelefono(telefono); // Valida que el telefono tenga 10 digitos
+            validarTelefono(telefono); // Valida que el teléfono tenga 10 dígitos
             this->telefono = telefono;
-            }
+        }
+
         // Getters y Setters
         string getId() { return id; };
         string getNombre() { return nombre; };
         string getEmail() { return email; };
-        Direccion getDireccion() { return direccion; };
         string getTelefono() { return telefono; };
+        Direccion getDireccion() { return direccion; };
         void setId(string id) { this->id = id; };
         void setNombre(string nombre) { this->nombre = nombre; };
         void setEmail(string email) { this->email = email; };
         void setTelefono(string telefono) {
-            validarTelefono(telefono); // Lanzará la excepción si no es válido
+            validarTelefono(telefono);
             this->telefono = telefono;
-        }
-        // Este metodo permite mostrar los datos completos de la persona en cuestion
+        };
+        void setDireccion(Direccion direccion) { this->direccion = direccion; };
+
+        /**
+         * @brief Muestra los datos completos de la persona.
+         * 
+         * @details Este método se sobrescribe en las clases hijas.
+         */
         virtual void mostrarDatos() {
             cout << left 
                 << setw(10) << "id"
