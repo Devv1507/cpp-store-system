@@ -296,7 +296,7 @@ void gestionCajas() {
                 cout << "Ingrese el mes a consultar: ";
                 cin >> mes;
                 cout << "Ventas de un mes particular:\n";
-                tienda.getCajas()[0].calcularTotalVentasMensuales(mes);
+                tienda.getCajas()[0].mostrarVentasMensuales();
                 break;
             }
             case 6: {
@@ -580,7 +580,8 @@ int main() {
     facturaEsteban.mostrarDatos();
 
     Factura facturaMiguel("venta", &miguel);
-    facturaMiguel.agregarDetalle(smarthPhone2, 10);
+    facturaMiguel.agregarDetalle(smarthPhone2, 20);
+    facturaMiguel.setFechaFactura("2024-24-05");
     cout << endl;
     facturaMiguel.mostrarDatos();
 
@@ -595,7 +596,7 @@ int main() {
    
     // Crear un proveedor
     Direccion direccionGerardoTech("123", "Chapinero", "Bogota", "Cundinamarca");
-    Proveedor gerardopTech("245968", "Bancolombia", "11109458", "Ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", "3158932781", direccionGerardoTech);
+    Proveedor gerardopTech("245968", "Bancolombia", "11109458", "ahorros", "1108926814", "Gerardo Tech+", "gerardo.tech@gmail.com", "3158932781", direccionGerardoTech);
     
     // Crear una factura de compra
     Factura facturaCompra("compra", &gerardopTech); // Pasamos el proveedor

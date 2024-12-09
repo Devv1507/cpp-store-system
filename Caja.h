@@ -12,12 +12,13 @@ using namespace std;
 
 class Caja {
     private:
-        static int contadorCajas; 
-        string idCaja; 
-        int numeroFacturasDia; 
-        vector<Factura> facturas; 
+        static int contadorCajas;
+        string idCaja;
+        int numeroFacturasDia;
+        int ventasMensuales[12] = {0};
+        vector<Factura> facturas;
         Stock* stock;
-
+        
         /**
          * @brief Genera un identificador único basado en un contador.
          * @return Identificador único de la caja.
@@ -51,8 +52,7 @@ class Caja {
          */
         void registrarTransaccion(Factura& factura) {
             string tipoTransaccion = factura.getTipoVenta();
-        
-            // Procesar los detalles de la factura
+
             for (DetallesFactura& detalle : factura.getDetallesFactura()) {
                 Producto producto = detalle.getProducto();
                 int cantidad = detalle.getCantidad();
@@ -67,17 +67,15 @@ class Caja {
                 // Actualizar existencias en el stock
                 stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoTransaccion);
 
-                // Si es una venta, actualizar estadísticas de la marca
                 if (tipoTransaccion == "venta") {
                     Marca marca = producto.getMarcaAsociada();
                     marca.incrementarVentas(cantidad);
+                    int mes = obtenerMes(factura.getFechaFactura());
+                    ventasMensuales[mes - 1]++;
                 }
             }
 
-            // Agregar la factura a la lista de facturas de la caja
             agregarFactura(factura);
-
-            // Incrementar el contador de facturas diarias
             numeroFacturasDia++;
 
             // Mostrar un mensaje de confirmación
@@ -102,6 +100,16 @@ class Caja {
          */
         int obtenerMes(const string &fecha) {
             return stoi(fecha.substr(5, 2)); // asume el formato YYYY-MM-DD
+        };
+
+        /**
+        * @brief Muestra las ventas acumuladas por cada mes.
+        */
+        void mostrarVentasMensuales() {
+            cout << "Ventas acumuladas por mes:" << endl;
+            for (int i = 0; i < 12; ++i) {
+                cout << "Mes " << (i + 1) << ": " << ventasMensuales[i] << " ventas" << endl;
+            }
         };
 
         /**

@@ -22,6 +22,7 @@ class Persona {
          */
         bool validarTelefono(string telefono) {
             if (telefono.length() != 10) return false;
+            return true;
         }
 
          /**
