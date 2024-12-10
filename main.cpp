@@ -265,7 +265,7 @@ void gestionCajas() {
         cout << "2. Imprimir todas las facturas\n";
         cout << "3. Imprimir facturas de compra (proveedores)\n";
         cout << "4. Imprimir facturas de venta (clientes)\n";
-        cout << "5. Imprimir facturas de un mes\n";
+        cout << "5. Imprimir listado de ventas por mes\n";
         cout << "6. Imprimir facturas del mes de mayo\n";
         cout << "0. Volver al menu principal\n";
         cout << "Seleccione una opcion: ";
