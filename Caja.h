@@ -65,7 +65,15 @@ class Caja {
                     stock->modificarExistencias(producto.getIdProducto(), -cantidad, tipoTransaccion);
                 } else if (tipoTransaccion == "compra") {
                     // Para compras, sumamos stock
-                    stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoTransaccion);
+                    Producto* productoExistente = stock->buscarProductoPorNombre(producto.getNombreProducto());
+                    if (productoExistente) {
+                        // Si el producto existe, solo incrementar su stock
+                        stock->modificarExistencias(productoExistente->getIdProducto(), cantidad, tipoTransaccion);
+                    } else {
+                        // Si el producto no existe, agregarlo al inventario
+                        // Asume que tienes un método para añadir un nuevo producto con stock inicial
+                        stock->anadirProducto(producto, producto.getPrecioUnitario(), cantidad, 2); // 2 como stock mínimo por defecto
+                    }
                 }
 
                 if (tipoTransaccion == "venta") {

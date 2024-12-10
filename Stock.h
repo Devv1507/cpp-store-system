@@ -134,6 +134,16 @@ class Stock {
             return -1; // Producto no encontrado
         };
 
+        // Método para buscar un producto por su nombre
+        Producto* buscarProductoPorNombre(const string& nombreProducto) {
+            for (Producto producto : productos) {
+                if (producto.getNombreProducto() == nombreProducto) {
+                    return &producto;
+                }
+            }
+            return nullptr;
+        }
+
         /**
          * @brief Obtiene el precio unitario de un producto.
          * 

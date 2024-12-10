@@ -624,8 +624,8 @@ int main() {
     facturaCompra.agregarDetalle(cargador, 30); 
     cout << endl;
     facturaCompra.mostrarDatos();
-    caja1.agregarFactura(facturaCompra);
-    caja1.agregarFactura(facturaCompra2);
+    caja1.registrarTransaccion(facturaCompra);
+    caja1.registrarTransaccion(facturaCompra2);
     tienda.agregarCaja(caja1);
 
     almacenGeneral.mostrarInventario();
