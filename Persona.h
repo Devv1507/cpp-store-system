@@ -13,6 +13,7 @@ class Persona {
     private:
         string id, nombre, email, telefono;
         Direccion direccion;
+        vector<string> idsRegistrados;
 
         /**
          * @brief Valida que el número de teléfono tenga 10 dígitos.
@@ -54,6 +55,11 @@ class Persona {
          * @param direccion Referencia a un objeto de la clase Direccion.
          */
         Persona(string id, string nombre, string email, string telefono, Direccion& direccion): id(id), nombre(nombre), direccion(direccion) {
+            for (const string& registrado : idsRegistrados) {
+                if (registrado == id) {
+                    throw invalid_argument("El ID ya está registrado.");
+                }
+            }
             if (!validarTelefono(telefono)) {
                 throw invalid_argument("El número de teléfono debe tener 10 dígitos.");
             }
@@ -62,6 +68,8 @@ class Persona {
                 throw invalid_argument("El correo electronico no es valido.");
             }
             this->email = email;
+            this->id = id;
+            idsRegistrados.push_back(id);
         }
 
         // Getters

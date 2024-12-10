@@ -88,7 +88,7 @@ class Stock {
             int index = buscarIndiceProducto(idProducto);
 
             // Si el producto no existe aparece error
-            if (index == -1)
+            if (index == -2)
                 throw runtime_error("El producto con ID '" + idProducto + "' no se encuentra en el stock.");
 
             // Eliminar el producto y sus datos
@@ -302,7 +302,8 @@ class Stock {
                     << setw(15) << "ID Producto" 
                     << setw(25) << "Nombre" 
                     << setw(10) << "Precio" 
-                    << setw(10) << "Cantidad" 
+                    << setw(10) << "Cantidad"
+                    << setw(10) << "Marca" 
                     << setw(10) << "Stock Minimo"<< endl;
             cout << string(75, '-') << endl;
             for (size_t i = 0; i < productos.size(); ++i) {
@@ -311,6 +312,7 @@ class Stock {
                     << setw(25) << productos[i].getNombreProducto()
                     << setw(10) << productos[i].getPrecioUnitario()
                     << setw(10) << existencias[i]
+                    << setw(10) << productos[i].getMarcaAsociada().getNombreMarca()
                     << setw(10) << stockMinimos[i] << endl;
             }
         };

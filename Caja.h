@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include "Factura.h"
-#include "Empleado.h"
 
 using namespace std;
 
@@ -51,7 +50,7 @@ class Caja {
         /**
          * @brief Registra una transacción en la caja.
          */
-        void registrarTransaccion(Factura& factura, Empleado& empleado) {
+        void registrarTransaccion(Factura& factura) {
             string tipoTransaccion = factura.getTipoVenta();
 
             for (DetallesFactura& detalle : factura.getDetallesFactura()) {
@@ -73,7 +72,6 @@ class Caja {
                     marca.incrementarVentas(cantidad);
                     int mes = obtenerMes(factura.getFechaFactura());
                     ventasMensuales[mes - 1]++;
-                    empleado.setVentasRealizadas(empleado.getVentasRealizadas() + 1);
                 }
             }
 
@@ -84,7 +82,6 @@ class Caja {
             string transaccion = (tipoTransaccion == "venta") ? "Venta" : "Compra";
             cout << transaccion << " registrada exitosamente. Total: $"
                 << fixed << setprecision(2) << factura.getTotalFactura() << endl;
-            cout << "Empleado " << empleado.getNombre() << " ha realizado " << empleado.getVentasRealizadas() << " ventas." << endl;
         };
 
         /**
@@ -110,10 +107,49 @@ class Caja {
         */
         void mostrarVentasMensuales() {
             cout << "\nVentas acumuladas por mes:" << endl;
-            for (int i = 0; i < 12; ++i) {
-                cout << "Mes " << (i + 1) << ": " << ventasMensuales[i] << " ventas" << endl;
+
+            // Arreglo para almacenar ventas por mes
+            float ventasPorMes[12] = {0};
+
+            // Calcular ventas por mes desde las facturas
+            for (Factura& factura : facturas) {
+                if (factura.getTipoVenta() == "venta") {
+                    // Obtener el mes de la fecha de la factura
+                    string fechaFactura = factura.getFechaFactura();
+                    int mes = obtenerMes(fechaFactura) - 1;  // Restar 1 para ajustar al índice del arreglo
+
+                    if (mes >= 0 && mes < 12) {
+                        ventasPorMes[mes] += factura.getTotalFactura();
+                    }
+                }
             }
-        };
+
+            // Calcular total y promedio de ventas
+            float totalVentas = 0.0;
+            for (float venta : ventasPorMes) {
+                totalVentas += venta;
+            }
+            float promedioVentas = totalVentas / 12;
+
+            // Mostrar ventas de cada mes
+            for (int i = 0; i < 12; ++i) {
+                cout << "Mes " << (i + 1) << ": $" << fixed << setprecision(2) << ventasPorMes[i] << " ";
+
+                // Comparar con el promedio y agregar un indicador
+                if (ventasPorMes[i] > promedioVentas) {
+                    cout << "(Por encima del promedio)";
+                } else if (ventasPorMes[i] < promedioVentas) {
+                    cout << "(Por debajo del promedio)";
+                } else {
+                    cout << "(Igual al promedio)";
+                }
+                cout << endl;
+            }
+
+            // Mostrar el promedio de ventas
+            cout << "\nPromedio de ventas mensual: $" << fixed << setprecision(2) << promedioVentas << endl;
+            cout << "Total de ventas anuales: $" << fixed << setprecision(2) << totalVentas << endl;
+        }
 
         /**
          * @brief Calcula el total de ventas mensuales.

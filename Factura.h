@@ -17,7 +17,7 @@ class Factura {
     private:
         static int contadorFacturas; 
         string fechaFactura, horaFactura, tipoVenta; 
-        string idFactura, idCliente, idProveedor; 
+        string idFactura, idCliente, idProveedor;
         float totalFactura; 
         Persona* persona;  
         vector<DetallesFactura> detallesFactura; 

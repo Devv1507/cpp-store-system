@@ -165,8 +165,8 @@ class Tienda {
 
             // Iterar sobre las marcas para determinar la más vendida
             for (Marca& marca : marcas) {
-                cout << "A ver: " << marca.getVentasDeMarca() << endl;
-                cout << "Nombre " << marca.getNombreMarca() << endl;
+                cout << "Ventas de marca: " << marca.getVentasDeMarca() << endl;
+                cout << "Nombre: " << marca.getNombreMarca() << endl;
                 if (marca.getVentasDeMarca() > ventasMaximas) {
                     ventasMaximas = marca.getVentasDeMarca();
                     marcaMasVendida = marca;
