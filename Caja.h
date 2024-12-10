@@ -62,10 +62,11 @@ class Caja {
                     if (!stock->productoDisponible(producto, cantidad)) {
                         throw invalid_argument("No hay suficiente stock para el producto: " + producto.getNombreProducto());
                     }
+                    stock->modificarExistencias(producto.getIdProducto(), -cantidad, tipoTransaccion);
+                } else if (tipoTransaccion == "compra") {
+                    // Para compras, sumamos stock
+                    stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoTransaccion);
                 }
-
-                // Actualizar existencias en el stock
-                stock->modificarExistencias(producto.getIdProducto(), cantidad, tipoTransaccion);
 
                 if (tipoTransaccion == "venta") {
                     Marca marca = producto.getMarcaAsociada();

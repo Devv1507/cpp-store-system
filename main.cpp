@@ -616,6 +616,7 @@ int main() {
     Producto monitor("Monitor", "Monitor Full HD de 24 pulgadas", 120.75, samsung);
     Producto auriculares("Auriculares", "Auriculares bluetooth con cancelación de ruido", 75.99, logitech);
     Producto cargador("Cargador", "Cargador rápido para dispositivos móviles", 15.2, samsung);
+    
     facturaCompra.agregarDetalle(mouse, 20); 
     facturaCompra2.agregarDetalle(teclado, 10); 
     facturaCompra2.agregarDetalle(monitor, 5);  
