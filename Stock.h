@@ -88,7 +88,7 @@ class Stock {
             int index = buscarIndiceProducto(idProducto);
 
             // Si el producto no existe aparece error
-            if (index == -1)
+            if (index == -2)
                 throw runtime_error("El producto con ID '" + idProducto + "' no se encuentra en el stock.");
 
             // Eliminar el producto y sus datos

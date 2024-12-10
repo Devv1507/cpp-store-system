@@ -292,16 +292,13 @@ void gestionCajas() {
                 break;
             }
             case 5: {
-                int mes;
-                cout << "Ingrese el mes a consultar: ";
-                cin >> mes;
-                cout << "Ventas de un mes particular:\n";
-                tienda.getCajas()[0].mostrarVentasMensuales();
+                cout << "Facturas de un mes particular:\n";
+                // tienda.getCajas()[0].listarFacturasPorMes("mayo");
                 break;
             }
             case 6: {
-                cout << "Ventas del mes de mayo:\n";
-                tienda.getCajas()[0].calcularTotalVentasMensuales(5);
+                cout << "Facturas del mes de mayo:\n";
+                // tienda.getCajas()[0].listarFacturasPorMes("mayo");
                 break;
             }
             case 0:
@@ -367,7 +364,7 @@ void gestionClientes() {
                 cout << "ID del cliente: ";
                 cin >> idCliente;
                 Cliente* cliente = Cliente::buscarCliente(idCliente);
-                cout << "Cliente encontrado: " << endl;
+                cout << "Cliente encontrado" << endl;
 
                 almacenGeneral.mostrarInventario();
 
@@ -580,8 +577,7 @@ int main() {
     facturaEsteban.mostrarDatos();
 
     Factura facturaMiguel("venta", &miguel);
-    facturaMiguel.agregarDetalle(smarthPhone2, 20);
-    facturaMiguel.setFechaFactura("2024-24-05");
+    facturaMiguel.agregarDetalle(smarthPhone2, 10);
     cout << endl;
     facturaMiguel.mostrarDatos();
 
