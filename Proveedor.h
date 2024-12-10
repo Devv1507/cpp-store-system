@@ -14,10 +14,11 @@ class Proveedor: public Persona {
         * @brief Verifica que el tipo de cuenta sea válido.
         */
         bool verificarCuentaValida(string tipoCuenta){
-            if(tipoCuenta == "ahorros" || tipoCuenta == "corriente"){
-                return true;
+            if(tipoCuenta != "ahorros" &&  tipoCuenta != "Ahorros" 
+            && tipoCuenta != "corriente" &&  tipoCuenta != "Corriente"){
+                return false;
             }
-            return false;
+            return true;
         }
     public:
         /**

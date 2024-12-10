@@ -68,9 +68,8 @@ void gestionProveedores() {
     while (true) {
         cout << string(75, '-') << endl;
         cout << "\n     Submenu de Gestion de Proveedores     \n";
-        cout << "1. Registrar nuevo proveedor\n";
-        cout << "2. Registrar venta a proveedor\n";
-        cout << "3. Imprimir cantidad de facturas de compra por proveedor\n";
+        cout << "1. Registrar proveedor y venta\n";
+        cout << "2. Imprimir cantidad de facturas de compra por proveedor\n";
         cout << "0. Volver al menu anterior\n";
         cout << "Seleccione una opcion: ";
         
@@ -78,7 +77,9 @@ void gestionProveedores() {
 
         switch (opcion) {
             case 1: {
-                string id, nombre, email, banco, cuenta, tipoCuenta, telefono;
+                string id, nombre, email, banco, cuenta, tipoCuenta, telefono, nombreMarca, nombreProducto, descripcionProducto;;
+                int cantidad, stockMinimo;
+                float precioUnitario;
                 Direccion direccionGenerica("123", "Centro", "Bogota", "Cundinamarca");
                 try {
                     cout << "Por favor, ingrese los siguientes campos para registrarse como proveedor:\n";
@@ -94,13 +95,34 @@ void gestionProveedores() {
                     cout << "Numero de cuenta: ";
                     cin >> cuenta;
                     cout << "Tipo de cuenta (Ahorros/Corriente): ";
-                    getline(cin, tipoCuenta);
+                    cin >> tipoCuenta;
                     limpiarBuffer();
                     cout << "Telefono: ";
                     getline(cin, telefono);
-
+                    cout << "A continuacion, ingrese los datos del producto a vender:\n";
+                    cout << "Nombre del producto: ";
+                    cin >> nombreProducto;
+                    limpiarBuffer();
+                    cout << "Descripcion: ";
+                    getline(cin, descripcionProducto);
+                    cout << "Precio Unitario: ";
+                    cin >> precioUnitario;
+                    cout << "Marca del producto: ";
+                    cin >> nombreMarca;
+                    cout << "Cantidad: ";
+                    cin >> cantidad;
+                    cout << "Stock minimo: ";
+                    cin >> stockMinimo;
+                    Marca newMarca(nombreMarca);
+                    Producto newProducto(nombreProducto, descripcionProducto, precioUnitario, newMarca);
                     Proveedor nuevoProveedor(id, banco, cuenta, tipoCuenta, id, nombre, email, telefono, direccionGenerica);
-                    cout << "Proveedor registrado exitosamente.\n";
+                    
+                    cout << "Producto comprado y agregado al inventario exitosamente.\n";
+                    
+                    Factura newFactura("compra", &nuevoProveedor);
+                    newFactura.agregarDetalle(newProducto, cantidad);
+                    
+                    tienda.getCajas()[0].registrarTransaccion(newFactura);
                 } catch (const invalid_argument& e) {
                     cout << "Error: " << e.what() << endl;
                     cout << "Por favor, ingrese nuevamente los datos.\n";
@@ -108,32 +130,6 @@ void gestionProveedores() {
                 break;
             }
             case 2: {
-                cout << "Por favor, ingrese los siguientes campos para registrar la venta:\n";
-                string idProveedor, nombreMarca, nombreProducto, descripcionProducto;
-                int cantidad, stockMinimo;
-                float precioUnitario;
-                cout << "ID del proveedor: ";
-                cin >> idProveedor;
-                cout << "Nombre del producto: ";
-                getline(cin, nombreProducto);
-                limpiarBuffer();
-                cout << "Descripcion: ";
-                getline(cin, descripcionProducto);
-                cout << "Precio Unitario: ";
-                cin >> precioUnitario;
-                cout << "Marca del producto: ";
-                cin >> nombreMarca;
-                cout << "Cantidad: ";
-                cin >> cantidad;
-                cout << "Stock mínimo";
-                cin >> stockMinimo;
-                Marca newMarca(nombreMarca);
-                Producto newProducto(nombreProducto, descripcionProducto, precioUnitario, newMarca);
-                almacenGeneral.anadirProducto(newProducto, precioUnitario, cantidad, stockMinimo);
-                cout << "Producto comprado y agregado al inventario exitosamente.\n";
-                break;
-            }
-            case 3: {
                 tienda.mostrarCantidadFacturasPorProveedor();
                 break;
             }
